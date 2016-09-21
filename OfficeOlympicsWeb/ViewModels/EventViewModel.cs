@@ -17,6 +17,12 @@ namespace OfficeOlympicsWeb.ViewModels
         [DisplayName("Event Type")]
         public string EventType { get; set; }
 
+        [DisplayName("Description")]
+        public string Description { get; set; }
+
+        [DisplayName("Specification")]
+        public string Specification { get; set; }
+
         public int EventTypeId { get; set; }
 
         public static EventViewModel Build(OlympicEvent olympicEvent)
@@ -27,6 +33,8 @@ namespace OfficeOlympicsWeb.ViewModels
             viewModel.EventName = olympicEvent.EventName;
             viewModel.EventType = olympicEvent.EventType.Description;
             viewModel.EventTypeId = olympicEvent.EventType.Id;
+            viewModel.Description = olympicEvent.Description;
+            viewModel.Specification = olympicEvent.Specification;
 
             return viewModel;
         }
@@ -38,6 +46,8 @@ namespace OfficeOlympicsWeb.ViewModels
             olympicEvent.Id = EventId;
             olympicEvent.EventName = EventName;
             olympicEvent.EventTypeId = EventTypeId;
+            olympicEvent.Description = Description;
+            olympicEvent.Specification = Specification;
 
             return olympicEvent;
         }

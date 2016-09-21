@@ -7,23 +7,10 @@
 
 <h2>Event Management</h2>
 
-<div class="well">
-    <h4>Add New Event</h4>
-    <hr />
-    @using (Html.BeginForm("AddEvent", "Admin", FormMethod.Post, new { @class = "form-inline" }))
-    {
-        <div class="form-group">
-            <label for="EventName">Name:</label>
-            <input type="text" class="form-control" name="EventName" />
-        </div>
-        <div class="form-group">
-            <label for="RecordTypeId">Record Type:</label>
-            @Html.DropDownList("RecordTypeId", Model.EventTypeSelectList)
-        </div>
-        <button type="submit" class="btn btn-success">Add</button>
-    }
-</div>
-
+<a href="@Url.Action("AddEvent")" class="btn btn-success">
+    <span class="glyphicon glyphicon-plus"></span>
+    Add Event
+</a>
 @if (Model.EventList.Count == 0)
 {
     <h4 class="text-center">No Events Found.</h4>

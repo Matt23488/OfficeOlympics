@@ -34,6 +34,8 @@ namespace OfficeOlympicsLib.Services
 
                 existingEvent.EventName = olympicEvent.EventName;
                 existingEvent.EventTypeId = olympicEvent.EventTypeId;
+                existingEvent.Description = olympicEvent.Description;
+                existingEvent.Specification = olympicEvent.Specification;
 
                 await context.SaveChangesAsync();
             }

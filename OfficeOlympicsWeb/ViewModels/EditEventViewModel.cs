@@ -12,6 +12,16 @@ namespace OfficeOlympicsWeb.ViewModels
         public EventViewModel Event { get; set; }
         public SelectList EventTypeSelectList { get; set; }
 
+        public static EditEventViewModel Build(IEnumerable<EventType> eventTypes)
+        {
+            var viewModel = new EditEventViewModel();
+
+            viewModel.Event = new EventViewModel();
+            viewModel.EventTypeSelectList = new SelectList(eventTypes, nameof(EventType.Id), nameof(EventType.Description));
+
+            return viewModel;
+        }
+
         public static EditEventViewModel Build(OlympicEvent olympicEvent, IEnumerable<EventType> eventTypes)
         {
             var viewModel = new EditEventViewModel();

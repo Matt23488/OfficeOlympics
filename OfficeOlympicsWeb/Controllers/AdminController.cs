@@ -31,9 +31,21 @@ namespace OfficeOlympicsWeb.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> AddEvent(OlympicEvent olympicEvent)
+        [HttpGet]
+        public async Task<ActionResult> AddEvent()
         {
+            var eventTypes = await _eventTypeService.GetEventTypesAsync();
+            var viewModel = EditEventViewModel.Build(eventTypes);
+
+            ViewBag.EditType = "Add";
+
+            return View("EditEvent", viewModel);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddEvent(EditEventViewModel viewModel)
+        {
+            var olympicEvent = viewModel.Map();
             await _eventService.InsertOlympicEventAsync(olympicEvent);
 
             return RedirectToAction(nameof(EventManagement));
@@ -46,7 +58,9 @@ namespace OfficeOlympicsWeb.Controllers
             var eventTypes = await _eventTypeService.GetEventTypesAsync();
             var viewModel = EditEventViewModel.Build(olympicEvent, eventTypes);
 
-            return PartialView("EditEventPartial", viewModel);
+            ViewBag.EditType = "Edit";
+
+            return View(viewModel);
         }
 
         [HttpPost]
