@@ -1,0 +1,53 @@
+﻿@model EventManagementViewModel
+
+@{
+    ViewBag.Title = "Event Management";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Event Management</h2>
+
+<div class="well">
+    <h4>Add New Event</h4>
+    <hr />
+    @using (Html.BeginForm("AddEvent", "Admin", FormMethod.Post, new { @class = "form-inline" }))
+    {
+        <div class="form-group">
+            <label for="EventName">Name:</label>
+            <input type="text" class="form-control" name="EventName" />
+        </div>
+        <div class="form-group">
+            <label for="RecordTypeId">Record Type:</label>
+            @Html.DropDownList("RecordTypeId", Model.EventTypeSelectList)
+        </div>
+        <button type="submit" class="btn btn-success">Add</button>
+    }
+</div>
+
+@if (Model.EventList.Count == 0)
+{
+    <h4 class="text-center">No Events Found.</h4>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>@Html.LabelFor(model => model.EventList.First().EventName)</th>
+                <th>@Html.LabelFor(model => model.EventList.First().EventType)</th>
+            </tr>
+        </thead> 
+        <tbody>
+            @for (int i = 0; i < Model.EventList.Count; i++)
+            {
+                <tr class="event-item">
+                    <td>
+                        <input type="hidden" class="hidden-event-id" value="@Model.EventList[i].EventId" />
+                        @Html.DisplayFor(model => model.EventList[i].EventName)
+                    </td>
+                    <td>@Html.DisplayFor(model => model.EventList[i].EventType)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

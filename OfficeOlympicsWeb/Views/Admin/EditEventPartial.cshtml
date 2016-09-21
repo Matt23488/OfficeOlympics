@@ -1,0 +1,17 @@
+﻿@model EditEventViewModel
+
+@using (Html.BeginForm("EditEvent", "Admin", FormMethod.Post, new { @class = "form-inline" }))
+{
+    @Html.HiddenFor(model => model.Event.EventId)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Event.EventName):
+        @Html.TextBoxFor(model => model.Event.EventName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Event.RecordTypeId):
+        @Html.DropDownListFor(model => model.Event.RecordTypeId, Model.EventTypeSelectList)
+    </div>
+    <input type="submit" class="btn btn-success" name="submitButton" value="Save" />
+    <input type="submit" class="btn btn-danger" name="submitButton" value="Delete" />
+    <input type="button" class="btn" id="cancelButton" value="Cancel" />
+}

@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OfficeOlympicsDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EventType">
+          <Key>
+            <PropertyRef Name="EventTypeId" />
+          </Key>
+          <Property Name="EventTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OlympicEvent">
+          <Key>
+            <PropertyRef Name="OlympicEventId" />
+          </Key>
+          <Property Name="OlympicEventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EventTypeId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Specification" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Record">
+          <Key>
+            <PropertyRef Name="RecordId" />
+          </Key>
+          <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecordHolder" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="OlympicEventId" Type="int" Nullable="false" />
+          <Property Name="Score" Type="int" Nullable="false" />
+          <Property Name="DateAchieved" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_OlympicEvent_EventType">
+          <End Role="EventType" Type="Self.EventType" Multiplicity="1" />
+          <End Role="OlympicEvent" Type="Self.OlympicEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventType">
+              <PropertyRef Name="EventTypeId" />
+            </Principal>
+            <Dependent Role="OlympicEvent">
+              <PropertyRef Name="EventTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Record_OlympicEvent">
+          <End Role="OlympicEvent" Type="Self.OlympicEvent" Multiplicity="1" />
+          <End Role="Record" Type="Self.Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympicEvent">
+              <PropertyRef Name="OlympicEventId" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="OlympicEventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OfficeOlympicsDbModelStoreContainer">
+          <EntitySet Name="EventType" EntityType="Self.EventType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OlympicEvent" EntityType="Self.OlympicEvent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Record" EntityType="Self.Record" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_OlympicEvent_EventType" Association="Self.FK_OlympicEvent_EventType">
+            <End Role="EventType" EntitySet="EventType" />
+            <End Role="OlympicEvent" EntitySet="OlympicEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Record_OlympicEvent" Association="Self.FK_Record_OlympicEvent">
+            <End Role="OlympicEvent" EntitySet="OlympicEvent" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OfficeOlympicsDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="OlympicEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Records" Relationship="Self.FK_Record_OlympicEvent" FromRole="OlympicEvent" ToRole="Record" />
+          <Property Name="EventTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Specification" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EventType" Relationship="OfficeOlympicsDbModel.FK_OlympicEvent_EventType" FromRole="OlympicEvent" ToRole="EventType" />
+        </EntityType>
+        <EntityType Name="Record">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecordHolder" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OlympicEventId" Type="Int32" Nullable="false" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OlympicEvent" Relationship="Self.FK_Record_OlympicEvent" FromRole="Record" ToRole="OlympicEvent" />
+          <Property Name="DateAchieved" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Record_OlympicEvent">
+          <End Role="OlympicEvent" Type="Self.OlympicEvent" Multiplicity="1" />
+          <End Role="Record" Type="Self.Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympicEvent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="OlympicEventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OfficeOlympicsDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="OlympicEvents" EntityType="Self.OlympicEvent" />
+          <EntitySet Name="Records" EntityType="Self.Record" />
+          <AssociationSet Name="FK_Record_OlympicEvent" Association="Self.FK_Record_OlympicEvent">
+            <End Role="OlympicEvent" EntitySet="OlympicEvents" />
+            <End Role="Record" EntitySet="Records" />
+          </AssociationSet>
+          <EntitySet Name="EventTypes" EntityType="OfficeOlympicsDbModel.EventType" />
+          <AssociationSet Name="FK_OlympicEvent_EventType" Association="OfficeOlympicsDbModel.FK_OlympicEvent_EventType">
+            <End Role="EventType" EntitySet="EventTypes" />
+            <End Role="OlympicEvent" EntitySet="OlympicEvents" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="EventType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OlympicEvents" Relationship="OfficeOlympicsDbModel.FK_OlympicEvent_EventType" FromRole="EventType" ToRole="OlympicEvent" />
+        </EntityType>
+        <Association Name="FK_OlympicEvent_EventType">
+          <End Type="OfficeOlympicsDbModel.EventType" Role="EventType" Multiplicity="1" />
+          <End Type="OfficeOlympicsDbModel.OlympicEvent" Role="OlympicEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympicEvent">
+              <PropertyRef Name="EventTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OfficeOlympicsDbModelStoreContainer" CdmEntityContainer="OfficeOlympicsDbEntities">
+          <EntitySetMapping Name="OlympicEvents">
+            <EntityTypeMapping TypeName="OfficeOlympicsDbModel.OlympicEvent">
+              <MappingFragment StoreEntitySet="OlympicEvent">
+                <ScalarProperty Name="Specification" ColumnName="Specification" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EventTypeId" ColumnName="EventTypeId" />
+                <ScalarProperty Name="Id" ColumnName="OlympicEventId" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Records">
+            <EntityTypeMapping TypeName="OfficeOlympicsDbModel.Record">
+              <MappingFragment StoreEntitySet="Record">
+                <ScalarProperty Name="DateAchieved" ColumnName="DateAchieved" />
+                <ScalarProperty Name="Id" ColumnName="RecordId" />
+                <ScalarProperty Name="RecordHolder" ColumnName="RecordHolder" />
+                <ScalarProperty Name="OlympicEventId" ColumnName="OlympicEventId" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventTypes">
+            <EntityTypeMapping TypeName="OfficeOlympicsDbModel.EventType">
+              <MappingFragment StoreEntitySet="EventType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="EventTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
