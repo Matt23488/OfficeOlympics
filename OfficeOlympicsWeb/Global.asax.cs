@@ -16,8 +16,6 @@ namespace OfficeOlympicsWeb
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            AppDomain.CurrentDomain.SetData("DataDirectory", @"D:\home\site\wwwroot\bin\Database");
         }
     }
 }

@@ -10,8 +10,6 @@ namespace OfficeOlympicsWeb.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["OfficeOlympicsDbEntities"];
-            ViewBag.DataDirectory = AppDomain.CurrentDomain.GetData("DataDirectory");
             return View();
         }
     }
