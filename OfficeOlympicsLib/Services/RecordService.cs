@@ -28,5 +28,29 @@ namespace OfficeOlympicsLib.Services
                 }
             });
         }
+
+        public async Task<IEnumerable<Record>> GetRecordsByEventIdAsync(int eventId)
+        {
+            return await Task.Run(() =>
+            {
+                using (var context = new OfficeOlympicsDbEntities())
+                {
+                    return (from record in context.Records.Include(obj => obj.OlympicEvent).AsParallel()
+                            where record.OlympicEventId == eventId
+                            orderby record.Score descending
+                            select record).ToList();
+                }
+            });
+        }
+
+        public async Task InsertRecordAsync(Record record)
+        {
+            using (var context = new OfficeOlympicsDbEntities())
+            {
+                context.Records.Add(record);
+
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }

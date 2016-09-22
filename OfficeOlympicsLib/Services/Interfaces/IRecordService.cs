@@ -10,5 +10,7 @@ namespace OfficeOlympicsLib.Services.Interfaces
     public interface IRecordService
     {
         Task<IEnumerable<Record>> GetRecentRecordsAsync();
+        Task<IEnumerable<Record>> GetRecordsByEventIdAsync(int eventId);
+        Task InsertRecordAsync(Record record);
     }
 }

@@ -32,6 +32,8 @@
           <Property Name="OlympicEventId" Type="int" Nullable="false" />
           <Property Name="Score" Type="int" Nullable="false" />
           <Property Name="DateAchieved" Type="datetime" Nullable="false" />
+          <Property Name="Witness1" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Witness2" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <Association Name="FK_OlympicEvent_EventType">
           <End Role="EventType" Type="Self.EventType" Multiplicity="1" />
@@ -97,6 +99,8 @@
           <Property Name="Score" Type="Int32" Nullable="false" />
           <NavigationProperty Name="OlympicEvent" Relationship="Self.FK_Record_OlympicEvent" FromRole="Record" ToRole="OlympicEvent" />
           <Property Name="DateAchieved" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Witness1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Witness2" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Record_OlympicEvent">
           <End Role="OlympicEvent" Type="Self.OlympicEvent" Multiplicity="1" />
@@ -164,6 +168,8 @@
           <EntitySetMapping Name="Records">
             <EntityTypeMapping TypeName="OfficeOlympicsDbModel.Record">
               <MappingFragment StoreEntitySet="Record">
+                <ScalarProperty Name="Witness2" ColumnName="Witness2" />
+                <ScalarProperty Name="Witness1" ColumnName="Witness1" />
                 <ScalarProperty Name="DateAchieved" ColumnName="DateAchieved" />
                 <ScalarProperty Name="Id" ColumnName="RecordId" />
                 <ScalarProperty Name="RecordHolder" ColumnName="RecordHolder" />

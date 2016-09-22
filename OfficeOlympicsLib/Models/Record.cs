@@ -19,6 +19,8 @@ namespace OfficeOlympicsLib.Models
         public int OlympicEventId { get; set; }
         public int Score { get; set; }
         public System.DateTime DateAchieved { get; set; }
+        public string Witness1 { get; set; }
+        public string Witness2 { get; set; }
     
         public virtual OlympicEvent OlympicEvent { get; set; }
     }

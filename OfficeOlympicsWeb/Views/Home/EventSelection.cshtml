@@ -1,0 +1,20 @@
+﻿@model List<EventViewModel>
+
+@{
+    ViewBag.Title = "Choose an Event";
+}
+
+<h2>Choose an Event</h2>
+
+@if (Model.Any())
+{
+    <ul class="list-group">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <li class="list-group-item">
+                @Html.DisplayFor(model => model[i].EventName)
+                <a href="@Url.Action("Records", new { olympicEventId = Model[i].EventId })" class="btn btn-default">&raquo;</a>
+            </li>
+        }
+    </ul>
+}

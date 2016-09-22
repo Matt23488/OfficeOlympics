@@ -1,7 +1,6 @@
-﻿DELETE [dbo].[EventType]
+﻿SET IDENTITY_INSERT [dbo].[EventType] ON
 
-SET IDENTITY_INSERT [dbo].[EventType] ON
-
+IF NOT EXISTS (SELECT [EventTypeId] FROM [dbo].[EventType] WHERE [EventTypeId] = 1)
 INSERT [dbo].[EventType]
 (
 	[EventTypeId],
@@ -13,6 +12,7 @@ VALUES
 	'Timed'
 );
 
+IF NOT EXISTS (SELECT [EventTypeId] FROM [dbo].[EventType] WHERE [EventTypeId] = 2)
 INSERT [dbo].[EventType]
 (
 	[EventTypeId],

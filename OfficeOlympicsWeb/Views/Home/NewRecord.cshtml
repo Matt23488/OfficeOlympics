@@ -1,0 +1,27 @@
+﻿@model NewRecordViewModel
+
+@{
+    ViewBag.Title = "New Record";
+}
+
+<h2>Congratulations! - @Html.DisplayFor(model => model.Event.EventName)</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.Event.EventId)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Record.RecordHolder)
+        @Html.TextBoxFor(model => model.Record.RecordHolder)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Record.Score)
+        @Html.TextBoxFor(model => model.Record.Score.Score)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Record.Witnesses)
+        @Html.TextBoxFor(model => model.Record.Witnesses[0])
+        @Html.TextBoxFor(model => model.Record.Witnesses[1])
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="@Url.Action("Records", new { olympicEventId = Model.Event.EventId })" class="btn btn-default">Cancel</a>
+}

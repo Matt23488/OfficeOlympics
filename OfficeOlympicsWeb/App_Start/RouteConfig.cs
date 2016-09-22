@@ -20,6 +20,18 @@ namespace OfficeOlympicsWeb
             );
 
             routes.MapRoute(
+                name: "HomeRecords",
+                url: "Home/Records/{olympicEventId}",
+                defaults: new { controller = "Home", action = "Records", olympicEventId = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "HomeNewRecord",
+                url: "Home/NewRecord/{olympicEventId}",
+                defaults: new { controller = "Home", action = "NewRecord" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

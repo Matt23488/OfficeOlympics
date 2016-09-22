@@ -1,0 +1,52 @@
+﻿@model RecordListViewModel
+
+@{
+    ViewBag.Title = $"Records - {Model.Event.EventName}";
+}
+
+<h2>Records - @Html.DisplayFor(model => model.Event.EventName)</h2>
+
+<div class="container">
+    <a href="@Url.Action("Records", Html.NullifiedRouteValues("olympicEventId"))" class="btn btn-default">&laquo; Back to Events</a>
+    <a href="@Url.Action("NewRecord", new { olympicEventId = Model.Event.EventId })" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus"></span>
+        Add New Record
+    </a>
+    <br />
+    <br />
+    @if (Model.Records.Any())
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Place</th>
+                    <th>@Html.DisplayNameFor(model => model.Records[0].RecordHolder)</th>
+                    <th>@Html.DisplayNameFor(model => model.Records[0].Score)</th>
+                    <th>@Html.DisplayNameFor(model => model.Records[0].DateAchieved)</th>
+                    <th>@Html.DisplayNameFor(model => model.Records[0].Witnesses)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Records.Count; i++)
+                {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@Html.DisplayFor(model => model.Records[i].RecordHolder)</td>
+                        <td>@Html.DisplayFor(model => model.Records[i].Score, "RecordScoreTemplate")</td>
+                        <td>@Html.DisplayFor(model => model.Records[i].DateAchieved)</td>
+                        <td>
+                            @for (int j = 0; j < Model.Records[i].Witnesses.Count; j++)
+                            {
+                                if (j > 0)
+                                {
+                                    @:<br />
+                                }
+                                @Html.DisplayFor(model => model.Records[i].Witnesses[j])
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
