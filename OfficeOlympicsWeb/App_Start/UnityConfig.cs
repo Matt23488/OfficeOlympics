@@ -41,6 +41,7 @@ namespace OfficeOlympicsWeb.App_Start
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<IOlympicEventService, OlympicEventService>();
             container.RegisterType<IEventTypeService, EventTypeService>();
+            container.RegisterType<IRecordService, RecordService>();
         }
     }
 }

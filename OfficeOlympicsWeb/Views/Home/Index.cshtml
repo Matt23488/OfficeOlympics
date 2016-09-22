@@ -1,27 +1,28 @@
-﻿@{
+﻿@model HomeViewModel
+
+@{
     ViewBag.Title = "Office Olympics";
 }
 
 <div class="jumbotron">
     <h1>Office Olympics&trade;</h1>
-    <p class="lead">Office Olympics&trade; is a registered trademark brand, any unauthorized use is punishable by the full exent of the lol</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <p class="lead">Office Olympics&trade; is a registered trademark&trade; brand&trade;, any unauthorized use&trade; is punishable by the full exent of the lol&reg;</p>
+    @*<p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
 </div>
-
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h2>@Html.DisplayNameFor(model => model.NewEvents)</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            @Html.Partial("EventListPartial", Model.NewEvents)
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Events")">All Events &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>@Html.DisplayNameFor(model => model.NewRecords)</h2>
+        <p>
+            @Html.Partial("RecordListPartial", Model.NewRecords)
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Records")">All Records &raquo;</a></p>
     </div>
     <div class="col-md-4">
         <h2>Web Hosting</h2>

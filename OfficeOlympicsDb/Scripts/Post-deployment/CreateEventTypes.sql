@@ -1,4 +1,6 @@
-﻿SET IDENTITY_INSERT [dbo].[EventType] ON
+﻿DELETE [dbo].[EventType]
+
+SET IDENTITY_INSERT [dbo].[EventType] ON
 
 INSERT [dbo].[EventType]
 (
@@ -23,3 +25,5 @@ VALUES
 );
 
 SET IDENTITY_INSERT [dbo].[EventType] OFF
+
+DBCC CHECKIDENT('dbo.EventType', RESEED, 2)

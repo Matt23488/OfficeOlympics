@@ -83,5 +83,18 @@ namespace OfficeOlympicsLib.Services
                 }
             });
         }
+
+        public async Task<IEnumerable<OlympicEvent>> GetRecentlyAddedOlympicEventsAsync()
+        {
+            return await Task.Run(() =>
+            {
+                using (var context = new OfficeOlympicsDbEntities())
+                {
+                    return (from ev in context.OlympicEvents.Include(obj => obj.EventType).AsParallel()
+                            orderby ev.DateAdded descending
+                            select ev).Take(5).ToList();
+                }
+            });
+        }
     }
 }

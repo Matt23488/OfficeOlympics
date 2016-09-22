@@ -23,6 +23,8 @@ namespace OfficeOlympicsWeb.ViewModels
         [DisplayName("Specification")]
         public string Specification { get; set; }
 
+        public DateTime DateAdded { get; set; }
+
         public int EventTypeId { get; set; }
 
         public static EventViewModel Build(OlympicEvent olympicEvent)
@@ -35,8 +37,21 @@ namespace OfficeOlympicsWeb.ViewModels
             viewModel.EventTypeId = olympicEvent.EventType.Id;
             viewModel.Description = olympicEvent.Description;
             viewModel.Specification = olympicEvent.Specification;
+            viewModel.DateAdded = olympicEvent.DateAdded;
 
             return viewModel;
+        }
+
+        public static List<EventViewModel> BuildList(IEnumerable<OlympicEvent> olympicEvents)
+        {
+            var viewModelList = new List<EventViewModel>();
+
+            foreach (var olympicEvent in olympicEvents)
+            {
+                viewModelList.Add(Build(olympicEvent));
+            }
+
+            return viewModelList;
         }
 
         public OlympicEvent Map()
@@ -48,6 +63,7 @@ namespace OfficeOlympicsWeb.ViewModels
             olympicEvent.EventTypeId = EventTypeId;
             olympicEvent.Description = Description;
             olympicEvent.Specification = Specification;
+            olympicEvent.DateAdded = EventId == 0 ? DateTime.Now : DateAdded;
 
             return olympicEvent;
         }

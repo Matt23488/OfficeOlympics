@@ -25,6 +25,7 @@ namespace OfficeOlympicsLib.Models
         public int EventTypeId { get; set; }
         public string Description { get; set; }
         public string Specification { get; set; }
+        public System.DateTime DateAdded { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Record> Records { get; set; }

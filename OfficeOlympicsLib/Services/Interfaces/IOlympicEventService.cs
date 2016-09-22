@@ -14,5 +14,6 @@ namespace OfficeOlympicsLib.Services.Interfaces
         Task DeleteOlympicEventAsync(OlympicEvent olympicEvent);
         Task<OlympicEvent> GetOlympicEventByIdAsync(int olympicEventId);
         Task<IEnumerable<OlympicEvent>> GetOlympicEventsAsync();
+        Task<IEnumerable<OlympicEvent>> GetRecentlyAddedOlympicEventsAsync();
     }
 }

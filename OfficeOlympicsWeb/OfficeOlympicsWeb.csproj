@@ -162,6 +162,9 @@
     <Compile Include="ViewModels\EditEventViewModel.cs" />
     <Compile Include="ViewModels\EventManagementViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\RecordViewModel.cs" />
+    <Compile Include="ViewModels\ScoreViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -217,6 +220,9 @@
     <Content Include="Views\Admin\EventManagement.cshtml" />
     <Content Include="Views\Shared\_Admin.cshtml" />
     <Content Include="Views\Admin\EditEvent.cshtml" />
+    <Content Include="Views\Shared\EventListPartial.cshtml" />
+    <Content Include="Views\Shared\RecordListPartial.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\RecordScoreTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

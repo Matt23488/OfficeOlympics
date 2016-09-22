@@ -1,0 +1,10 @@
+﻿@model ScoreViewModel
+
+@if (Model.EventType == OfficeOlympicsLib.Models.Constants.EventType.Timed)
+{
+    @(new TimeSpan(0, 0, Model.Score).ToString(@"m\:ss"))
+}
+else
+{
+    @Model.Score
+}
