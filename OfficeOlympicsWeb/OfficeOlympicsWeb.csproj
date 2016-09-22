@@ -175,6 +175,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.App.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -184,6 +185,8 @@
     </Compile>
     <Compile Include="Helpers\RouteHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Hubs\RecordHub.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\EditEventViewModel.cs" />
     <Compile Include="ViewModels\EventManagementViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
@@ -228,6 +231,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js-cookie\js.cookie-2.1.3.min.js" />
+    <Content Include="Scripts\js-cookie\js.cookie.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />

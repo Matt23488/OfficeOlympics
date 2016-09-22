@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OfficeOlympicsLib.Models;
+using OfficeOlympicsLib.Extensions;
 
 namespace OfficeOlympicsLib.Services
 {
@@ -50,7 +51,24 @@ namespace OfficeOlympicsLib.Services
                 context.Records.Add(record);
 
                 await context.SaveChangesAsync();
+
+                await context.Entry(record).Reference(obj => obj.OlympicEvent).LoadAsync();
             }
+        }
+
+        public async Task<bool> IsRecordTheBestAsync(Record record)
+        {
+            return await Task.Run(() =>
+            {
+                using (var context = new OfficeOlympicsDbEntities())
+                {
+                    var bestRecord = (from r in context.Records.AsParallel()
+                                      where r.OlympicEventId == record.OlympicEventId
+                                      select r).ItemWithMax(r => r.Score);
+
+                    return bestRecord.Id == record.Id;
+                }
+            });
         }
     }
 }

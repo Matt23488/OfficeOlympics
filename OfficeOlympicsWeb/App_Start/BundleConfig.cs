@@ -14,6 +14,11 @@ namespace OfficeOlympicsWeb
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/main").Include(
+                        "~/Scripts/jquery.signalR-{version}.js",
+                        "~/Scripts/js-cookie/js.cookie.js",
+                        "~/Scripts/main.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/admin").Include(
                         "~/Scripts/admin.js"));
 
