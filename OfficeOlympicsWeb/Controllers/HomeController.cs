@@ -63,7 +63,7 @@ namespace OfficeOlympicsWeb.Controllers
             await _recordService.InsertRecordAsync(record);
 
 
-            if (await _recordService.IsRecordTheBestAsync(record))
+            if (await _recordService.IsRecordTheBestAsync(record))// Move this to the cliental;skdhfa;psiodfhpaiosdhfiopashdfpoashidf
             {
                 var recordHub = GlobalHost.ConnectionManager.GetHubContext<RecordHub>();
                 var connectionId = HttpContext.Request.Cookies["conn-id"].Value;
