@@ -2,17 +2,17 @@
 
 @if (Model.Any())
 {
-    <ul class="list-group">
-        @for (int i = 0; i < Model.Count; i++)
-        {
-            <li class="list-group-item">
-                @*<span style="float: left;">@Html.DisplayFor(model => model[i].RecordHolder) - @Html.DisplayFor(model => model[i].Event)</span>
-                <span style="float: right;">@Html.DisplayFor(model => model[i].Score, "RecordScoreTemplate")</span>*@
-                @Html.DisplayFor(model => model[i].RecordHolder) - @Html.DisplayFor(model => model[i].Event):
-                @Html.DisplayFor(model => model[i].Score, "RecordScoreTemplate")
-            </li>
-        }
-    </ul>
+    <table class="table">
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => model[i].RecordHolder) - @Html.DisplayFor(model => model[i].Event):</td>
+                    <td>@Html.DisplayFor(model => model[i].Score, "RecordScoreTemplate")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 else
 {

@@ -9,10 +9,10 @@ namespace OfficeOlympicsWeb.ViewModels
 {
     public class HomeViewModel
     {
-        [DisplayName("New Events")]
+        [DisplayName("Recently Added Events")]
         public List<EventViewModel> NewEvents { get; set; }
 
-        [DisplayName("New Records")]
+        [DisplayName("Recent Records")]
         public List<RecordViewModel> NewRecords { get; set; }
 
         public static HomeViewModel Build(IEnumerable<OlympicEvent> newEvents, IEnumerable<Record> newRecords)

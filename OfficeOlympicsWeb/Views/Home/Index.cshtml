@@ -19,7 +19,7 @@
     </div>
     <div class="col-md-4">
         <h2>@Html.DisplayNameFor(model => model.NewRecords)</h2>
-        <p>
+        <p id="recordListContainer">
             @Html.Partial("RecordListPartial", Model.NewRecords)
         </p>
         <p><a class="btn btn-default" href="@Url.Action("Records")">All Records &raquo;</a></p>
@@ -29,3 +29,7 @@
         <p>I haven't decided what I will put here but I can probably find something else</p>
     </div>
 </div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/home")
+}

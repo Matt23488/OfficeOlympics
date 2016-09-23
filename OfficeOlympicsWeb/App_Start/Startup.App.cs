@@ -1,13 +1,7 @@
 ﻿using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
-using OfficeOlympicsLib.Services;
 using OfficeOlympicsWeb.App_Start;
-using OfficeOlympicsWeb.Hubs;
 using Owin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace OfficeOlympicsWeb
 {

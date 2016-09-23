@@ -7,6 +7,7 @@ using OfficeOlympicsWeb.ViewModels;
 using System.Threading.Tasks;
 using OfficeOlympicsLib.Services.Interfaces;
 using OfficeOlympicsLib.Models.Constants;
+using OfficeOlympicsWeb.Helpers;
 
 namespace OfficeOlympicsWeb.Hubs
 {
@@ -40,6 +41,12 @@ namespace OfficeOlympicsWeb.Hubs
             string message = $"The record for {newRecord.Event.EventName} has been broken by {newRecord.Record.RecordHolder} with a new score of {scoreString}!";
 
             Clients.Others.displayMessage(message, "success");
+
+            var recentRecords = await _recordService.GetRecentRecordsAsync();
+            var viewModel = RecordViewModel.BuildList(recentRecords);
+            string recentRecordsView = ViewHelper.PartialView("RecordListPartial", viewModel);
+
+            Clients.All.updateRecords(recentRecordsView);
         }
     }
 }
