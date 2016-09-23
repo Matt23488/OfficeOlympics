@@ -1,2 +1,37 @@
-﻿body {
+﻿div.toast {
+    position: fixed;
+    font-size: large;
+    top: 3.2em;
+    left: 0.5em;
+    right: 0.5em;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 3px 3px 3px 3px;
+    display: none;
+    padding: 10px;
+    color: white;
+}
+
+div.toast-success {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+div.toast-info {
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+
+div.toast-warning {
+    background-color: #f0ad4e;
+    border-color: #eea236;
+}
+
+div.toast-danger {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+span.close-icon {
+    float: right;
 }

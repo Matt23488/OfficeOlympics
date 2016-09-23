@@ -5,6 +5,6 @@
 
 
     recordHub.client.displayMessage = function (message, messageType) {
-        alert(message);
+        window.toastMessage.showMessage(message, messageType);
     };
 });
