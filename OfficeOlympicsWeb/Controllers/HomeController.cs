@@ -62,15 +62,6 @@ namespace OfficeOlympicsWeb.Controllers
             var record = viewModel.Map();
             await _recordService.InsertRecordAsync(record);
 
-
-            if (await _recordService.IsRecordTheBestAsync(record))// Move this to the cliental;skdhfa;psiodfhpaiosdhfiopashdfpoashidf
-            {
-                var recordHub = GlobalHost.ConnectionManager.GetHubContext<RecordHub>();
-                var connectionId = HttpContext.Request.Cookies["conn-id"].Value;
-                var newViewModel = RecordViewModel.Build(record);
-                recordHub.Clients.AllExcept(connectionId).recordBroken(newViewModel);
-            }
-
             return RedirectToAction(nameof(Records), new { olympicEventId = viewModel.Event.EventId });
         }
 

@@ -3,6 +3,7 @@ using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using OfficeOlympicsLib.Services.Interfaces;
 using OfficeOlympicsLib.Services;
+using Microsoft.AspNet.SignalR.Hubs;
 
 namespace OfficeOlympicsWeb.App_Start
 {
@@ -36,6 +37,9 @@ namespace OfficeOlympicsWeb.App_Start
         {
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
+
+            // SignalR
+            container.RegisterType<IHubActivator, UnityHubActivator>(new ContainerControlledLifetimeManager());
 
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();

@@ -12,6 +12,6 @@ namespace OfficeOlympicsLib.Services.Interfaces
         Task<IEnumerable<Record>> GetRecentRecordsAsync();
         Task<IEnumerable<Record>> GetRecordsByEventIdAsync(int eventId);
         Task InsertRecordAsync(Record record);
-        Task<bool> IsRecordTheBestAsync(Record record);
+        Task<bool> ScoreBeatsCurrentRecord(int eventId, int score);
     }
 }

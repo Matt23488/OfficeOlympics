@@ -56,17 +56,17 @@ namespace OfficeOlympicsLib.Services
             }
         }
 
-        public async Task<bool> IsRecordTheBestAsync(Record record)
+        public async Task<bool> ScoreBeatsCurrentRecord(int eventId, int score)
         {
             return await Task.Run(() =>
             {
                 using (var context = new OfficeOlympicsDbEntities())
                 {
                     var bestRecord = (from r in context.Records.AsParallel()
-                                      where r.OlympicEventId == record.OlympicEventId
-                                      select r).ItemWithMax(r => r.Score);
+                                      where r.OlympicEventId == eventId
+                                      select r).ItemWithMaxOrDefault(r => r.Score);
 
-                    return bestRecord.Id == record.Id;
+                    return score > (bestRecord?.Score ?? 0);
                 }
             });
         }

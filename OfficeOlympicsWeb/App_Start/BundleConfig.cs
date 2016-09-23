@@ -17,10 +17,14 @@ namespace OfficeOlympicsWeb
             bundles.Add(new ScriptBundle("~/bundles/main").Include(
                         "~/Scripts/jquery.signalR-{version}.js",
                         "~/Scripts/js-cookie/js.cookie.js",
-                        "~/Scripts/main.js"));
+                        "~/Scripts/main.js",
+                        "~/Scripts/toast.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/admin").Include(
                         "~/Scripts/admin.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/record").Include(
+                        "~/Scripts/record.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -33,7 +37,8 @@ namespace OfficeOlympicsWeb
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/toast.css"));
         }
     }
 }
