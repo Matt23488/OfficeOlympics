@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-[assembly: OwinStartupAttribute(typeof(OfficeOlympicsWeb.Startup))]
+[assembly: OwinStartup(typeof(OfficeOlympicsWeb.Startup))]
 namespace OfficeOlympicsWeb
 {
     public partial class Startup

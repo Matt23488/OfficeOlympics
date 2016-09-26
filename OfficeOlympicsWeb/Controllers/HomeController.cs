@@ -65,6 +65,15 @@ namespace OfficeOlympicsWeb.Controllers
             return RedirectToAction(nameof(Records), new { olympicEventId = viewModel.Event.EventId });
         }
 
+        [HttpGet]
+        public async Task<ActionResult> RecentRecords()
+        {
+            var recentRecords = await _recordService.GetRecentRecordsAsync();
+            var viewModel = RecordViewModel.BuildList(recentRecords);
+
+            return PartialView("RecordListPartial", viewModel);
+        }
+
         [NonAction]
         public async Task<ActionResult> ChooseAnEvent()
         {

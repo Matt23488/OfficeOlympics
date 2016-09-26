@@ -12,17 +12,17 @@
 <div class="row">
     <div class="col-md-4">
         <h2>@Html.DisplayNameFor(model => model.NewEvents)</h2>
-        <p>
+        <div>
             @Html.Partial("EventListPartial", Model.NewEvents)
-        </p>
-        <p><a class="btn btn-default" href="@Url.Action("Events")">All Events &raquo;</a></p>
+        </div>
+        <div><a class="btn btn-default" href="@Url.Action("Events")">All Events &raquo;</a></div>
     </div>
     <div class="col-md-4">
         <h2>@Html.DisplayNameFor(model => model.NewRecords)</h2>
-        <p id="recordListContainer">
+        <div id="recentRecordListContainer">
             @Html.Partial("RecordListPartial", Model.NewRecords)
-        </p>
-        <p><a class="btn btn-default" href="@Url.Action("Records")">All Records &raquo;</a></p>
+        </div>
+        <div><a class="btn btn-default" href="@Url.Action("Records")">All Records &raquo;</a></div>
     </div>
     <div class="col-md-4">
         <h2>Something else</h2>

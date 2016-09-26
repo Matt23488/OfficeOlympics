@@ -56,7 +56,7 @@ namespace OfficeOlympicsLib.Services
             }
         }
 
-        public async Task<bool> ScoreBeatsCurrentRecord(int eventId, int score)
+        public async Task<bool> ScoreBeatsCurrentRecord(int eventId, int score, string recordHolder)
         {
             return await Task.Run(() =>
             {
@@ -66,7 +66,15 @@ namespace OfficeOlympicsLib.Services
                                       where r.OlympicEventId == eventId
                                       select r).ItemWithMaxOrDefault(r => r.Score);
 
-                    return score > (bestRecord?.Score ?? 0);
+                    bool samePersonAndScoreAsCurrentRecord = (bestRecord != null) && (bestRecord.Score == score && bestRecord.RecordHolder.Equals(recordHolder, StringComparison.CurrentCultureIgnoreCase));
+                    bool betterScoreThanCurrentRecord = score > (bestRecord?.Score ?? 0);
+
+                    // If samePersonAndScoreAsCurrentRecord is set, it's likely because the new
+                    // record has already been saved to the database before we get this call via
+                    // SignalR. If that's not the case, somebody entered a new record that ties
+                    // the current record and it happens to be the same person, which should
+                    // never happen if the software is being used properly.
+                    return samePersonAndScoreAsCurrentRecord || betterScoreThanCurrentRecord;
                 }
             });
         }

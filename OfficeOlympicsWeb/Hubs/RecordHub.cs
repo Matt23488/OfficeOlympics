@@ -22,7 +22,7 @@ namespace OfficeOlympicsWeb.Hubs
 
         public async Task RecordBroken(NewRecordViewModel newRecord)
         {
-            if (!await _recordService.ScoreBeatsCurrentRecord(newRecord.Event.EventId, newRecord.Record.Score.Score)) return;
+            if (!await _recordService.ScoreBeatsCurrentRecord(newRecord.Event.EventId, newRecord.Record.Score.Score, newRecord.Record.RecordHolder)) return;
 
             string scoreString = string.Empty;
 
@@ -41,12 +41,6 @@ namespace OfficeOlympicsWeb.Hubs
             string message = $"The record for {newRecord.Event.EventName} has been broken by {newRecord.Record.RecordHolder} with a new score of {scoreString}!";
 
             Clients.Others.displayMessage(message, "success");
-
-            var recentRecords = await _recordService.GetRecentRecordsAsync();
-            var viewModel = RecordViewModel.BuildList(recentRecords);
-            string recentRecordsView = ViewHelper.PartialView("RecordListPartial", viewModel);
-
-            Clients.All.updateRecords(recentRecordsView);
         }
     }
 }
