@@ -28,5 +28,6 @@ namespace OfficeOlympicsLib.Models
         public virtual DbSet<OlympicEvent> OlympicEvents { get; set; }
         public virtual DbSet<Record> Records { get; set; }
         public virtual DbSet<EventType> EventTypes { get; set; }
+        public virtual DbSet<Error> Errors { get; set; }
     }
 }

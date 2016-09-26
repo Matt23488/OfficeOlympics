@@ -4,7 +4,7 @@
     [EventTypeId]    INT           NOT NULL,
 	[Description] VARCHAR(MAX) NULL,
 	[Specification] VARCHAR(MAX) NULL,
-	[DateAdded] DATETIME NOT NULL CONSTRAINT [DF_DateAdded] DEFAULT GETDATE(),
+	[DateAdded] DATETIME NOT NULL CONSTRAINT [DF_OlympicEvent_DateAdded] DEFAULT GETDATE(),
     CONSTRAINT [PK_OlympicEvent] PRIMARY KEY CLUSTERED ([OlympicEventId] ASC),
     CONSTRAINT [FK_OlympicEvent_EventType] FOREIGN KEY ([EventTypeId]) REFERENCES [dbo].[EventType] ([EventTypeId])
 );

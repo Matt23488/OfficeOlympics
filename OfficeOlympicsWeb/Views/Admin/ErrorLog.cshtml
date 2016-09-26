@@ -1,0 +1,48 @@
+﻿@model OfficeOlympicsLib.Models.ErrorLog
+
+@{
+    ViewBag.Title = "Error Log";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Error Log</h2>
+
+@if (Model.TotalPages > 1)
+{
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            string itemClass = i == Model.CurrentPage ? "active" : string.Empty;
+            <li class="@itemClass">@Html.ActionLink(i.ToString(), "ErrorLog", new { pageNumber = i })</li>
+        }
+    </ul>
+}
+
+@if (Model.Errors.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Log Date</th>
+                <th>Type</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Errors.Count(); i++)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => model.Errors.ElementAt(i).TimeStamp)</td>
+                    <td>@Html.DisplayFor(model => model.Errors.ElementAt(i).Type)</td>
+                    <td>@Html.DisplayFor(model => model.Errors.ElementAt(i).Message)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h4>
+        <em>No errors logged.</em>
+    </h4>
+}

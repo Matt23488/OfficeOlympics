@@ -14,11 +14,13 @@ namespace OfficeOlympicsWeb.Controllers
     {
         private IOlympicEventService _eventService;
         private IEventTypeService _eventTypeService;
+        private IErrorLogger _errorLogger;
 
-        public AdminController(IOlympicEventService eventService, IEventTypeService eventTypeService)
+        public AdminController(IOlympicEventService eventService, IEventTypeService eventTypeService, IErrorLogger errorLogger)
         {
             _eventService = eventService;
             _eventTypeService = eventTypeService;
+            _errorLogger = errorLogger;
         }
 
         [HttpGet]
@@ -81,6 +83,14 @@ namespace OfficeOlympicsWeb.Controllers
             }
 
             return RedirectToAction(nameof(EventManagement));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ErrorLog(int pageNumber)
+        {
+            var errorLog = await _errorLogger.GetErrorLogPageAsync(pageNumber);
+
+            return View(errorLog);
         }
     }
 }

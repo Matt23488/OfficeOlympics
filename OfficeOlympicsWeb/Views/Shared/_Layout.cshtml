@@ -29,7 +29,11 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Event Management", "EventManagement", "Admin")</li>
+                            <li>@Html.ActionLink("Error Log", "ErrorLog", "Admin")</li>
                         </ul>
+                    </li>
+                    <li>
+                        @Html.ActionLink("Generate some exceptions", "GenerateExceptions", "Home")
                     </li>
                 </ul>
             </div>

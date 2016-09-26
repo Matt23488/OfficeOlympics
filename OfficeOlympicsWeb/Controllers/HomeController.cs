@@ -74,6 +74,22 @@ namespace OfficeOlympicsWeb.Controllers
             return PartialView("RecordListPartial", viewModel);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GenerateExceptions()
+        {
+            var rng = new Random();
+
+            Exception current = null;
+            int numberOfExceptions = rng.Next(5) + 1;
+            for (int i = 0; i < numberOfExceptions; i++)
+            {
+                var type = (Helpers.ExceptionHelper.ExceptionType)rng.Next(26);
+                current = Helpers.ExceptionHelper.GenerateException(type, current);
+            }
+
+            throw current;
+        }
+
         [NonAction]
         public async Task<ActionResult> ChooseAnEvent()
         {

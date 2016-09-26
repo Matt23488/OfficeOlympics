@@ -20,6 +20,12 @@ namespace OfficeOlympicsWeb
             );
 
             routes.MapRoute(
+                name: "AdminErrorLog",
+                url: "Admin/ErrorLog/{pageNumber}",
+                defaults: new { controller = "Admin", action = "ErrorLog", pageNumber = 1 }
+            );
+
+            routes.MapRoute(
                 name: "HomeRecords",
                 url: "Home/Records/{olympicEventId}",
                 defaults: new { controller = "Home", action = "Records", olympicEventId = UrlParameter.Optional }
