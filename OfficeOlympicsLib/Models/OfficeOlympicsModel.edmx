@@ -48,12 +48,18 @@
             <PropertyRef Name="RecordId" />
           </Key>
           <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RecordHolder" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CompetitorId" Type="int" Nullable="false" />
           <Property Name="OlympicEventId" Type="int" Nullable="false" />
           <Property Name="Score" Type="int" Nullable="false" />
           <Property Name="DateAchieved" Type="datetime" Nullable="false" />
-          <Property Name="Witness1" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Witness2" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Witness">
+          <Key>
+            <PropertyRef Name="WitnessId" />
+          </Key>
+          <Property Name="WitnessId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompetitorId" Type="int" Nullable="false" />
+          <Property Name="RecordId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_OlympicEvent_EventType">
           <End Role="EventType" Type="Self.EventType" Multiplicity="1" />
@@ -64,6 +70,18 @@
             </Principal>
             <Dependent Role="OlympicEvent">
               <PropertyRef Name="EventTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Record_Competitor">
+          <End Role="Competitor" Type="Self.Competitor" Multiplicity="1" />
+          <End Role="Record" Type="Self.Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitor">
+              <PropertyRef Name="CompetitorId" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="CompetitorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -79,19 +97,56 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Witness_Competitor">
+          <End Role="Competitor" Type="Self.Competitor" Multiplicity="1" />
+          <End Role="Witness" Type="Self.Witness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitor">
+              <PropertyRef Name="CompetitorId" />
+            </Principal>
+            <Dependent Role="Witness">
+              <PropertyRef Name="CompetitorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Witness_Record">
+          <End Role="Record" Type="Self.Record" Multiplicity="1" />
+          <End Role="Witness" Type="Self.Witness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Record">
+              <PropertyRef Name="RecordId" />
+            </Principal>
+            <Dependent Role="Witness">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="OfficeOlympicsDbModelStoreContainer">
           <EntitySet Name="Competitor" EntityType="Self.Competitor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventType" EntityType="Self.EventType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OlympicEvent" EntityType="Self.OlympicEvent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Record" EntityType="Self.Record" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Witness" EntityType="Self.Witness" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_OlympicEvent_EventType" Association="Self.FK_OlympicEvent_EventType">
             <End Role="EventType" EntitySet="EventType" />
             <End Role="OlympicEvent" EntitySet="OlympicEvent" />
           </AssociationSet>
+          <AssociationSet Name="FK_Record_Competitor" Association="Self.FK_Record_Competitor">
+            <End Role="Competitor" EntitySet="Competitor" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
           <AssociationSet Name="FK_Record_OlympicEvent" Association="Self.FK_Record_OlympicEvent">
             <End Role="OlympicEvent" EntitySet="OlympicEvent" />
             <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Witness_Competitor" Association="Self.FK_Witness_Competitor">
+            <End Role="Competitor" EntitySet="Competitor" />
+            <End Role="Witness" EntitySet="Witness" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Witness_Record" Association="Self.FK_Witness_Record">
+            <End Role="Record" EntitySet="Record" />
+            <End Role="Witness" EntitySet="Witness" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -116,13 +171,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RecordHolder" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="OlympicEventId" Type="Int32" Nullable="false" />
           <Property Name="Score" Type="Int32" Nullable="false" />
           <NavigationProperty Name="OlympicEvent" Relationship="Self.FK_Record_OlympicEvent" FromRole="Record" ToRole="OlympicEvent" />
           <Property Name="DateAchieved" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Witness1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Witness2" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CompetitorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Competitor" Relationship="OfficeOlympicsDbModel.FK_Record_Competitor" FromRole="Record" ToRole="Competitor" />
+          <NavigationProperty Name="Witnesses" Relationship="OfficeOlympicsDbModel.FK_Witness_Record" FromRole="Record" ToRole="Witness" />
         </EntityType>
         <Association Name="FK_Record_OlympicEvent">
           <End Role="OlympicEvent" Type="Self.OlympicEvent" Multiplicity="1" />
@@ -150,6 +205,19 @@
           </AssociationSet>
           <EntitySet Name="Errors" EntityType="OfficeOlympicsDbModel.Error" />
           <EntitySet Name="Competitors" EntityType="OfficeOlympicsDbModel.Competitor" />
+          <EntitySet Name="Witnesses" EntityType="OfficeOlympicsDbModel.Witness" />
+          <AssociationSet Name="FK_Record_Competitor" Association="OfficeOlympicsDbModel.FK_Record_Competitor">
+            <End Role="Competitor" EntitySet="Competitors" />
+            <End Role="Record" EntitySet="Records" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Witness_Competitor" Association="OfficeOlympicsDbModel.FK_Witness_Competitor">
+            <End Role="Competitor" EntitySet="Competitors" />
+            <End Role="Witness" EntitySet="Witnesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Witness_Record" Association="OfficeOlympicsDbModel.FK_Witness_Record">
+            <End Role="Record" EntitySet="Records" />
+            <End Role="Witness" EntitySet="Witnesses" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="EventType">
           <Key>
@@ -190,7 +258,55 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Records" Relationship="OfficeOlympicsDbModel.FK_Record_Competitor" FromRole="Competitor" ToRole="Record" />
+          <NavigationProperty Name="Witnesses" Relationship="OfficeOlympicsDbModel.FK_Witness_Competitor" FromRole="Competitor" ToRole="Witness" />
         </EntityType>
+        <EntityType Name="Witness">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompetitorId" Type="Int32" Nullable="false" />
+          <Property Name="RecordId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Competitor" Relationship="OfficeOlympicsDbModel.FK_Witness_Competitor" FromRole="Witness" ToRole="Competitor" />
+          <NavigationProperty Name="Record" Relationship="OfficeOlympicsDbModel.FK_Witness_Record" FromRole="Witness" ToRole="Record" />
+        </EntityType>
+        <Association Name="FK_Record_Competitor">
+          <End Type="OfficeOlympicsDbModel.Competitor" Role="Competitor" Multiplicity="1" />
+          <End Type="OfficeOlympicsDbModel.Record" Role="Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="CompetitorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Witness_Competitor">
+          <End Type="OfficeOlympicsDbModel.Competitor" Role="Competitor" Multiplicity="1" />
+          <End Type="OfficeOlympicsDbModel.Witness" Role="Witness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Witness">
+              <PropertyRef Name="CompetitorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Witness_Record">
+          <End Type="OfficeOlympicsDbModel.Record" Role="Record" Multiplicity="1" />
+          <End Type="OfficeOlympicsDbModel.Witness" Role="Witness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Record">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Witness">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -212,11 +328,9 @@
           <EntitySetMapping Name="Records">
             <EntityTypeMapping TypeName="OfficeOlympicsDbModel.Record">
               <MappingFragment StoreEntitySet="Record">
-                <ScalarProperty Name="Witness2" ColumnName="Witness2" />
-                <ScalarProperty Name="Witness1" ColumnName="Witness1" />
+                <ScalarProperty Name="CompetitorId" ColumnName="CompetitorId" />
                 <ScalarProperty Name="DateAchieved" ColumnName="DateAchieved" />
                 <ScalarProperty Name="Id" ColumnName="RecordId" />
-                <ScalarProperty Name="RecordHolder" ColumnName="RecordHolder" />
                 <ScalarProperty Name="OlympicEventId" ColumnName="OlympicEventId" />
                 <ScalarProperty Name="Score" ColumnName="Score" />
               </MappingFragment>
@@ -249,6 +363,15 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Id" ColumnName="CompetitorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Witnesses">
+            <EntityTypeMapping TypeName="OfficeOlympicsDbModel.Witness">
+              <MappingFragment StoreEntitySet="Witness">
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+                <ScalarProperty Name="CompetitorId" ColumnName="CompetitorId" />
+                <ScalarProperty Name="Id" ColumnName="WitnessId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

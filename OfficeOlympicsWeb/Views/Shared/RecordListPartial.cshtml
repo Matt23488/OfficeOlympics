@@ -7,7 +7,7 @@
             @for (int i = 0; i < Model.Count; i++)
             {
                 <tr>
-                    <td>@Html.DisplayFor(model => model[i].RecordHolder) - @Html.DisplayFor(model => model[i].Event):</td>
+                    <td>@Html.DisplayFor(model => model[i].Competitor.FullName) - @Html.DisplayFor(model => model[i].Event):</td>
                     <td>@Html.DisplayFor(model => model[i].Score, "RecordScoreTemplate")</td>
                 </tr>
             }

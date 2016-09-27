@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\DatabaseExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Models\Competitor.cs">
       <DependentUpon>OfficeOlympicsModel.tt</DependentUpon>
@@ -97,7 +98,11 @@
     <Compile Include="Models\OlympicEvent.cs">
       <DependentUpon>OfficeOlympicsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Partials\Competitor.cs" />
     <Compile Include="Models\Record.cs">
+      <DependentUpon>OfficeOlympicsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Witness.cs">
       <DependentUpon>OfficeOlympicsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

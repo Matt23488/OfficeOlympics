@@ -11,8 +11,8 @@ namespace OfficeOlympicsWeb.ViewModels
     {
         public int RecordId { get; set; }
 
-        [DisplayName("Record Holder")]
-        public string RecordHolder { get; set; }
+        [DisplayName("Competitor")]
+        public CompetitorViewModel Competitor { get; set; }
 
         [DisplayName("Event")]
         public string Event { get; set; }
@@ -23,33 +23,33 @@ namespace OfficeOlympicsWeb.ViewModels
         [DisplayName("Date Achieved")]
         public DateTime DateAchieved { get; set; }
 
-        [DisplayName("Witnesses")]
-        public List<string> Witnesses { get; set; }
+        [DisplayName("Witness 1")]
+        public CompetitorViewModel Witness1 { get; set; }
+
+        [DisplayName("Witness 2")]
+        public CompetitorViewModel Witness2 { get; set; }
 
         public RecordViewModel()
         {
+            Competitor = new CompetitorViewModel();
             Score = new ScoreViewModel();
-            Witnesses = new List<string>()
-            {
-                string.Empty,
-                string.Empty
-            };
+            Witness1 = new CompetitorViewModel();
+            Witness2 = new CompetitorViewModel();
         }
 
         public static RecordViewModel Build(Record record)
         {
             var viewModel = new RecordViewModel();
 
+            var witnessList = record.Witnesses.Select(obj => obj.Competitor).ToList();
+
             viewModel.RecordId = record.Id;
-            viewModel.RecordHolder = record.RecordHolder;
+            viewModel.Competitor = CompetitorViewModel.Build(record.Competitor);
             viewModel.Event = record.OlympicEvent.EventName;
             viewModel.Score = ScoreViewModel.Build(record.Score, record.OlympicEvent.EventTypeId);
             viewModel.DateAchieved = record.DateAchieved;
-            viewModel.Witnesses = new List<string>()
-            {
-                record.Witness1,
-                record.Witness2
-            };
+            viewModel.Witness1 = CompetitorViewModel.Build(witnessList[0]);
+            viewModel.Witness2 = CompetitorViewModel.Build(witnessList[1]);
 
             return viewModel;
         }

@@ -11,7 +11,11 @@
         <EntityTypeShape EntityType="OfficeOlympicsDbModel.EventType" Width="1.5" PointX="0.75" PointY="1.75" />
         <AssociationConnector Association="OfficeOlympicsDbModel.FK_OlympicEvent_EventType" />
         <EntityTypeShape EntityType="OfficeOlympicsDbModel.Error" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="OfficeOlympicsDbModel.Competitor" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="OfficeOlympicsDbModel.Competitor" Width="1.5" PointX="5.125" PointY="5.125" />
+        <EntityTypeShape EntityType="OfficeOlympicsDbModel.Witness" Width="1.5" PointX="7.5" PointY="2.875" />
+        <AssociationConnector Association="OfficeOlympicsDbModel.FK_Record_Competitor" />
+        <AssociationConnector Association="OfficeOlympicsDbModel.FK_Witness_Competitor" />
+        <AssociationConnector Association="OfficeOlympicsDbModel.FK_Witness_Record" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

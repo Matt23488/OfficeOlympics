@@ -18,7 +18,7 @@ namespace OfficeOlympicsLib.Services
             {
                 using (var context = new OfficeOlympicsDbEntities())
                 {
-                    return (from record in context.Records.Include(obj => obj.OlympicEvent).AsParallel()
+                    return (from record in context.FullRecords()
                             group record by record.OlympicEventId into groupedRecords
                             select
                                 (from groupedRecord in groupedRecords
@@ -36,7 +36,7 @@ namespace OfficeOlympicsLib.Services
             {
                 using (var context = new OfficeOlympicsDbEntities())
                 {
-                    return (from record in context.Records.Include(obj => obj.OlympicEvent).AsParallel()
+                    return (from record in context.FullRecords()
                             where record.OlympicEventId == eventId
                             orderby record.Score descending
                             select record).ToList();
@@ -51,11 +51,10 @@ namespace OfficeOlympicsLib.Services
                 context.Records.Add(record);
 
                 await context.SaveChangesAsync();
-
-                await context.Entry(record).Reference(obj => obj.OlympicEvent).LoadAsync();
             }
         }
 
+        // TODO: This might need to change, the recordHolder parameter doesn't fit with the new paradigm
         public async Task<bool> ScoreBeatsCurrentRecord(int eventId, int score, string recordHolder)
         {
             return await Task.Run(() =>
@@ -66,7 +65,7 @@ namespace OfficeOlympicsLib.Services
                                       where r.OlympicEventId == eventId
                                       select r).ItemWithMaxOrDefault(r => r.Score);
 
-                    bool samePersonAndScoreAsCurrentRecord = (bestRecord != null) && (bestRecord.Score == score && bestRecord.RecordHolder.Equals(recordHolder, StringComparison.CurrentCultureIgnoreCase));
+                    bool samePersonAndScoreAsCurrentRecord = (bestRecord != null) && (bestRecord.Score == score && bestRecord.Competitor.FullName.Equals(recordHolder, StringComparison.CurrentCultureIgnoreCase));
                     bool betterScoreThanCurrentRecord = score > (bestRecord?.Score ?? 0);
 
                     // If samePersonAndScoreAsCurrentRecord is set, it's likely because the new

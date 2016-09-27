@@ -15,11 +15,13 @@ namespace OfficeOlympicsWeb.Controllers
     {
         private IOlympicEventService _eventService;
         private IRecordService _recordService;
+        private ICompetitorService _competitorService;
 
-        public HomeController(IOlympicEventService eventService, IRecordService recordService)
+        public HomeController(IOlympicEventService eventService, IRecordService recordService, ICompetitorService competitorService)
         {
             _eventService = eventService;
             _recordService = recordService;
+            _competitorService = competitorService;
         }
 
         [HttpGet]
@@ -51,7 +53,8 @@ namespace OfficeOlympicsWeb.Controllers
         public async Task<ActionResult> NewRecord(int olympicEventId)
         {
             var olympicEvent = await _eventService.GetOlympicEventByIdAsync(olympicEventId);
-            var viewModel = NewRecordViewModel.Build(olympicEvent);
+            var competitors = await _competitorService.GetCompetitorsAsync();
+            var viewModel = NewRecordViewModel.Build(olympicEvent, competitors);
 
             return View(viewModel);
         }

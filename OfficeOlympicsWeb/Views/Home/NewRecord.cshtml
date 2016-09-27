@@ -6,13 +6,14 @@
 
 <h2>Congratulations! - @Html.DisplayFor(model => model.Event.EventName)</h2>
 
+@*TODO: Use javascript to hide/show options based on what's selected*@
 @using (Html.BeginForm("NewRecord", "Home", FormMethod.Post, new { id = "newRecordForm" }))
 {
     @Html.HiddenFor(model => model.Event.EventId)
     @Html.HiddenFor(model => model.Event.EventName)
     <div class="form-group">
-        @Html.LabelFor(model => model.Record.RecordHolder)
-        @Html.TextBoxFor(model => model.Record.RecordHolder, new { autocomplete = "off" })
+        @Html.LabelFor(model => model.Record.Competitor)
+        @Html.DropDownListFor(model => model.Record.Competitor.CompetitorId, Model.Competitors)
     </div>
     <div class="form-group">
         @Html.HiddenFor(model => model.Event.EventTypeId)
@@ -20,9 +21,12 @@
         @Html.TextBoxFor(model => model.Record.Score.Score, new { autocomplete = "off" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.Record.Witnesses)
-        @Html.TextBoxFor(model => model.Record.Witnesses[0], new { autocomplete = "off" })
-        @Html.TextBoxFor(model => model.Record.Witnesses[1], new { autocomplete = "off" })
+        @Html.LabelFor(model => model.Record.Witness1)
+        @Html.DropDownListFor(model => model.Record.Witness1.CompetitorId, Model.Competitors)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Record.Witness2)
+        @Html.DropDownListFor(model => model.Record.Witness2.CompetitorId, Model.Competitors)
     </div>
     <div class="btn-group">
         <button type="submit" class="btn btn-success">Save</button>

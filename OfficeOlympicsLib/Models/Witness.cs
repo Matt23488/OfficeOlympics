@@ -12,23 +12,13 @@ namespace OfficeOlympicsLib.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Record
+    public partial class Witness
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Record()
-        {
-            this.Witnesses = new HashSet<Witness>();
-        }
-    
         public int Id { get; set; }
-        public int OlympicEventId { get; set; }
-        public int Score { get; set; }
-        public System.DateTime DateAchieved { get; set; }
         public int CompetitorId { get; set; }
+        public int RecordId { get; set; }
     
-        public virtual OlympicEvent OlympicEvent { get; set; }
         public virtual Competitor Competitor { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Witness> Witnesses { get; set; }
+        public virtual Record Record { get; set; }
     }
 }

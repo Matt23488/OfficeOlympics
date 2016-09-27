@@ -17,8 +17,11 @@ namespace OfficeOlympicsWeb.ViewModels
         [DisplayName("Last Name")]
         public string LastName { get; set; }
 
-        [DisplayName("Name")]
-        public string Name => $"{FirstName} {LastName}";
+        [DisplayName("Full Name")]
+        public string FullName => $"{FirstName} {LastName}";
+
+        [DisplayName("Initials")]
+        public string Initials => $"{FirstName[0]}{LastName[0]}";
 
         public static CompetitorViewModel Build(Competitor competitor)
         {
