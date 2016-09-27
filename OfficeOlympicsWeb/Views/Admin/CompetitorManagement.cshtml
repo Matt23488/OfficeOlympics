@@ -1,0 +1,40 @@
+﻿@model List<CompetitorViewModel>
+
+@{
+    ViewBag.Title = "Competitor Management";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Competitor Management</h2>
+
+<a href="@Url.Action("AddCompetitor")" class="btn btn-success">
+    <span class="glyphicon glyphicon-plus"></span>
+    Add Competitor
+</a>
+@if (Model.Count == 0)
+{
+    <h4>No Competitors found.</h4>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().LastName)</th>
+                <th>@Html.DisplayNameFor(model => model.First().FirstName)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr class="competitor-item">
+                    <td>
+                        <input type="hidden" class="hidden-competitor-id" value="@Model[i].CompetitorId" />
+                        @Html.DisplayFor(model => model[i].LastName)
+                    </td>
+                    <td>@Html.DisplayFor(model => model[i].FirstName)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

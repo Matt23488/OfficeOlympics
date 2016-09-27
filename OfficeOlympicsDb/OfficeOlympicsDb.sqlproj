@@ -70,6 +70,7 @@
     <Build Include="dbo\Tables\OlympicEvent.sql" />
     <Build Include="dbo\Tables\Record.sql" />
     <Build Include="dbo\Tables\Error.sql" />
+    <Build Include="dbo\Tables\Competitor.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="OfficeOlympicsDb.dev.publish.xml" />

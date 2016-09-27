@@ -14,21 +14,23 @@ namespace OfficeOlympicsWeb.Controllers
     {
         private IOlympicEventService _eventService;
         private IEventTypeService _eventTypeService;
+        private ICompetitorService _competitorService;
         private IErrorLogger _errorLogger;
 
-        public AdminController(IOlympicEventService eventService, IEventTypeService eventTypeService, IErrorLogger errorLogger)
+        public AdminController(IOlympicEventService eventService, IEventTypeService eventTypeService, IErrorLogger errorLogger, ICompetitorService competitorService)
         {
             _eventService = eventService;
             _eventTypeService = eventTypeService;
+            _competitorService = competitorService;
             _errorLogger = errorLogger;
         }
 
+        #region Olympic Events
         [HttpGet]
         public async Task<ActionResult> EventManagement()
         {
             var events = await _eventService.GetOlympicEventsAsync();
-            var eventTypes = await _eventTypeService.GetEventTypesAsync();
-            var viewModel = EventManagementViewModel.Build(events, eventTypes);
+            var viewModel = EventViewModel.BuildList(events);
 
             return View(viewModel);
         }
@@ -84,6 +86,68 @@ namespace OfficeOlympicsWeb.Controllers
 
             return RedirectToAction(nameof(EventManagement));
         }
+        #endregion
+
+        #region Competitors
+        [HttpGet]
+        public async Task<ActionResult> CompetitorManagement()
+        {
+            var competitors = await _competitorService.GetCompetitorsAsync();
+            var viewModel = CompetitorViewModel.BuildList(competitors);
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> AddCompetitor()
+        {
+            var viewModel = new CompetitorViewModel();
+
+            ViewBag.EditType = "Add";
+
+            return View("EditCompetitor", viewModel);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddCompetitor(CompetitorViewModel viewModel)
+        {
+            var competitor = viewModel.Map();
+            await _competitorService.InsertCompetitorAsync(competitor);
+
+            return RedirectToAction(nameof(CompetitorManagement));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditCompetitor(int competitorId)
+        {
+            var competitor = await _competitorService.GetCompetitorByIdAsync(competitorId);
+            var viewModel = CompetitorViewModel.Build(competitor);
+
+            ViewBag.EditType = "Edit";
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditCompetitor(CompetitorViewModel viewModel, string submitButton)
+        {
+            var competitor = viewModel.Map();
+
+            switch (submitButton)
+            {
+                case "Save":
+                    await _competitorService.UpdateCompetitorAsync(competitor);
+                    break;
+                case "Delete":
+                    await _competitorService.DeleteCompetitorAsync(competitor);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(submitButton));
+            }
+
+            return RedirectToAction(nameof(CompetitorManagement));
+        }
+        #endregion
 
         [HttpGet]
         public async Task<ActionResult> ErrorLog(int pageNumber)

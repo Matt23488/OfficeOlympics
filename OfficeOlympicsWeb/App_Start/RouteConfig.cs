@@ -20,6 +20,12 @@ namespace OfficeOlympicsWeb
             );
 
             routes.MapRoute(
+                name: "AdminEditCompetitor",
+                url: "Admin/EditCompetitor/{competitorId}",
+                defaults: new { controller = "Admin", action = "EditCompetitor" }
+            );
+
+            routes.MapRoute(
                 name: "AdminErrorLog",
                 url: "Admin/ErrorLog/{pageNumber}",
                 defaults: new { controller = "Admin", action = "ErrorLog", pageNumber = 1 }

@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="OfficeOlympicsDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Competitor">
+          <Key>
+            <PropertyRef Name="CompetitorId" />
+          </Key>
+          <Property Name="CompetitorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Error">
           <Key>
             <PropertyRef Name="ErrorId" />
@@ -72,6 +80,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="OfficeOlympicsDbModelStoreContainer">
+          <EntitySet Name="Competitor" EntityType="Self.Competitor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventType" EntityType="Self.EventType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OlympicEvent" EntityType="Self.OlympicEvent" Schema="dbo" store:Type="Tables" />
@@ -140,6 +149,7 @@
             <End Role="OlympicEvent" EntitySet="OlympicEvents" />
           </AssociationSet>
           <EntitySet Name="Errors" EntityType="OfficeOlympicsDbModel.Error" />
+          <EntitySet Name="Competitors" EntityType="OfficeOlympicsDbModel.Competitor" />
         </EntityContainer>
         <EntityType Name="EventType">
           <Key>
@@ -172,6 +182,14 @@
           <Property Name="Source" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="StackTrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Competitor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -222,6 +240,15 @@
                 <ScalarProperty Name="HResult" ColumnName="HResult" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Id" ColumnName="ErrorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Competitors">
+            <EntityTypeMapping TypeName="OfficeOlympicsDbModel.Competitor">
+              <MappingFragment StoreEntitySet="Competitor">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="CompetitorId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,4 +1,4 @@
-﻿@model EventManagementViewModel
+﻿@model List<EventViewModel>
 
 @{
     ViewBag.Title = "Event Management";
@@ -11,7 +11,7 @@
     <span class="glyphicon glyphicon-plus"></span>
     Add Event
 </a>
-@if (Model.EventList.Count == 0)
+@if (Model.Count == 0)
 {
     <h4 class="text-center">No Events Found.</h4>
 }
@@ -20,19 +20,19 @@ else
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>@Html.LabelFor(model => model.EventList.First().EventName)</th>
-                <th>@Html.LabelFor(model => model.EventList.First().EventType)</th>
+                <th>@Html.LabelFor(model => model.First().EventName)</th>
+                <th>@Html.LabelFor(model => model.First().EventType)</th>
             </tr>
         </thead> 
         <tbody>
-            @for (int i = 0; i < Model.EventList.Count; i++)
+            @for (int i = 0; i < Model.Count; i++)
             {
                 <tr class="event-item">
                     <td>
-                        <input type="hidden" class="hidden-event-id" value="@Model.EventList[i].EventId" />
-                        @Html.DisplayFor(model => model.EventList[i].EventName)
+                        <input type="hidden" class="hidden-event-id" value="@Model[i].EventId" />
+                        @Html.DisplayFor(model => model[i].EventName)
                     </td>
-                    <td>@Html.DisplayFor(model => model.EventList[i].EventType)</td>
+                    <td>@Html.DisplayFor(model => model[i].EventType)</td>
                 </tr>
             }
         </tbody>
