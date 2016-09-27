@@ -12,6 +12,7 @@
         if (recentRecordListContainer[0]) {
             $.ajax({
                 type: "GET",
+                cache: false,
                 url: "/Home/RecentRecords",
                 success: function (data, status, xhr) {
                     recentRecordListContainer.html(data);

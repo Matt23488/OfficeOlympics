@@ -53,9 +53,8 @@ namespace OfficeOlympicsLib.Services
                 await context.SaveChangesAsync();
             }
         }
-
-        // TODO: This might need to change, the recordHolder parameter doesn't fit with the new paradigm
-        public async Task<bool> ScoreBeatsCurrentRecord(int eventId, int score, string recordHolder)
+        
+        public async Task<bool> ScoreBeatsCurrentRecord(int eventId, int score, int competitorId)
         {
             return await Task.Run(() =>
             {
@@ -65,7 +64,7 @@ namespace OfficeOlympicsLib.Services
                                       where r.OlympicEventId == eventId
                                       select r).ItemWithMaxOrDefault(r => r.Score);
 
-                    bool samePersonAndScoreAsCurrentRecord = (bestRecord != null) && (bestRecord.Score == score && bestRecord.Competitor.FullName.Equals(recordHolder, StringComparison.CurrentCultureIgnoreCase));
+                    bool samePersonAndScoreAsCurrentRecord = (bestRecord != null) && (bestRecord.Score == score && bestRecord.Competitor.Id == competitorId);
                     bool betterScoreThanCurrentRecord = score > (bestRecord?.Score ?? 0);
 
                     // If samePersonAndScoreAsCurrentRecord is set, it's likely because the new

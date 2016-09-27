@@ -22,26 +22,25 @@ namespace OfficeOlympicsWeb.Hubs
 
         public async Task RecordBroken(NewRecordViewModel newRecord)
         {
-            // TODO: Fix this
-            //if (!await _recordService.ScoreBeatsCurrentRecord(newRecord.Event.EventId, newRecord.Record.Score.Score, newRecord.Record.RecordHolder)) return;
+            if (!await _recordService.ScoreBeatsCurrentRecord(newRecord.Event.EventId, newRecord.Record.Score.Score, newRecord.Record.Competitor.CompetitorId)) return;
 
-            //string scoreString = string.Empty;
+            string scoreString = string.Empty;
 
-            //switch (newRecord.Record.Score.EventType)
-            //{
-            //    case EventType.Timed:
-            //        scoreString = new TimeSpan(0, 0, newRecord.Record.Score.Score).ToString();
-            //        break;
-            //    case EventType.RepCount:
-            //        scoreString = newRecord.Record.Score.Score.ToString();
-            //        break;
-            //    default:
-            //        throw new ArgumentOutOfRangeException(nameof(newRecord.Record.Score.EventType));
-            //}
+            switch (newRecord.Record.Score.EventType)
+            {
+                case EventType.Timed:
+                    scoreString = new TimeSpan(0, 0, newRecord.Record.Score.Score).ToString();
+                    break;
+                case EventType.RepCount:
+                    scoreString = newRecord.Record.Score.Score.ToString();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(newRecord.Record.Score.EventType));
+            }
 
-            //string message = $"The record for {newRecord.Event.EventName} has been broken by {newRecord.Record.RecordHolder} with a new score of {scoreString}!";
+            string message = $"The record for {newRecord.Event.EventName} has been broken by {newRecord.Record.Competitor.FullName} with a new score of {scoreString}!";
 
-            //Clients.Others.displayMessage(message, "success");
+            Clients.Others.displayMessage(message, "success");
         }
     }
 }
