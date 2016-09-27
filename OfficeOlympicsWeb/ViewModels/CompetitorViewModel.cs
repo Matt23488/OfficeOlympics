@@ -51,8 +51,8 @@ namespace OfficeOlympicsWeb.ViewModels
             var competitor = new Competitor();
 
             competitor.Id = CompetitorId;
-            competitor.FirstName = FirstName;
-            competitor.LastName = LastName;
+            competitor.FirstName = FirstName.Trim();
+            competitor.LastName = LastName.Trim();
 
             return competitor;
         }

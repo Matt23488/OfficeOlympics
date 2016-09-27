@@ -59,10 +59,10 @@ namespace OfficeOlympicsWeb.ViewModels
             var olympicEvent = new OlympicEvent();
 
             olympicEvent.Id = EventId;
-            olympicEvent.EventName = EventName;
+            olympicEvent.EventName = EventName.Trim();
             olympicEvent.EventTypeId = EventTypeId;
-            olympicEvent.Description = Description;
-            olympicEvent.Specification = Specification;
+            olympicEvent.Description = Description.Trim();
+            olympicEvent.Specification = Specification.Trim();
             olympicEvent.DateAdded = EventId == 0 ? DateTime.Now : DateAdded;
 
             return olympicEvent;
