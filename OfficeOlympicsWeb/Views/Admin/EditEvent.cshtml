@@ -7,12 +7,12 @@
 
 <h2>@ViewBag.EditType Event</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = $"{ViewBag.EditType}EventForm" }))
 {
     @Html.HiddenFor(model => model.Event.EventId)
     <div class="form-group">
         @Html.LabelFor(model => model.Event.EventName)
-        @Html.TextBoxFor(model => model.Event.EventName, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.Event.EventName, new { @class = "form-control", autocomplete = "off" })
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.Event.EventTypeId)

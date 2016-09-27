@@ -34,7 +34,7 @@
                         </ul>
                     </li>
                     <li>
-                        @Html.ActionLink("Generate some exceptions", "GenerateExceptions", "Home")
+                        <a href="#"><span class="glyphicon glyphicon-time"></span></a>
                     </li>
                 </ul>
             </div>
@@ -51,6 +51,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/main")
     <script src="~/SignalR/hubs"></script>

@@ -34,4 +34,9 @@ div.toast-danger {
 
 span.close-icon {
     float: right;
+    cursor: pointer;
+}
+
+span.close-icon:hover {
+    color: #333;
 }

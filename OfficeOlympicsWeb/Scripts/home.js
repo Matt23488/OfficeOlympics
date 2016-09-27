@@ -1,7 +1,55 @@
 ﻿$(function () {
-    var recordHub = $.connection.recordHub;
+    var olympicsHub = $.connection.olympicsHub;
 
-    recordHub.client.updateRecords = function (recordView) {
-        $("#recordListContainer").html(recordView);
+    olympicsHub.client.refreshRecords = function () {
+        var recentRecordListContainer = $("#recentRecordListContainer");
+
+        if (recentRecordListContainer.exists()) {
+            $.ajax({
+                type: "GET",
+                cache: false,
+                url: "/Home/RecentRecords",
+                success: function (data, status, xhr) {
+                    recentRecordListContainer.html(data);
+                },
+                error: function (xhr, status, error) {
+                    window.toastMessage.showMessage(error, "danger");
+                }
+            })
+        }
+    };
+    olympicsHub.client.refreshEvents = function () {
+        var recentEventListContainer = $("#recentEventListContainer");
+        
+        if (recentEventListContainer.exists()) {
+            $.ajax({
+                type: "GET",
+                cache: false,
+                url: "/Home/RecentEvents",
+                success: function (data, status, xhr) {
+                    recentEventListContainer.html(data);
+                },
+                error: function (xhr, status, error) {
+                    window.toastMessage.showMessage(error, "danger");
+                }
+            })
+        }
+    };
+    olympicsHub.client.refreshCompetitors = function () {
+        var recentCompetitorListContainer = $("#recentCompetitorListContainer");
+
+        if (recentCompetitorListContainer.exists()) {
+            $.ajax({
+                type: "GET",
+                cache: false,
+                url: "/Home/RecentCompetitors",
+                success: function (data, status, xhr) {
+                    recentCompetitorListContainer.html(data);
+                },
+                error: function (xhr, status, error) {
+                    window.toastMessage.showMessage(error, "danger");
+                }
+            });
+        }
     };
 });

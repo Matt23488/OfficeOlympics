@@ -1,0 +1,19 @@
+﻿@model List<CompetitorViewModel>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => model[i].FullName)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <em>No competitors to show.</em>
+}

@@ -76,5 +76,18 @@ namespace OfficeOlympicsLib.Services
                 }
             });
         }
+
+        public async Task<IEnumerable<Competitor>> GetRecentlyAddedCompetitorsAsync()
+        {
+            return await Task.Run(() =>
+            {
+                using (var context = new OfficeOlympicsDbEntities())
+                {
+                    return (from competitor in context.Competitors.AsParallel()
+                            orderby competitor.Id descending
+                            select competitor).Take(5).ToList();
+                }
+            });
+        }
     }
 }

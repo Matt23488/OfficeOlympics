@@ -1,39 +1,49 @@
 ﻿$(function () {
+    var fadeHandle = 0;
+    var $toast = $("#toastMessage");
+
     window.toastMessage = {
         showMessage: function (message, messageType) {
-            var toast = $("#toastMessage");
-            toast.attr("class", "toast");
+            resetState();
 
-            switch (messageType) {
-                case "success":
-                    toast.addClass("toast-success");
-                    break;
-                case "info":
-                    toast.addClass("toast-info");
-                    break;
-                case "warning":
-                    toast.addClass("toast-warning");
-                    break;
-                case "danger":
-                    toast.addClass("toast-danger");
-                    break;
-            }
+            $toast.attr("class", "toast");
+            $toast.addClass("toast-" + messageType)
 
-            $("#messageText", toast).text(message);
-            toast.show();
+            $("#messageText", $toast).text(message);
+            $toast.show();
 
-            window.setTimeout(function () {
-                toast.fadeOut(2000);
-            }, 5000);
-        },
-        hide: function (timeout) {
-            if (!timeout) timout = 0;
+            createFadeTimeout(5000);
 
-            $("#toastMessage").fadeOut(timeout);
+            $toast.on("mouseover", function () {
+                window.clearTimeout(fadeHandle);
+                $toast.stop(true, false);
+                $toast.css("opacity", 1);
+            });
+
+            $toast.on("mouseout", function () {
+                createFadeTimeout(1000);
+            });
         }
     };
 
     $("#toastMessage .close-icon").on("click", function () {
-        window.toastMessage.hide(500);
+        resetState();
+        $toast.fadeOut(500);
     });
+
+    function createFadeTimeout(timeout) {
+        fadeHandle = window.setTimeout(function () {
+            $toast.fadeOut(2000, function () {
+                resetState();
+            });
+        }, timeout);
+    }
+
+    function resetState() {
+        window.clearTimeout(fadeHandle);
+        $toast.stop(true, false);
+        $toast.css("opacity", 1);
+        $toast.off("mouseover");
+        $toast.off("mouseout");
+    }
 });

@@ -31,7 +31,7 @@ namespace OfficeOlympicsWeb.ViewModels
             record.Id = Record.RecordId;
             record.OlympicEventId = Event.EventId;
             record.CompetitorId = Record.Competitor.CompetitorId;
-            record.Score = Record.Score.Score;
+            record.Score = Record.Score.Score.Value;
             record.DateAchieved = DateTime.Now;
             record.Witnesses.Add(new Witness
             {

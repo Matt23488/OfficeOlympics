@@ -29,7 +29,8 @@ namespace OfficeOlympicsWeb.Controllers
         {
             var recentEvents = await _eventService.GetRecentlyAddedOlympicEventsAsync();
             var recentRecords = await _recordService.GetRecentRecordsAsync();
-            var viewModel = HomeViewModel.Build(recentEvents, recentRecords);
+            var recentCompetitors = await _competitorService.GetRecentlyAddedCompetitorsAsync();
+            var viewModel = HomeViewModel.Build(recentEvents, recentRecords, recentCompetitors);
 
             return View(viewModel);
         }
@@ -71,6 +72,8 @@ namespace OfficeOlympicsWeb.Controllers
         [HttpGet]
         public async Task<ActionResult> RecentRecords()
         {
+            // TODO: This is a terrible solution
+            await Task.Delay(2000);
             var recentRecords = await _recordService.GetRecentRecordsAsync();
             var viewModel = RecordViewModel.BuildList(recentRecords);
 
@@ -78,19 +81,23 @@ namespace OfficeOlympicsWeb.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GenerateExceptions()
+        public async Task<ActionResult> RecentEvents()
         {
-            var rng = new Random();
+            await Task.Delay(2000);
+            var recentEvents = await _eventService.GetRecentlyAddedOlympicEventsAsync();
+            var viewModel = EventViewModel.BuildList(recentEvents);
 
-            Exception current = null;
-            int numberOfExceptions = rng.Next(5) + 1;
-            for (int i = 0; i < numberOfExceptions; i++)
-            {
-                var type = (Helpers.ExceptionHelper.ExceptionType)rng.Next(26);
-                current = Helpers.ExceptionHelper.GenerateException(type, current);
-            }
+            return PartialView("EventListPartial", viewModel);
+        }
 
-            throw current;
+        [HttpGet]
+        public async Task<ActionResult> RecentCompetitors()
+        {
+            await Task.Delay(2000);
+            var recentCompetitors = await _competitorService.GetRecentlyAddedCompetitorsAsync();
+            var viewModel = CompetitorViewModel.BuildList(recentCompetitors);
+
+            return PartialView("CompetitorListPartial", viewModel);
         }
 
         [NonAction]

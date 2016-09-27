@@ -6,27 +6,30 @@
 
 <h2>Congratulations! - @Html.DisplayFor(model => model.Event.EventName)</h2>
 
-@*TODO: Use javascript to hide/show options based on what's selected*@
-@using (Html.BeginForm("NewRecord", "Home", FormMethod.Post, new { id = "newRecordForm" }))
+@using (Html.BeginForm("NewRecord", "Home", FormMethod.Post, new { id = "NewRecordForm" }))
 {
     @Html.HiddenFor(model => model.Event.EventId)
     @Html.HiddenFor(model => model.Event.EventName)
     <div class="form-group">
         @Html.LabelFor(model => model.Record.Competitor)
-        @Html.DropDownListFor(model => model.Record.Competitor.CompetitorId, Model.Competitors)
+        @Html.DropDownListFor(model => model.Record.Competitor.CompetitorId, Model.Competitors, "Select a Competitor", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Record.Competitor.CompetitorId)
     </div>
     <div class="form-group">
         @Html.HiddenFor(model => model.Event.EventTypeId)
         @Html.LabelFor(model => model.Record.Score)
-        @Html.TextBoxFor(model => model.Record.Score.Score, new { autocomplete = "off" })
+        @Html.TextBoxFor(model => model.Record.Score.Score, new { autocomplete = "off", @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Record.Score.Score)
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.Record.Witness1)
-        @Html.DropDownListFor(model => model.Record.Witness1.CompetitorId, Model.Competitors)
+        @Html.DropDownListFor(model => model.Record.Witness1.CompetitorId, Model.Competitors, "Select a Witness", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Record.Witness1.CompetitorId)
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.Record.Witness2)
-        @Html.DropDownListFor(model => model.Record.Witness2.CompetitorId, Model.Competitors)
+        @Html.DropDownListFor(model => model.Record.Witness2.CompetitorId, Model.Competitors, "Select a Witness", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Record.Witness2.CompetitorId)
     </div>
     <div class="btn-group">
         <button type="submit" class="btn btn-success">Save</button>
@@ -35,5 +38,5 @@
 }
 
 @section scripts{
-    @Scripts.Render("~/bundles/record")    
+    @Scripts.Render("~/bundles/record")
 }

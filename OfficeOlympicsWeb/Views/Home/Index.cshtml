@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-md-4">
         <h2>@Html.DisplayNameFor(model => model.NewEvents)</h2>
-        <div>
+        <div id="recentEventListContainer">
             @Html.Partial("EventListPartial", Model.NewEvents)
         </div>
         <div><a class="btn btn-default" href="@Url.Action("Events")">All Events &raquo;</a></div>
@@ -25,11 +25,26 @@
         <div><a class="btn btn-default" href="@Url.Action("Records")">All Records &raquo;</a></div>
     </div>
     <div class="col-md-4">
-        <h2>Something else</h2>
-        <p>I haven't decided what I will put here but I can probably find something else</p>
+        @*<h2>Something else</h2>
+        <p>I haven't decided what I will put here but I can probably find something else</p>*@
+        <h2>@Html.DisplayNameFor(model => model.NewCompetitors)</h2>
+        <div id="recentCompetitorListContainer">
+            @Html.Partial("CompetitorListPartial", Model.NewCompetitors)
+        </div>
     </div>
 </div>
 
 @section scripts{
     @Scripts.Render("~/bundles/home")
+}
+
+@*TODO: remove this*@
+@if (false)
+{
+    <div class="btn-group">
+        <button onclick="window.toastMessage.showMessage('success', 'success')" class="btn btn-success">TOAST TEST</button>
+        <button onclick="window.toastMessage.showMessage('info', 'info')" class="btn btn-info">TOAST TEST</button>
+        <button onclick="window.toastMessage.showMessage('warning', 'warning')" class="btn btn-warning">TOAST TEST</button>
+        <button onclick="window.toastMessage.showMessage('danger', 'danger')" class="btn btn-danger">TOAST TEST</button>
+    </div>
 }

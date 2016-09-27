@@ -14,5 +14,6 @@ namespace OfficeOlympicsLib.Services.Interfaces
         Task DeleteCompetitorAsync(Competitor competitor);
         Task<Competitor> GetCompetitorByIdAsync(int competitorId);
         Task<IEnumerable<Competitor>> GetCompetitorsAsync();
+        Task<IEnumerable<Competitor>> GetRecentlyAddedCompetitorsAsync();
     }
 }
