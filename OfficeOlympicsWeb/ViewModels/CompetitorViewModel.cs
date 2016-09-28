@@ -27,6 +27,9 @@ namespace OfficeOlympicsWeb.ViewModels
         [DisplayName("Full Name")]
         public string FullName => $"{FirstName} {LastName}";
 
+        [DisplayName("Name")]
+        public string FormattedName => $"{LastName}, {FirstName}";
+
         [DisplayName("Initials")]
         public string Initials => $"{FirstName[0]}{LastName[0]}";
 
