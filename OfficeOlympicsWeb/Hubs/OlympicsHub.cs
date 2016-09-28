@@ -19,8 +19,7 @@ namespace OfficeOlympicsWeb.Hubs
         {
             _recordService = recordService;
         }
-
-        // TODO: Need to do something a bit different here. Sometimes the refreshX() methods are called on the clients before the records are saved I'm guessing?
+        
         public async Task RecordBroken(NewRecordViewModel newRecord)
         {
             if (!await _recordService.ScoreBeatsCurrentRecord(newRecord.Event.EventId, newRecord.Record.Score.Score.Value, newRecord.Record.Competitor.CompetitorId)) return;
@@ -55,10 +54,23 @@ namespace OfficeOlympicsWeb.Hubs
             Clients.Others.refreshEvents();
         }
 
-        //public async Task EditEvent()
-        //{
+        public async Task EditEvent(string eventName)
+        {
+            Clients.Others.displayMessage($"The {eventName} event has been updated!", "info");
 
-        //}
+            await Task.Delay(2000);
+            Clients.Others.refreshEvents();
+            Clients.Others.refreshRecords();
+        }
+
+        public async Task DeleteEvent(string eventName)
+        {
+            Clients.Others.displayMessage($"The {eventName} event has been removed.", "warning");
+
+            await Task.Delay(2000);
+            Clients.Others.refreshEvents();
+            Clients.Others.refreshRecords();
+        }
 
         public async Task NewCompetitor(string competitorName)
         {
@@ -66,6 +78,24 @@ namespace OfficeOlympicsWeb.Hubs
 
             await Task.Delay(2000);
             Clients.Others.refreshCompetitors();
+        }
+
+        public async Task EditCompetitor(string competitorName)
+        {
+            Clients.Others.displayMessage($"{competitorName} was updated in some way. Probably his/her name.", "info");
+
+            await Task.Delay(2000);
+            Clients.Others.refreshCompetitors();
+            Clients.Others.refreshRecords();
+        }
+
+        public async Task DeleteCompetitor(string competitorName)
+        {
+            Clients.Others.displayMessage($"{competitorName} has left the fray. Quitter!", "warning");
+
+            await Task.Delay(2000);
+            Clients.Others.refreshCompetitors();
+            Clients.Others.refreshRecords();
         }
     }
 }

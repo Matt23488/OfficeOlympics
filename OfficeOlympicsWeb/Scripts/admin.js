@@ -15,10 +15,36 @@
 
         return true;
     });
+    $("#EditEventForm").on("submit", function () {
+        var submitButton = $("input[type=submit][clicked=true]", this).val();
+
+        if (submitButton === "Save") {
+            olympicsHub.server.editEvent($("#Event_EventName").val());
+        }
+        else if (submitButton === "Delete") {
+            olympicsHub.server.deleteEvent($("#Event_EventName").val());
+        }
+
+        return true;
+    });
     $("#AddCompetitorForm").on("submit", function () {
         var name = $("#FirstName").val() + " " + $("#LastName").val();
 
         olympicsHub.server.newCompetitor(name);
+
+        return true;
+    });
+    $("#EditCompetitorForm").on("submit", function () {
+        var formData = $(this).formData();
+        var name = formData.FirstName + " " + formData.LastName;
+        var submitButton = $("input[type=submit][clicked=true]", this).val();
+
+        if (submitButton === "Save") {
+            olympicsHub.server.editCompetitor(name);
+        }
+        else if (submitButton === "Delete") {
+            olympicsHub.server.deleteCompetitor(name);
+        }
 
         return true;
     });

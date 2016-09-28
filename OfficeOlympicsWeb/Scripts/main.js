@@ -4,6 +4,14 @@
         exists: function () {
             if (this[0]) return true;
             else return false;
+        },
+        formData: function () {
+            var values = {};
+            $(":input", this).each(function () {
+                values[this.name] = $(this).val();
+            });
+
+            return values;
         }
     });
 
@@ -48,5 +56,9 @@
             // Call old handler to do rest of the work
             oldSuccess(label);
         };
+    });
+    $("form input[type=submit]").click(function () {
+        $("input[type=submit]", $(this).parents("form")).removeAttr("clicked");
+        $(this).attr("clicked", "true");
     });
 });
