@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OfficeOlympicsLib.Models;
+using OfficeOlympicsLib.Extensions;
 
 namespace OfficeOlympicsLib.Services
 {
@@ -36,6 +37,7 @@ namespace OfficeOlympicsLib.Services
                 existingEvent.EventTypeId = olympicEvent.EventTypeId;
                 existingEvent.Description = olympicEvent.Description;
                 existingEvent.Specification = olympicEvent.Specification;
+                existingEvent.IsActive = olympicEvent.IsActive;
 
                 await context.SaveChangesAsync();
             }
@@ -52,7 +54,7 @@ namespace OfficeOlympicsLib.Services
                     throw new InvalidOperationException($"Olympic Event '{olympicEvent.EventName}' doesn't exist.");
                 }
 
-                context.OlympicEvents.Remove(existingEvent);
+                existingEvent.IsActive = false;
 
                 await context.SaveChangesAsync();
             }
@@ -64,22 +66,21 @@ namespace OfficeOlympicsLib.Services
             {
                 using (var context = new OfficeOlympicsDbEntities())
                 {
-                    return context.OlympicEvents
-                        .Include(obj => obj.EventType)
-                        .AsParallel().SingleOrDefault(obj => obj.Id == olympicEventId);
+                    return context.FullOlympicEvents().SingleOrDefault(obj => obj.Id == olympicEventId);
                 }
             });
         }
 
-        public async Task<IEnumerable<OlympicEvent>> GetOlympicEventsAsync()
+        public async Task<IEnumerable<OlympicEvent>> GetOlympicEventsAsync(bool includeDeleted)
         {
             return await Task.Run(() =>
             {
                 using (var context = new OfficeOlympicsDbEntities())
                 {
-                    return context.OlympicEvents
-                        .Include(obj => obj.EventType)
-                        .AsParallel().ToList();
+                    return (from ev in context.FullOlympicEvents()
+                            where ev.IsActive || includeDeleted
+                            orderby ev.IsActive descending
+                            select ev).ToList();
                 }
             });
         }
@@ -90,7 +91,8 @@ namespace OfficeOlympicsLib.Services
             {
                 using (var context = new OfficeOlympicsDbEntities())
                 {
-                    return (from ev in context.OlympicEvents.Include(obj => obj.EventType).AsParallel()
+                    return (from ev in context.FullOlympicEvents()
+                            where ev.IsActive
                             orderby ev.DateAdded descending
                             select ev).Take(5).ToList();
                 }

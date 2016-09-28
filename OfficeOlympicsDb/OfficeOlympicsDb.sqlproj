@@ -64,6 +64,7 @@
     <Folder Include="Scripts" />
     <Folder Include="Scripts\Post-deployment" />
     <Folder Include="Scripts\Post-deployment\old" />
+    <Folder Include="Scripts\Useful-Non-Build" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\EventType.sql" />
@@ -72,10 +73,12 @@
     <Build Include="dbo\Tables\Error.sql" />
     <Build Include="dbo\Tables\Competitor.sql" />
     <Build Include="dbo\Tables\Witness.sql" />
+    <None Include="Scripts\Useful-Non-Build\DeleteCompetitorsAboveSpecifiedId.sql" />
+    <None Include="Scripts\Useful-Non-Build\DeleteOlympicEventsAboveSpecifiedId.sql" />
+    <None Include="Scripts\Useful-Non-Build\DeleteRecordsAboveSpecifiedId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="OfficeOlympicsDb.dev.publish.xml" />
-    <None Include="OfficeOlympicsDb.prod.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-deployment\CreateEventTypes.sql" />

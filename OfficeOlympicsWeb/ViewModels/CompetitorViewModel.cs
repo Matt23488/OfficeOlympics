@@ -13,17 +13,30 @@ namespace OfficeOlympicsWeb.ViewModels
         [Required]
         public int CompetitorId { get; set; }
         
+        [Required]
         [DisplayName("First Name")]
         public string FirstName { get; set; }
 
+        [Required]
         [DisplayName("Last Name")]
         public string LastName { get; set; }
+
+        [DisplayName("Active")]
+        public bool IsActive { get; set; }
 
         [DisplayName("Full Name")]
         public string FullName => $"{FirstName} {LastName}";
 
         [DisplayName("Initials")]
         public string Initials => $"{FirstName[0]}{LastName[0]}";
+
+        public CompetitorViewModel()
+        {
+            CompetitorId = 0;
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            IsActive = true;
+        }
 
         public static CompetitorViewModel Build(Competitor competitor)
         {
@@ -32,6 +45,7 @@ namespace OfficeOlympicsWeb.ViewModels
             viewModel.CompetitorId = competitor.Id;
             viewModel.FirstName = competitor.FirstName;
             viewModel.LastName = competitor.LastName;
+            viewModel.IsActive = competitor.IsActive;
 
             return viewModel;
         }
@@ -55,6 +69,7 @@ namespace OfficeOlympicsWeb.ViewModels
             competitor.Id = CompetitorId;
             competitor.FirstName = FirstName.Trim();
             competitor.LastName = LastName.Trim();
+            competitor.IsActive = IsActive;
 
             return competitor;
         }

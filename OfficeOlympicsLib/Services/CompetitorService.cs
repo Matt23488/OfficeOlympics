@@ -33,6 +33,7 @@ namespace OfficeOlympicsLib.Services
 
                 existingCompetitor.FirstName = competitor.FirstName;
                 existingCompetitor.LastName = competitor.LastName;
+                existingCompetitor.IsActive = competitor.IsActive;
 
                 await context.SaveChangesAsync();
             }
@@ -49,7 +50,7 @@ namespace OfficeOlympicsLib.Services
                     throw new InvalidOperationException($"Competitor '{competitor.FirstName} {competitor.LastName}' doesn't exist.");
                 }
 
-                context.Competitors.Remove(existingCompetitor);
+                existingCompetitor.IsActive = false;
 
                 await context.SaveChangesAsync();
             }
@@ -66,13 +67,17 @@ namespace OfficeOlympicsLib.Services
             });
         }
 
-        public async Task<IEnumerable<Competitor>> GetCompetitorsAsync()
+        public async Task<IEnumerable<Competitor>> GetCompetitorsAsync(bool includeDeleted)
         {
             return await Task.Run(() =>
             {
                 using (var context = new OfficeOlympicsDbEntities())
                 {
-                    return context.Competitors.AsParallel().ToList();
+                    return context.Competitors
+                    .AsParallel()
+                    .Where(obj => obj.IsActive || includeDeleted)
+                    .OrderByDescending(obj => obj.IsActive)
+                    .ToList();
                 }
             });
         }
@@ -84,6 +89,7 @@ namespace OfficeOlympicsLib.Services
                 using (var context = new OfficeOlympicsDbEntities())
                 {
                     return (from competitor in context.Competitors.AsParallel()
+                            where competitor.IsActive
                             orderby competitor.Id descending
                             select competitor).Take(5).ToList();
                 }

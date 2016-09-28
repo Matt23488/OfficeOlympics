@@ -26,6 +26,7 @@ namespace OfficeOlympicsLib.Models
         public string Description { get; set; }
         public string Specification { get; set; }
         public System.DateTime DateAdded { get; set; }
+        public bool IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Record> Records { get; set; }

@@ -13,7 +13,7 @@ namespace OfficeOlympicsLib.Services.Interfaces
         Task UpdateOlympicEventAsync(OlympicEvent olympicEvent);
         Task DeleteOlympicEventAsync(OlympicEvent olympicEvent);
         Task<OlympicEvent> GetOlympicEventByIdAsync(int olympicEventId);
-        Task<IEnumerable<OlympicEvent>> GetOlympicEventsAsync();
+        Task<IEnumerable<OlympicEvent>> GetOlympicEventsAsync(bool includeDeleted);
         Task<IEnumerable<OlympicEvent>> GetRecentlyAddedOlympicEventsAsync();
     }
 }

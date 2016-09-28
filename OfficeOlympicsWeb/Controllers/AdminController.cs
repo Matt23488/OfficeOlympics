@@ -29,7 +29,7 @@ namespace OfficeOlympicsWeb.Controllers
         [HttpGet]
         public async Task<ActionResult> EventManagement()
         {
-            var events = await _eventService.GetOlympicEventsAsync();
+            var events = await _eventService.GetOlympicEventsAsync(includeDeleted: true);
             var viewModel = EventViewModel.BuildList(events);
 
             return View(viewModel);
@@ -92,7 +92,7 @@ namespace OfficeOlympicsWeb.Controllers
         [HttpGet]
         public async Task<ActionResult> CompetitorManagement()
         {
-            var competitors = await _competitorService.GetCompetitorsAsync();
+            var competitors = await _competitorService.GetCompetitorsAsync(includeDeleted: true);
             var viewModel = CompetitorViewModel.BuildList(competitors);
 
             return View(viewModel);

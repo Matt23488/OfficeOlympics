@@ -25,12 +25,11 @@
         <div><a class="btn btn-default" href="@Url.Action("Records")">All Records &raquo;</a></div>
     </div>
     <div class="col-md-4">
-        @*<h2>Something else</h2>
-        <p>I haven't decided what I will put here but I can probably find something else</p>*@
         <h2>@Html.DisplayNameFor(model => model.NewCompetitors)</h2>
         <div id="recentCompetitorListContainer">
             @Html.Partial("CompetitorListPartial", Model.NewCompetitors)
         </div>
+        <div><a class="btn btn-default" href="@Url.Action("Competitors")">All Competitors &raquo;</a></div>
     </div>
 </div>
 

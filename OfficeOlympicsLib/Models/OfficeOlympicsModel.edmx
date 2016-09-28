@@ -12,6 +12,7 @@
           <Property Name="CompetitorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Error">
           <Key>
@@ -42,6 +43,7 @@
           <Property Name="Description" Type="varchar(max)" />
           <Property Name="Specification" Type="varchar(max)" />
           <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Record">
           <Key>
@@ -165,6 +167,7 @@
           <Property Name="Specification" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="EventType" Relationship="OfficeOlympicsDbModel.FK_OlympicEvent_EventType" FromRole="OlympicEvent" ToRole="EventType" />
           <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Record">
           <Key>
@@ -260,6 +263,7 @@
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Records" Relationship="OfficeOlympicsDbModel.FK_Record_Competitor" FromRole="Competitor" ToRole="Record" />
           <NavigationProperty Name="Witnesses" Relationship="OfficeOlympicsDbModel.FK_Witness_Competitor" FromRole="Competitor" ToRole="Witness" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Witness">
           <Key>
@@ -316,6 +320,7 @@
           <EntitySetMapping Name="OlympicEvents">
             <EntityTypeMapping TypeName="OfficeOlympicsDbModel.OlympicEvent">
               <MappingFragment StoreEntitySet="OlympicEvent">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="Specification" ColumnName="Specification" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -360,6 +365,7 @@
           <EntitySetMapping Name="Competitors">
             <EntityTypeMapping TypeName="OfficeOlympicsDbModel.Competitor">
               <MappingFragment StoreEntitySet="Competitor">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Id" ColumnName="CompetitorId" />

@@ -2,7 +2,7 @@
 
 @if (Model.EventType == OfficeOlympicsLib.Models.Constants.EventType.Timed)
 {
-    @(new TimeSpan(0, 0, Model.Score).ToString(@"m\:ss"))
+    @(new TimeSpan(0, 0, Model.Score ?? 0).ToString(@"m\:ss"))
 }
 else
 {

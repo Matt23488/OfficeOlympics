@@ -54,7 +54,7 @@ namespace OfficeOlympicsWeb.Controllers
         public async Task<ActionResult> NewRecord(int olympicEventId)
         {
             var olympicEvent = await _eventService.GetOlympicEventByIdAsync(olympicEventId);
-            var competitors = await _competitorService.GetCompetitorsAsync();
+            var competitors = await _competitorService.GetCompetitorsAsync(includeDeleted: false);
             var viewModel = NewRecordViewModel.Build(olympicEvent, competitors);
 
             return View(viewModel);
@@ -72,8 +72,6 @@ namespace OfficeOlympicsWeb.Controllers
         [HttpGet]
         public async Task<ActionResult> RecentRecords()
         {
-            // TODO: This is a terrible solution
-            await Task.Delay(2000);
             var recentRecords = await _recordService.GetRecentRecordsAsync();
             var viewModel = RecordViewModel.BuildList(recentRecords);
 
@@ -83,7 +81,6 @@ namespace OfficeOlympicsWeb.Controllers
         [HttpGet]
         public async Task<ActionResult> RecentEvents()
         {
-            await Task.Delay(2000);
             var recentEvents = await _eventService.GetRecentlyAddedOlympicEventsAsync();
             var viewModel = EventViewModel.BuildList(recentEvents);
 
@@ -93,7 +90,6 @@ namespace OfficeOlympicsWeb.Controllers
         [HttpGet]
         public async Task<ActionResult> RecentCompetitors()
         {
-            await Task.Delay(2000);
             var recentCompetitors = await _competitorService.GetRecentlyAddedCompetitorsAsync();
             var viewModel = CompetitorViewModel.BuildList(recentCompetitors);
 
@@ -103,7 +99,7 @@ namespace OfficeOlympicsWeb.Controllers
         [NonAction]
         public async Task<ActionResult> ChooseAnEvent()
         {
-            var events = await _eventService.GetOlympicEventsAsync();
+            var events = await _eventService.GetOlympicEventsAsync(includeDeleted: false);
             var viewModelList = EventViewModel.BuildList(events);
 
             return View("EventSelection", viewModelList);

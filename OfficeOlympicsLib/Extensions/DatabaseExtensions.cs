@@ -14,5 +14,12 @@ namespace OfficeOlympicsLib.Extensions
                     .Include(obj => obj.Witnesses.Select(wit => wit.Competitor))
                     .AsParallel();
         }
+
+        public static ParallelQuery<OlympicEvent> FullOlympicEvents(this OfficeOlympicsDbEntities context)
+        {
+            return context.OlympicEvents
+                    .Include(obj => obj.EventType)
+                    .AsParallel();
+        }
     }
 }

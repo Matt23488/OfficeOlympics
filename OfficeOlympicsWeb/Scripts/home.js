@@ -11,9 +11,6 @@
                 url: "/Home/RecentRecords",
                 success: function (data, status, xhr) {
                     recentRecordListContainer.html(data);
-                },
-                error: function (xhr, status, error) {
-                    window.toastMessage.showMessage(error, "danger");
                 }
             })
         }
@@ -28,9 +25,6 @@
                 url: "/Home/RecentEvents",
                 success: function (data, status, xhr) {
                     recentEventListContainer.html(data);
-                },
-                error: function (xhr, status, error) {
-                    window.toastMessage.showMessage(error, "danger");
                 }
             })
         }
@@ -45,9 +39,6 @@
                 url: "/Home/RecentCompetitors",
                 success: function (data, status, xhr) {
                     recentCompetitorListContainer.html(data);
-                },
-                error: function (xhr, status, error) {
-                    window.toastMessage.showMessage(error, "danger");
                 }
             });
         }

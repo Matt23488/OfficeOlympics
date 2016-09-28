@@ -7,24 +7,11 @@
         }
     });
 
-    //jQuery.validator.setDefaults({
-    //    validClass: "has-success",
-    //    errorClass: "has-error",
-    //    highlight: function (element, errorClass, validClass) {
-    //        $(element).closest(".form-group")
-    //            .removeClass(validClass)
-    //            .addClass("has-error");
-    //    },
-    //    unhighlight: function (element, errorClass, validClass) {
-    //        $(element).closest(".form-group")
-    //            .removeClass("has-error")
-    //            .addClass(validClass);
-    //    }
-    //});
-    //jQuery.validator.unobtrusive.options = {
-    //    errorClass: "has-error",
-    //    validClass: "has-success"
-    //};
+    $.ajaxSetup({
+        error: function (xhr, status, error) {
+            window.toastMessage.showMessage(error, "danger");
+        }
+    });
 
     // SignalR
     var olympicsHub = $.connection.olympicsHub;

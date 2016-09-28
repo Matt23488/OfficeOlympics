@@ -24,6 +24,7 @@ namespace OfficeOlympicsLib.Services
                                 (from groupedRecord in groupedRecords
                                  orderby groupedRecord.Score descending
                                  select groupedRecord).FirstOrDefault() into bestScore
+                            where bestScore.Competitor.IsActive && bestScore.OlympicEvent.IsActive
                             orderby bestScore.DateAchieved descending
                             select bestScore).ToList();
                 }
@@ -38,6 +39,8 @@ namespace OfficeOlympicsLib.Services
                 {
                     return (from record in context.FullRecords()
                             where record.OlympicEventId == eventId
+                                && record.OlympicEvent.IsActive
+                                && record.Competitor.IsActive
                             orderby record.Score descending
                             select record).ToList();
                 }
@@ -62,6 +65,8 @@ namespace OfficeOlympicsLib.Services
                 {
                     var bestRecord = (from r in context.Records.AsParallel()
                                       where r.OlympicEventId == eventId
+                                        && r.OlympicEvent.IsActive
+                                        && r.Competitor.IsActive
                                       select r).ItemWithMaxOrDefault(r => r.Score);
 
                     bool samePersonAndScoreAsCurrentRecord = (bestRecord != null) && (bestRecord.Score == score && bestRecord.Competitor.Id == competitorId);

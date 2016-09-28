@@ -146,13 +146,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Database\OfficeOlympicsDb.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Database\OfficeOlympicsDb_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>OfficeOlympicsDb.mdf</DependentUpon>
-    </Content>
     <Content Include="Models\OfficeOlympicsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>OfficeOlympicsModel.Context.cs</LastGenOutput>

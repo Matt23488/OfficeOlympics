@@ -42,16 +42,17 @@ namespace OfficeOlympicsWeb.Hubs
             string message = $"The record for {newRecord.Event.EventName} has been broken by {newRecord.Record.Competitor.FullName} with a new score of {scoreString}!";
 
             Clients.Others.displayMessage(message, "success");
+
+            await Task.Delay(2000);
             Clients.Others.refreshRecords();
         }
 
         public async Task NewEvent(string eventName)
         {
-            await Task.Run(() =>
-            {
-                Clients.Others.displayMessage($"Everyone be sure to try out the new {eventName} event!", "info");
-                Clients.Others.refreshEvents();
-            });
+            Clients.Others.displayMessage($"Everyone be sure to try out the new {eventName} event!", "info");
+
+            await Task.Delay(2000);
+            Clients.Others.refreshEvents();
         }
 
         //public async Task EditEvent()
@@ -61,11 +62,10 @@ namespace OfficeOlympicsWeb.Hubs
 
         public async Task NewCompetitor(string competitorName)
         {
-            await Task.Run(() =>
-            {
-                Clients.Others.displayMessage($"Everyone welcome {competitorName} into the fray!", "info");
-                //Clients.Others.refreshCompetitors();
-            });
+            Clients.Others.displayMessage($"Everyone welcome {competitorName} into the fray!", "info");
+
+            await Task.Delay(2000);
+            Clients.Others.refreshCompetitors();
         }
     }
 }
