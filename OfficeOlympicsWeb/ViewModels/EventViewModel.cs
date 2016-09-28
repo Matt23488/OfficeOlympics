@@ -36,16 +36,19 @@ namespace OfficeOlympicsWeb.ViewModels
         [DisplayName("Active")]
         public bool IsActive { get; set; }
 
+        public string IconFileName { get; set; }
+
         public EventViewModel()
         {
             EventId = 0;
             EventName = string.Empty;
             EventType = string.Empty;
+            EventTypeId = 0;
             Description = string.Empty;
             Specification = string.Empty;
             DateAdded = DateTime.MinValue;
             IsActive = true;
-            EventTypeId = 0;
+            IconFileName = string.Empty;
         }
 
         public static EventViewModel Build(OlympicEvent olympicEvent)
@@ -60,6 +63,7 @@ namespace OfficeOlympicsWeb.ViewModels
             viewModel.Specification = olympicEvent.Specification;
             viewModel.DateAdded = olympicEvent.DateAdded;
             viewModel.IsActive = olympicEvent.IsActive;
+            viewModel.IconFileName = olympicEvent.IconFileName;
 
             return viewModel;
         }

@@ -8,6 +8,7 @@
             {
                 <tr>
                     <td>
+                        @Html.IconFor(model => model[i].IconFileName, IconSize.Small)
                         <a href="@Url.Action("Records", new { olympicEventId = Model[i].EventId })" class="btn btn-default">
                             @Html.DisplayFor(model => model[i].EventName)
                             &raquo;

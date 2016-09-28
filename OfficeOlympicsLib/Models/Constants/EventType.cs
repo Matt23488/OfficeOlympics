@@ -8,7 +8,7 @@ namespace OfficeOlympicsLib.Models.Constants
 {
     public static class EventType
     {
-        public const int Timed = 1;
+        public const int TimedHold = 1;
         public const int RepCount = 2;
     }
 }

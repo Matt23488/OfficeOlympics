@@ -57,8 +57,20 @@
             oldSuccess(label);
         };
     });
+
+    // Other initialization
     $("form input[type=submit]").click(function () {
         $("input[type=submit]", $(this).parents("form")).removeAttr("clicked");
         $(this).attr("clicked", "true");
+    });
+    $(document).on("change", ":file", function () {
+        var input = $(this);
+        var numFiles = input.get(0).files ? input.get(0).files.length : 1;
+        var label = input.val().replace(/\\/g, "/").replace(/.*\//, "");
+
+        input.trigger("fileselect", [numFiles, label]);
+    });
+    $(":file").on('fileselect', function (event, numFiles, label) {
+        //alert(label);
     });
 });

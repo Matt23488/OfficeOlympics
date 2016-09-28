@@ -9,7 +9,7 @@ INSERT [dbo].[EventType]
 VALUES
 (
 	1,
-	'Timed'
+	'Timed Hold'
 );
 
 IF NOT EXISTS (SELECT [EventTypeId] FROM [dbo].[EventType] WHERE [EventTypeId] = 2)

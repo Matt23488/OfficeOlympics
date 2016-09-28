@@ -28,7 +28,7 @@ namespace OfficeOlympicsWeb.Hubs
 
             switch (newRecord.Record.Score.EventType)
             {
-                case EventType.Timed:
+                case EventType.TimedHold:
                     scoreString = new TimeSpan(0, 0, newRecord.Record.Score.Score.Value).ToString();
                     break;
                 case EventType.RepCount:

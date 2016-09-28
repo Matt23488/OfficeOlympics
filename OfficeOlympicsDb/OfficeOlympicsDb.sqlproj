@@ -76,6 +76,7 @@
     <None Include="Scripts\Useful-Non-Build\DeleteCompetitorsAboveSpecifiedId.sql" />
     <None Include="Scripts\Useful-Non-Build\DeleteOlympicEventsAboveSpecifiedId.sql" />
     <None Include="Scripts\Useful-Non-Build\DeleteRecordsAboveSpecifiedId.sql" />
+    <None Include="Scripts\Useful-Non-Build\DeleteEverything.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="OfficeOlympicsDb.dev.publish.xml" />

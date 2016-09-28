@@ -7,13 +7,18 @@
 
 <h2>@ViewBag.EditType Event</h2>
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { id = $"{ViewBag.EditType}EventForm" }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = $"{ViewBag.EditType}EventForm", enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(model => model.Event.EventId)
     <div class="form-group">
         @Html.LabelFor(model => model.Event.EventName)
         @Html.TextBoxFor(model => model.Event.EventName, new { @class = "form-control", autocomplete = "off" })
         @Html.ValidationMessageFor(model => model.Event.EventName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EventIcon)
+        <br />
+        @Html.FileUploadFor(model => model.EventIcon, new { accept = "image/png" })
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.Event.EventTypeId)

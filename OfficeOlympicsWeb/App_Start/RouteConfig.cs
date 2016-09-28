@@ -44,6 +44,12 @@ namespace OfficeOlympicsWeb
             );
 
             routes.MapRoute(
+                name: "ImageGetIcon",
+                url: "Image/GetIcon/{fileGuid}",
+                defaults: new { controller = "Image", action = "GetIcon" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

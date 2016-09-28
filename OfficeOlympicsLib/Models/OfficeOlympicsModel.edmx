@@ -42,6 +42,7 @@
           <Property Name="EventTypeId" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar(max)" />
           <Property Name="Specification" Type="varchar(max)" />
+          <Property Name="IconFileName" Type="varchar" MaxLength="50" />
           <Property Name="DateAdded" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
@@ -168,6 +169,7 @@
           <NavigationProperty Name="EventType" Relationship="OfficeOlympicsDbModel.FK_OlympicEvent_EventType" FromRole="OlympicEvent" ToRole="EventType" />
           <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IconFileName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Record">
           <Key>
@@ -320,6 +322,7 @@
           <EntitySetMapping Name="OlympicEvents">
             <EntityTypeMapping TypeName="OfficeOlympicsDbModel.OlympicEvent">
               <MappingFragment StoreEntitySet="OlympicEvent">
+                <ScalarProperty Name="IconFileName" ColumnName="IconFileName" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="Specification" ColumnName="Specification" />

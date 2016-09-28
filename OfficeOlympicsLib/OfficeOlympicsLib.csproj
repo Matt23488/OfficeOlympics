@@ -80,6 +80,7 @@
     <Compile Include="Models\EventType.cs">
       <DependentUpon>OfficeOlympicsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IconFile.cs" />
     <Compile Include="Models\OfficeOlympicsModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -99,6 +100,7 @@
       <DependentUpon>OfficeOlympicsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Partials\Competitor.cs" />
+    <Compile Include="Models\Partials\OlympicEvent.cs" />
     <Compile Include="Models\Record.cs">
       <DependentUpon>OfficeOlympicsModel.tt</DependentUpon>
     </Compile>

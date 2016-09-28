@@ -1,6 +1,8 @@
 ﻿using OfficeOlympicsLib.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +13,9 @@ namespace OfficeOlympicsWeb.ViewModels
     {
         public EventViewModel Event { get; set; }
         public SelectList EventTypeSelectList { get; set; }
+
+        [DisplayName("Icon")]
+        public HttpPostedFileBase EventIcon { get; set; }
 
         public static EditEventViewModel Build(IEnumerable<EventType> eventTypes)
         {
@@ -34,7 +39,18 @@ namespace OfficeOlympicsWeb.ViewModels
 
         public OlympicEvent Map()
         {
-            return Event.Map();
+            var olympicEvent = Event.Map();
+
+            using (var memoryStream = new MemoryStream())
+            {
+                EventIcon.InputStream.CopyTo(memoryStream);
+                
+                olympicEvent.Icon = new IconFile();
+                olympicEvent.Icon.UploadedFileName = EventIcon.FileName;
+                olympicEvent.Icon.Bytes = memoryStream.ToArray();
+            }
+
+            return olympicEvent;
         }
     }
 }
