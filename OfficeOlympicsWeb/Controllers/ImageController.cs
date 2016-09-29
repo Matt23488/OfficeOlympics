@@ -15,7 +15,13 @@ namespace OfficeOlympicsWeb.Controllers
         public ActionResult GetIcon(string fileGuid)
         {
             var iconDirectory = new DirectoryInfo(ConfigurationManager.AppSettings["IconSaveLocation"]);
-            string matchingIcon = iconDirectory.GetFiles().Single(obj => obj.Name.Contains(fileGuid)).FullName;
+            string matchingIcon = iconDirectory.GetFiles().SingleOrDefault(obj => obj.Name.Contains(fileGuid))?.FullName;
+
+            if (string.IsNullOrEmpty(matchingIcon))
+            {
+                matchingIcon = Server.MapPath("~/Content/Images/no-image.png");
+            }
+
             var iconBytes = System.IO.File.ReadAllBytes(matchingIcon);
 
             return File(iconBytes, "image/png");

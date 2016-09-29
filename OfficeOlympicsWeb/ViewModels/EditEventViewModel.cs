@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -41,13 +42,16 @@ namespace OfficeOlympicsWeb.ViewModels
         {
             var olympicEvent = Event.Map();
 
-            using (var memoryStream = new MemoryStream())
+            if (EventIcon != null)
             {
-                EventIcon.InputStream.CopyTo(memoryStream);
-                
-                olympicEvent.Icon = new IconFile();
-                olympicEvent.Icon.UploadedFileName = EventIcon.FileName;
-                olympicEvent.Icon.Bytes = memoryStream.ToArray();
+                using (var memoryStream = new MemoryStream())
+                {
+                    EventIcon.InputStream.CopyTo(memoryStream);
+
+                    olympicEvent.Icon = new IconFile();
+                    olympicEvent.Icon.UploadedFileName = EventIcon.FileName;
+                    olympicEvent.Icon.Bytes = memoryStream.ToArray();
+                }
             }
 
             return olympicEvent;

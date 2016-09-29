@@ -18,7 +18,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.EventIcon)
         <br />
-        @Html.FileUploadFor(model => model.EventIcon, new { accept = "image/png" })
+        @Html.FileUploadFor(model => model.EventIcon, accept: "image/png")
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.Event.EventTypeId)

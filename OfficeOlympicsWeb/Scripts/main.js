@@ -12,6 +12,17 @@
             });
 
             return values;
+        },
+        unique: function () {
+            var uniqueItems = [];
+
+            for (var i = 0; i < this.length; i++) {
+                if (!uniqueItems.contains(this[i])) {
+                    uniqueItems.push(this[i]);
+                }
+            }
+
+            return $(uniqueItems);
         }
     });
 
@@ -20,6 +31,15 @@
             window.toastMessage.showMessage(error, "danger");
         }
     });
+
+    // Extensions
+    Array.prototype.contains = function (item) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] === item) return true;
+        }
+
+        return false;
+    };
 
     // SignalR
     var olympicsHub = $.connection.olympicsHub;
@@ -70,7 +90,22 @@
 
         input.trigger("fileselect", [numFiles, label]);
     });
-    $(":file").on('fileselect', function (event, numFiles, label) {
-        //alert(label);
+    $(":file").on("fileselect", function (event, numFiles, label) {
+        $(this).parents(".file-upload").children(".file-name").text(label);
     });
+
+    // Styling
+    (function () {
+        $(".btn-details").parents(".container").unique().each(function () {
+            var maxWidth = 0;
+            $(".btn-details", this).each(function () {
+                var currentWidth = $(this).width();
+
+                if (currentWidth > maxWidth) maxWidth = currentWidth;
+            });
+            $(".btn-details", this).each(function () {
+                $(this).width(maxWidth);
+            });
+        });
+    })();
 });

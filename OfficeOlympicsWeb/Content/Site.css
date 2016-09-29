@@ -26,23 +26,29 @@ textarea {
 .btn-file {
     position: relative;
     overflow: hidden;
+    display: inline-block;
 }
 
-    .btn-file input[type=file] {
-        position: absolute;
-        top: 0;
-        right: 0;
-        min-width: 100%;
-        min-height: 100%;
-        font-size: 100px;
-        text-align: right;
-        filter: alpha(opacity=0);
-        opacity: 0;
-        outline: none;
-        background: white;
-        cursor: inherit;
-        display: block;
-    }
+.file-upload input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.file-upload .file-name {
+    padding-left: 10px;
+    font-size: 1.2em;
+}
 
 .event-icon {
     width: 64px;
@@ -56,4 +62,16 @@ textarea {
 
 .separator {
     height: 5px;
+}
+
+.list-group-item-hover:hover {
+    background-color: #f5f5f5;
+}
+
+.list-group-item.bg-danger {
+    background-color: #f2dede
+}
+
+.list-group-item-hover.bg-danger:hover {
+    background-color: #f0cccc;
 }

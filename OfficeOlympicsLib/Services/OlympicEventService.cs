@@ -26,9 +26,12 @@ namespace OfficeOlympicsLib.Services
             using (var context = new OfficeOlympicsDbEntities())
             {
                 Guid iconFileNameGuid = Guid.NewGuid();
-                olympicEvent.IconFileName = $"{iconFileNameGuid}{Path.GetExtension(olympicEvent.Icon.UploadedFileName)}";
+                olympicEvent.IconFileName = $"{iconFileNameGuid}{Path.GetExtension(olympicEvent.Icon?.UploadedFileName ?? "default.png")}";
 
-                File.WriteAllBytes(Path.Combine(_iconPath, olympicEvent.IconFileName), olympicEvent.Icon.Bytes);
+                if (olympicEvent.Icon != null)
+                {
+                    File.WriteAllBytes(Path.Combine(_iconPath, olympicEvent.IconFileName), olympicEvent.Icon.Bytes);
+                }
 
                 context.OlympicEvents.Add(olympicEvent);
 
@@ -46,12 +49,14 @@ namespace OfficeOlympicsLib.Services
                 {
                     throw new InvalidOperationException($"Olympic Event '{olympicEvent.EventName}' doesn't exist.");
                 }
-
-                Func<string> generateIconPath = () => Path.Combine(_iconPath, existingEvent.IconFileName);
-
-                File.Delete(generateIconPath());
-                existingEvent.IconFileName = $"{Path.GetFileNameWithoutExtension(existingEvent.IconFileName)}{Path.GetExtension(olympicEvent.Icon.UploadedFileName)}";
-                File.WriteAllBytes(generateIconPath(), olympicEvent.Icon.Bytes);
+                
+                if (olympicEvent.Icon != null)
+                {
+                    Func<string> generateIconPath = () => Path.Combine(_iconPath, existingEvent.IconFileName);
+                    File.Delete(generateIconPath());
+                    existingEvent.IconFileName = $"{Path.GetFileNameWithoutExtension(existingEvent.IconFileName)}{Path.GetExtension(olympicEvent.Icon.UploadedFileName)}";
+                    File.WriteAllBytes(generateIconPath(), olympicEvent.Icon.Bytes);
+                }
 
                 existingEvent.EventName = olympicEvent.EventName;
                 existingEvent.EventTypeId = olympicEvent.EventTypeId;
@@ -96,7 +101,9 @@ namespace OfficeOlympicsLib.Services
             {
                 var olympicEvents = (from ev in context.FullOlympicEvents()
                                      where ev.IsActive || includeDeleted
-                                     orderby ev.IsActive descending
+                                     orderby ev.IsActive descending,
+                                             ev.EventTypeId,
+                                             ev.EventName
                                      select ev).ToList();
 
                 return olympicEvents;
