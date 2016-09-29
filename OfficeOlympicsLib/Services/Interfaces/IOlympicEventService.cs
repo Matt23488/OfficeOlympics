@@ -9,11 +9,11 @@ namespace OfficeOlympicsLib.Services.Interfaces
 {
     public interface IOlympicEventService
     {
-        Task InsertOlympicEventAsync(OlympicEvent olympicEvent);
-        Task UpdateOlympicEventAsync(OlympicEvent olympicEvent);
-        Task DeleteOlympicEventAsync(OlympicEvent olympicEvent);
-        Task<OlympicEvent> GetOlympicEventByIdAsync(int olympicEventId);
-        Task<IEnumerable<OlympicEvent>> GetOlympicEventsAsync(bool includeDeleted);
-        Task<IEnumerable<OlympicEvent>> GetRecentlyAddedOlympicEventsAsync();
+        void InsertOlympicEvent(OlympicEvent olympicEvent);
+        void UpdateOlympicEvent(OlympicEvent olympicEvent);
+        void DeleteOlympicEvent(OlympicEvent olympicEvent);
+        OlympicEvent GetOlympicEventById(int olympicEventId);
+        IEnumerable<OlympicEvent> GetOlympicEvents(bool includeDeleted);
+        IEnumerable<OlympicEvent> GetRecentlyAddedOlympicEvents();
     }
 }

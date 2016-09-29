@@ -27,18 +27,18 @@ namespace OfficeOlympicsWeb.Controllers
 
         #region Olympic Events
         [HttpGet]
-        public async Task<ActionResult> EventManagement()
+        public ActionResult EventManagement()
         {
-            var events = await _eventService.GetOlympicEventsAsync(includeDeleted: true);
+            var events = _eventService.GetOlympicEvents(includeDeleted: true);
             var viewModel = EventViewModel.BuildList(events);
 
             return View(viewModel);
         }
 
         [HttpGet]
-        public async Task<ActionResult> AddEvent()
+        public ActionResult AddEvent()
         {
-            var eventTypes = await _eventTypeService.GetEventTypesAsync();
+            var eventTypes = _eventTypeService.GetEventTypes();
             var viewModel = EditEventViewModel.Build(eventTypes);
 
             ViewBag.EditType = "Add";
@@ -47,19 +47,19 @@ namespace OfficeOlympicsWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddEvent(EditEventViewModel viewModel)
+        public ActionResult AddEvent(EditEventViewModel viewModel)
         {
             var olympicEvent = viewModel.Map();
-            await _eventService.InsertOlympicEventAsync(olympicEvent);
+            _eventService.InsertOlympicEvent(olympicEvent);
 
             return RedirectToAction(nameof(EventManagement));
         }
 
         [HttpGet]
-        public async Task<ActionResult> EditEvent(int olympicEventId)
+        public ActionResult EditEvent(int olympicEventId)
         {
-            var olympicEvent = await _eventService.GetOlympicEventByIdAsync(olympicEventId);
-            var eventTypes = await _eventTypeService.GetEventTypesAsync();
+            var olympicEvent = _eventService.GetOlympicEventById(olympicEventId);
+            var eventTypes = _eventTypeService.GetEventTypes();
             var viewModel = EditEventViewModel.Build(olympicEvent, eventTypes);
 
             ViewBag.EditType = "Edit";
@@ -68,17 +68,17 @@ namespace OfficeOlympicsWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditEvent(EditEventViewModel viewModel, string submitButton)
+        public ActionResult EditEvent(EditEventViewModel viewModel, string submitButton)
         {
             var olympicEvent = viewModel.Map();
 
             switch (submitButton)
             {
                 case "Save":
-                    await _eventService.UpdateOlympicEventAsync(olympicEvent);
+                    _eventService.UpdateOlympicEvent(olympicEvent);
                     break;
                 case "Delete":
-                    await _eventService.DeleteOlympicEventAsync(olympicEvent);
+                    _eventService.DeleteOlympicEvent(olympicEvent);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(submitButton));
@@ -90,16 +90,16 @@ namespace OfficeOlympicsWeb.Controllers
 
         #region Competitors
         [HttpGet]
-        public async Task<ActionResult> CompetitorManagement()
+        public ActionResult CompetitorManagement()
         {
-            var competitors = await _competitorService.GetCompetitorsAsync(includeDeleted: true);
+            var competitors = _competitorService.GetCompetitors(includeDeleted: true);
             var viewModel = CompetitorViewModel.BuildList(competitors);
 
             return View(viewModel);
         }
 
         [HttpGet]
-        public async Task<ActionResult> AddCompetitor()
+        public ActionResult AddCompetitor()
         {
             var viewModel = new CompetitorViewModel();
 
@@ -109,18 +109,18 @@ namespace OfficeOlympicsWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddCompetitor(CompetitorViewModel viewModel)
+        public ActionResult AddCompetitor(CompetitorViewModel viewModel)
         {
             var competitor = viewModel.Map();
-            await _competitorService.InsertCompetitorAsync(competitor);
+            _competitorService.InsertCompetitor(competitor);
 
             return RedirectToAction(nameof(CompetitorManagement));
         }
 
         [HttpGet]
-        public async Task<ActionResult> EditCompetitor(int competitorId)
+        public ActionResult EditCompetitor(int competitorId)
         {
-            var competitor = await _competitorService.GetCompetitorByIdAsync(competitorId);
+            var competitor = _competitorService.GetCompetitorById(competitorId);
             var viewModel = CompetitorViewModel.Build(competitor);
 
             ViewBag.EditType = "Edit";
@@ -129,17 +129,17 @@ namespace OfficeOlympicsWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditCompetitor(CompetitorViewModel viewModel, string submitButton)
+        public ActionResult EditCompetitor(CompetitorViewModel viewModel, string submitButton)
         {
             var competitor = viewModel.Map();
 
             switch (submitButton)
             {
                 case "Save":
-                    await _competitorService.UpdateCompetitorAsync(competitor);
+                    _competitorService.UpdateCompetitor(competitor);
                     break;
                 case "Delete":
-                    await _competitorService.DeleteCompetitorAsync(competitor);
+                    _competitorService.DeleteCompetitor(competitor);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(submitButton));
@@ -150,9 +150,9 @@ namespace OfficeOlympicsWeb.Controllers
         #endregion
 
         [HttpGet]
-        public async Task<ActionResult> ErrorLog(int pageNumber)
+        public ActionResult ErrorLog(int pageNumber)
         {
-            var errorLog = await _errorLogger.GetErrorLogPageAsync(pageNumber);
+            var errorLog = _errorLogger.GetErrorLogPage(pageNumber);
 
             return View(errorLog);
         }

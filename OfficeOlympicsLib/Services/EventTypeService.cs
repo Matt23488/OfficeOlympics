@@ -10,15 +10,12 @@ namespace OfficeOlympicsLib.Services
 {
     public class EventTypeService : IEventTypeService
     {
-        public async Task<IEnumerable<EventType>> GetEventTypesAsync()
+        public IEnumerable<EventType> GetEventTypes()
         {
-            return await Task.Run(() =>
+            using (var context = new OfficeOlympicsDbEntities())
             {
-                using (var context = new OfficeOlympicsDbEntities())
-                {
-                    return context.EventTypes.ToList();
-                }
-            });
+                return context.EventTypes.ToList();
+            }
         }
     }
 }

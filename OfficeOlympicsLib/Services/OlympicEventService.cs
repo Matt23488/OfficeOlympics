@@ -21,25 +21,22 @@ namespace OfficeOlympicsLib.Services
             _iconPath = ConfigurationManager.AppSettings["IconSaveLocation"];
         }
 
-        public async Task InsertOlympicEventAsync(OlympicEvent olympicEvent)
+        public void InsertOlympicEvent(OlympicEvent olympicEvent)
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
                 Guid iconFileNameGuid = Guid.NewGuid();
                 olympicEvent.IconFileName = $"{iconFileNameGuid}{Path.GetExtension(olympicEvent.Icon.UploadedFileName)}";
 
-                await Task.Run(() =>
-                {
-                    File.WriteAllBytes(Path.Combine(_iconPath, olympicEvent.IconFileName), olympicEvent.Icon.Bytes);
-                });
+                File.WriteAllBytes(Path.Combine(_iconPath, olympicEvent.IconFileName), olympicEvent.Icon.Bytes);
 
                 context.OlympicEvents.Add(olympicEvent);
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        public async Task UpdateOlympicEventAsync(OlympicEvent olympicEvent)
+        public void UpdateOlympicEvent(OlympicEvent olympicEvent)
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
@@ -50,14 +47,11 @@ namespace OfficeOlympicsLib.Services
                     throw new InvalidOperationException($"Olympic Event '{olympicEvent.EventName}' doesn't exist.");
                 }
 
-                await Task.Run(() =>
-                {
-                    Func<string> generateIconPath = () => Path.Combine(_iconPath, existingEvent.IconFileName);
+                Func<string> generateIconPath = () => Path.Combine(_iconPath, existingEvent.IconFileName);
 
-                    File.Delete(generateIconPath());
-                    existingEvent.IconFileName = $"{Path.GetFileNameWithoutExtension(existingEvent.IconFileName)}{Path.GetExtension(olympicEvent.Icon.UploadedFileName)}";
-                    File.WriteAllBytes(generateIconPath(), olympicEvent.Icon.Bytes);
-                });
+                File.Delete(generateIconPath());
+                existingEvent.IconFileName = $"{Path.GetFileNameWithoutExtension(existingEvent.IconFileName)}{Path.GetExtension(olympicEvent.Icon.UploadedFileName)}";
+                File.WriteAllBytes(generateIconPath(), olympicEvent.Icon.Bytes);
 
                 existingEvent.EventName = olympicEvent.EventName;
                 existingEvent.EventTypeId = olympicEvent.EventTypeId;
@@ -65,11 +59,11 @@ namespace OfficeOlympicsLib.Services
                 existingEvent.Specification = olympicEvent.Specification;
                 existingEvent.IsActive = olympicEvent.IsActive;
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        public async Task DeleteOlympicEventAsync(OlympicEvent olympicEvent)
+        public void DeleteOlympicEvent(OlympicEvent olympicEvent)
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
@@ -82,53 +76,44 @@ namespace OfficeOlympicsLib.Services
 
                 existingEvent.IsActive = false;
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        public async Task<OlympicEvent> GetOlympicEventByIdAsync(int olympicEventId)
+        public OlympicEvent GetOlympicEventById(int olympicEventId)
         {
-            return await Task.Run(() =>
+            using (var context = new OfficeOlympicsDbEntities())
             {
-                using (var context = new OfficeOlympicsDbEntities())
-                {
-                    var olympicEvent = context.FullOlympicEvents().SingleOrDefault(obj => obj.Id == olympicEventId);
+                var olympicEvent = context.FullOlympicEvents().SingleOrDefault(obj => obj.Id == olympicEventId);
                     
-                    return olympicEvent;
-                }
-            });
+                return olympicEvent;
+            }
         }
 
-        public async Task<IEnumerable<OlympicEvent>> GetOlympicEventsAsync(bool includeDeleted)
+        public IEnumerable<OlympicEvent> GetOlympicEvents(bool includeDeleted)
         {
-            return await Task.Run(() =>
+            using (var context = new OfficeOlympicsDbEntities())
             {
-                using (var context = new OfficeOlympicsDbEntities())
-                {
-                    var olympicEvents = (from ev in context.FullOlympicEvents()
-                                         where ev.IsActive || includeDeleted
-                                         orderby ev.IsActive descending
-                                         select ev).ToList();
-                    
-                    return olympicEvents;
-                }
-            });
+                var olympicEvents = (from ev in context.FullOlympicEvents()
+                                     where ev.IsActive || includeDeleted
+                                     orderby ev.IsActive descending
+                                     select ev).ToList();
+
+                return olympicEvents;
+            }
         }
 
-        public async Task<IEnumerable<OlympicEvent>> GetRecentlyAddedOlympicEventsAsync()
+        public IEnumerable<OlympicEvent> GetRecentlyAddedOlympicEvents()
         {
-            return await Task.Run(() =>
+            using (var context = new OfficeOlympicsDbEntities())
             {
-                using (var context = new OfficeOlympicsDbEntities())
-                {
-                    var olympicEvents = (from ev in context.FullOlympicEvents()
-                                         where ev.IsActive
-                                         orderby ev.DateAdded descending
-                                         select ev).Take(5).ToList();
-                    
-                    return olympicEvents;
-                }
-            });
+                var olympicEvents = (from ev in context.FullOlympicEvents()
+                                     where ev.IsActive
+                                     orderby ev.DateAdded descending
+                                     select ev).Take(5).ToList();
+
+                return olympicEvents;
+            }
         }
     }
 }

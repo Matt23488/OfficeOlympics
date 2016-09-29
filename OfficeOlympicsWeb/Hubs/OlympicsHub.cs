@@ -22,7 +22,7 @@ namespace OfficeOlympicsWeb.Hubs
         
         public async Task RecordBroken(NewRecordViewModel newRecord)
         {
-            if (!await _recordService.ScoreBeatsCurrentRecord(newRecord.Event.EventId, newRecord.Record.Score.Score.Value, newRecord.Record.Competitor.CompetitorId)) return;
+            if (!_recordService.ScoreBeatsCurrentRecord(newRecord.Event.EventId, newRecord.Record.Score.Score.Value, newRecord.Record.Competitor.CompetitorId)) return;
 
             string scoreString = string.Empty;
 

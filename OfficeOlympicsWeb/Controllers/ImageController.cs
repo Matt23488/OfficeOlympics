@@ -12,7 +12,7 @@ namespace OfficeOlympicsWeb.Controllers
     public class ImageController : Controller
     {
         [HttpGet]
-        public async Task<ActionResult> GetIcon(string fileGuid)
+        public ActionResult GetIcon(string fileGuid)
         {
             var iconDirectory = new DirectoryInfo(ConfigurationManager.AppSettings["IconSaveLocation"]);
             string matchingIcon = iconDirectory.GetFiles().Single(obj => obj.Name.Contains(fileGuid)).FullName;

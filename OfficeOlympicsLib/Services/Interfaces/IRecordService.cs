@@ -9,9 +9,9 @@ namespace OfficeOlympicsLib.Services.Interfaces
 {
     public interface IRecordService
     {
-        Task<IEnumerable<Record>> GetRecentRecordsAsync();
-        Task<IEnumerable<Record>> GetRecordsByEventIdAsync(int eventId, bool onlyBestForCompetitors);
-        Task InsertRecordAsync(Record record);
-        Task<bool> ScoreBeatsCurrentRecord(int eventId, int score, int competitorId);
+        IEnumerable<Record> GetRecentRecords();
+        IEnumerable<Record> GetRecordsByEventId(int eventId, bool onlyBestForCompetitors);
+        void InsertRecord(Record record);
+        bool ScoreBeatsCurrentRecord(int eventId, int score, int competitorId);
     }
 }

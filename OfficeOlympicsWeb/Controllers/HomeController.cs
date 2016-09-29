@@ -25,81 +25,81 @@ namespace OfficeOlympicsWeb.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var recentEvents = await _eventService.GetRecentlyAddedOlympicEventsAsync();
-            var recentRecords = await _recordService.GetRecentRecordsAsync();
-            var recentCompetitors = await _competitorService.GetRecentlyAddedCompetitorsAsync();
+            var recentEvents = _eventService.GetRecentlyAddedOlympicEvents();
+            var recentRecords = _recordService.GetRecentRecords();
+            var recentCompetitors = _competitorService.GetRecentlyAddedCompetitors();
             var viewModel = HomeViewModel.Build(recentEvents, recentRecords, recentCompetitors);
 
             return View(viewModel);
         }
 
         [HttpGet]
-        public async Task<ActionResult> Records(int? olympicEventId)
+        public ActionResult Records(int? olympicEventId)
         {
             if (!olympicEventId.HasValue)
             {
-                return await ChooseAnEvent();
+                return ChooseAnEvent();
             }
 
-            var olympicEvent = await _eventService.GetOlympicEventByIdAsync(olympicEventId.Value);
-            var records = await _recordService.GetRecordsByEventIdAsync(olympicEventId.Value, onlyBestForCompetitors: true);
+            var olympicEvent = _eventService.GetOlympicEventById(olympicEventId.Value);
+            var records = _recordService.GetRecordsByEventId(olympicEventId.Value, onlyBestForCompetitors: true);
             var viewModel = RecordListViewModel.Build(records, olympicEvent);
 
             return View(viewModel);
         }
 
         [HttpGet]
-        public async Task<ActionResult> NewRecord(int olympicEventId)
+        public ActionResult NewRecord(int olympicEventId)
         {
-            var olympicEvent = await _eventService.GetOlympicEventByIdAsync(olympicEventId);
-            var competitors = await _competitorService.GetCompetitorsAsync(includeDeleted: false);
+            var olympicEvent = _eventService.GetOlympicEventById(olympicEventId);
+            var competitors = _competitorService.GetCompetitors(includeDeleted: false);
             var viewModel = NewRecordViewModel.Build(olympicEvent, competitors);
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<ActionResult> NewRecord(NewRecordViewModel viewModel)
+        public ActionResult NewRecord(NewRecordViewModel viewModel)
         {
             var record = viewModel.Map();
-            await _recordService.InsertRecordAsync(record);
+            _recordService.InsertRecord(record);
 
             return RedirectToAction(nameof(Records), new { olympicEventId = viewModel.Event.EventId });
         }
 
         [HttpGet]
-        public async Task<ActionResult> RecentRecords()
+        public ActionResult RecentRecords()
         {
-            var recentRecords = await _recordService.GetRecentRecordsAsync();
+            var recentRecords = _recordService.GetRecentRecords();
             var viewModel = RecordViewModel.BuildList(recentRecords);
 
             return PartialView("RecordListPartial", viewModel);
         }
 
         [HttpGet]
-        public async Task<ActionResult> RecentEvents()
+        public ActionResult RecentEvents()
         {
-            var recentEvents = await _eventService.GetRecentlyAddedOlympicEventsAsync();
+            var recentEvents = _eventService.GetRecentlyAddedOlympicEvents();
             var viewModel = EventViewModel.BuildList(recentEvents);
 
             return PartialView("EventListPartial", viewModel);
         }
 
         [HttpGet]
-        public async Task<ActionResult> RecentCompetitors()
+        public ActionResult RecentCompetitors()
         {
-            var recentCompetitors = await _competitorService.GetRecentlyAddedCompetitorsAsync();
+            var recentCompetitors = _competitorService.GetRecentlyAddedCompetitors();
             var viewModel = CompetitorViewModel.BuildList(recentCompetitors);
 
             return PartialView("CompetitorListPartial", viewModel);
         }
 
         [NonAction]
-        public async Task<ActionResult> ChooseAnEvent()
+        public ActionResult ChooseAnEvent()
         {
-            var events = await _eventService.GetOlympicEventsAsync(includeDeleted: false);
+            var events = _eventService.GetOlympicEvents(includeDeleted: false);
             var viewModelList = EventViewModel.BuildList(events);
 
             return View("EventSelection", viewModelList);

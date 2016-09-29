@@ -10,17 +10,17 @@ namespace OfficeOlympicsLib.Services
 {
     public class CompetitorService : ICompetitorService
     {
-        public async Task InsertCompetitorAsync(Competitor competitor)
+        public void InsertCompetitor(Competitor competitor)
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
                 context.Competitors.Add(competitor);
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        public async Task UpdateCompetitorAsync(Competitor competitor)
+        public void UpdateCompetitor(Competitor competitor)
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
@@ -35,11 +35,11 @@ namespace OfficeOlympicsLib.Services
                 existingCompetitor.LastName = competitor.LastName;
                 existingCompetitor.IsActive = competitor.IsActive;
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        public async Task DeleteCompetitorAsync(Competitor competitor)
+        public void DeleteCompetitor(Competitor competitor)
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
@@ -52,48 +52,39 @@ namespace OfficeOlympicsLib.Services
 
                 existingCompetitor.IsActive = false;
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        public async Task<Competitor> GetCompetitorByIdAsync(int competitorId)
+        public Competitor GetCompetitorById(int competitorId)
         {
-            return await Task.Run(() =>
+            using (var context = new OfficeOlympicsDbEntities())
             {
-                using (var context = new OfficeOlympicsDbEntities())
-                {
-                    return context.Competitors.SingleOrDefault(obj => obj.Id == competitorId);
-                }
-            });
+                return context.Competitors.SingleOrDefault(obj => obj.Id == competitorId);
+            }
         }
 
-        public async Task<IEnumerable<Competitor>> GetCompetitorsAsync(bool includeDeleted)
+        public IEnumerable<Competitor> GetCompetitors(bool includeDeleted)
         {
-            return await Task.Run(() =>
+            using (var context = new OfficeOlympicsDbEntities())
             {
-                using (var context = new OfficeOlympicsDbEntities())
-                {
-                    return (from competitor in context.Competitors
-                            where competitor.IsActive || includeDeleted
-                            orderby competitor.IsActive descending,
-                                    competitor.LastName
-                            select competitor).ToList();
-                }
-            });
+                return (from competitor in context.Competitors
+                        where competitor.IsActive || includeDeleted
+                        orderby competitor.IsActive descending,
+                                competitor.LastName
+                        select competitor).ToList();
+            }
         }
 
-        public async Task<IEnumerable<Competitor>> GetRecentlyAddedCompetitorsAsync()
+        public IEnumerable<Competitor> GetRecentlyAddedCompetitors()
         {
-            return await Task.Run(() =>
+            using (var context = new OfficeOlympicsDbEntities())
             {
-                using (var context = new OfficeOlympicsDbEntities())
-                {
-                    return (from competitor in context.Competitors
-                            where competitor.IsActive
-                            orderby competitor.Id descending
-                            select competitor).Take(5).ToList();
-                }
-            });
+                return (from competitor in context.Competitors
+                        where competitor.IsActive
+                        orderby competitor.Id descending
+                        select competitor).Take(5).ToList();
+            }
         }
     }
 }

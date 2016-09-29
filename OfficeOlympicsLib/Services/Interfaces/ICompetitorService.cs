@@ -9,11 +9,11 @@ namespace OfficeOlympicsLib.Services.Interfaces
 {
     public interface ICompetitorService
     {
-        Task InsertCompetitorAsync(Competitor competitor);
-        Task UpdateCompetitorAsync(Competitor competitor);
-        Task DeleteCompetitorAsync(Competitor competitor);
-        Task<Competitor> GetCompetitorByIdAsync(int competitorId);
-        Task<IEnumerable<Competitor>> GetCompetitorsAsync(bool includeDeleted);
-        Task<IEnumerable<Competitor>> GetRecentlyAddedCompetitorsAsync();
+        void InsertCompetitor(Competitor competitor);
+        void UpdateCompetitor(Competitor competitor);
+        void DeleteCompetitor(Competitor competitor);
+        Competitor GetCompetitorById(int competitorId);
+        IEnumerable<Competitor> GetCompetitors(bool includeDeleted);
+        IEnumerable<Competitor> GetRecentlyAddedCompetitors();
     }
 }

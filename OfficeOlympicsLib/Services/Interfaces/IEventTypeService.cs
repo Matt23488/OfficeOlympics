@@ -9,6 +9,6 @@ namespace OfficeOlympicsLib.Services.Interfaces
 {
     public interface IEventTypeService
     {
-        Task<IEnumerable<EventType>> GetEventTypesAsync();
+        IEnumerable<EventType> GetEventTypes();
     }
 }

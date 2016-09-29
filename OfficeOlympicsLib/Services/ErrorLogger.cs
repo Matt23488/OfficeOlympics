@@ -18,23 +18,23 @@ namespace OfficeOlympicsLib.Services
             _pageSize = int.Parse(ConfigurationManager.AppSettings["ErrorLogPageSize"]);
         }
 
-        public async Task LogErrorAsync(Exception ex)
+        public void LogError(Exception ex)
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
-                await LogErrorRecursiveAsync(context, ex);
-                await context.SaveChangesAsync();
+                LogErrorRecursive(context, ex);
+                context.SaveChanges();
             }
         }
 
-        public async Task<ErrorLog> GetErrorLogPageAsync(int pageNumber)
+        public ErrorLog GetErrorLogPage(int pageNumber)
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
                 var errorLog = new ErrorLog();
 
                 errorLog.CurrentPage = pageNumber;
-                errorLog.TotalPages = await GetPageCount(context);
+                errorLog.TotalPages = GetPageCount(context);
                 errorLog.Errors = context.Errors
                     .OrderByDescending(error => error.Id)
                     .Skip((pageNumber - 1) * _pageSize)
@@ -44,7 +44,7 @@ namespace OfficeOlympicsLib.Services
             }
         }
 
-        private async Task LogErrorRecursiveAsync(OfficeOlympicsDbEntities context, Exception ex)
+        private void LogErrorRecursive(OfficeOlympicsDbEntities context, Exception ex)
         {
             var error = new Error();
 
@@ -59,21 +59,18 @@ namespace OfficeOlympicsLib.Services
 
             if (ex.InnerException != null)
             {
-                await LogErrorRecursiveAsync(context, ex.InnerException);
+                LogErrorRecursive(context, ex.InnerException);
             }
         }
 
-        private async Task<int> GetPageCount(OfficeOlympicsDbEntities context)
+        private int GetPageCount(OfficeOlympicsDbEntities context)
         {
-            return await Task.Run(() =>
-            {
-                int totalErrors = context.Errors.Count();
+            int totalErrors = context.Errors.Count();
 
-                return
-                    totalErrors % _pageSize == 0 ?
-                    totalErrors / _pageSize :
-                    totalErrors / _pageSize + 1;
-            });
+            return
+                totalErrors % _pageSize == 0 ?
+                totalErrors / _pageSize :
+                totalErrors / _pageSize + 1;
         }
     }
 }

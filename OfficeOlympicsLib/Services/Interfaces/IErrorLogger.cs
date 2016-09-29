@@ -9,7 +9,7 @@ namespace OfficeOlympicsLib.Services.Interfaces
 {
     public interface IErrorLogger
     {
-        Task LogErrorAsync(Exception ex);
-        Task<ErrorLog> GetErrorLogPageAsync(int pageNumber);
+        void LogError(Exception ex);
+        ErrorLog GetErrorLogPage(int pageNumber);
     }
 }

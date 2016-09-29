@@ -29,7 +29,7 @@ namespace OfficeOlympicsWeb
             {
                 foreach (var error in HttpContext.Current.AllErrors)
                 {
-                    errorLog.LogErrorAsync(error);
+                    errorLog.LogError(error);
                 }
             }
         }
