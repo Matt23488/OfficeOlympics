@@ -43,7 +43,7 @@ namespace OfficeOlympicsLib.Services
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
-                var existingEvent = context.OlympicEvents.AsParallel().SingleOrDefault(obj => obj.Id == olympicEvent.Id);
+                var existingEvent = context.OlympicEvents.SingleOrDefault(obj => obj.Id == olympicEvent.Id);
 
                 if (existingEvent == null)
                 {
@@ -73,7 +73,7 @@ namespace OfficeOlympicsLib.Services
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
-                var existingEvent = context.OlympicEvents.AsParallel().SingleOrDefault(obj => obj.Id == olympicEvent.Id);
+                var existingEvent = context.OlympicEvents.SingleOrDefault(obj => obj.Id == olympicEvent.Id);
 
                 if (existingEvent == null)
                 {

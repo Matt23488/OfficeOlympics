@@ -31,18 +31,25 @@ namespace OfficeOlympicsLib.Services
             });
         }
 
-        public async Task<IEnumerable<Record>> GetRecordsByEventIdAsync(int eventId)
+        public async Task<IEnumerable<Record>> GetRecordsByEventIdAsync(int eventId, bool onlyBestForCompetitors)
         {
             return await Task.Run(() =>
             {
                 using (var context = new OfficeOlympicsDbEntities())
                 {
-                    return (from record in context.FullRecords()
-                            where record.OlympicEventId == eventId
-                                && record.OlympicEvent.IsActive
-                                && record.Competitor.IsActive
-                            orderby record.Score descending
-                            select record).ToList();
+                    IEnumerable<Record> records = (from record in context.FullRecords()
+                                                   where record.OlympicEventId == eventId
+                                                       && record.OlympicEvent.IsActive
+                                                       && record.Competitor.IsActive
+                                                   orderby record.Score descending
+                                                   select record).ToList();
+
+                    if (onlyBestForCompetitors)
+                    {
+                        records = records.UniqueConstraint(obj => obj.CompetitorId);
+                    }
+
+                    return records;
                 }
             });
         }
@@ -63,7 +70,7 @@ namespace OfficeOlympicsLib.Services
             {
                 using (var context = new OfficeOlympicsDbEntities())
                 {
-                    var bestRecord = (from r in context.Records.AsParallel()
+                    var bestRecord = (from r in context.Records
                                       where r.OlympicEventId == eventId
                                         && r.OlympicEvent.IsActive
                                         && r.Competitor.IsActive

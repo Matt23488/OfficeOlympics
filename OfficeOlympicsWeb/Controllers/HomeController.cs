@@ -44,7 +44,7 @@ namespace OfficeOlympicsWeb.Controllers
             }
 
             var olympicEvent = await _eventService.GetOlympicEventByIdAsync(olympicEventId.Value);
-            var records = await _recordService.GetRecordsByEventIdAsync(olympicEventId.Value);
+            var records = await _recordService.GetRecordsByEventIdAsync(olympicEventId.Value, onlyBestForCompetitors: true);
             var viewModel = RecordListViewModel.Build(records, olympicEvent);
 
             return View(viewModel);

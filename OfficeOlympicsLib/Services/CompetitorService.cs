@@ -24,7 +24,7 @@ namespace OfficeOlympicsLib.Services
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
-                var existingCompetitor = context.Competitors.AsParallel().SingleOrDefault(obj => obj.Id == competitor.Id);
+                var existingCompetitor = context.Competitors.SingleOrDefault(obj => obj.Id == competitor.Id);
 
                 if (existingCompetitor == null)
                 {
@@ -43,7 +43,7 @@ namespace OfficeOlympicsLib.Services
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
-                var existingCompetitor = context.Competitors.AsParallel().SingleOrDefault(obj => obj.Id == competitor.Id);
+                var existingCompetitor = context.Competitors.SingleOrDefault(obj => obj.Id == competitor.Id);
 
                 if (existingCompetitor == null)
                 {
@@ -62,7 +62,7 @@ namespace OfficeOlympicsLib.Services
             {
                 using (var context = new OfficeOlympicsDbEntities())
                 {
-                    return context.Competitors.AsParallel().SingleOrDefault(obj => obj.Id == competitorId);
+                    return context.Competitors.SingleOrDefault(obj => obj.Id == competitorId);
                 }
             });
         }
@@ -73,11 +73,11 @@ namespace OfficeOlympicsLib.Services
             {
                 using (var context = new OfficeOlympicsDbEntities())
                 {
-                    return context.Competitors
-                    .AsParallel()
-                    .Where(obj => obj.IsActive || includeDeleted)
-                    .OrderByDescending(obj => obj.IsActive)
-                    .ToList();
+                    return (from competitor in context.Competitors
+                            where competitor.IsActive || includeDeleted
+                            orderby competitor.IsActive descending,
+                                    competitor.LastName
+                            select competitor).ToList();
                 }
             });
         }
@@ -88,7 +88,7 @@ namespace OfficeOlympicsLib.Services
             {
                 using (var context = new OfficeOlympicsDbEntities())
                 {
-                    return (from competitor in context.Competitors.AsParallel()
+                    return (from competitor in context.Competitors
                             where competitor.IsActive
                             orderby competitor.Id descending
                             select competitor).Take(5).ToList();

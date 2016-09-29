@@ -16,7 +16,7 @@ namespace OfficeOlympicsLib.Services
             {
                 using (var context = new OfficeOlympicsDbEntities())
                 {
-                    return context.EventTypes.AsParallel().ToList();
+                    return context.EventTypes.ToList();
                 }
             });
         }

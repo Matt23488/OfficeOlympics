@@ -35,7 +35,7 @@ namespace OfficeOlympicsLib.Services
 
                 errorLog.CurrentPage = pageNumber;
                 errorLog.TotalPages = await GetPageCount(context);
-                errorLog.Errors = context.Errors.AsParallel()
+                errorLog.Errors = context.Errors
                     .OrderByDescending(error => error.Id)
                     .Skip((pageNumber - 1) * _pageSize)
                     .Take(_pageSize).ToList();
@@ -67,7 +67,7 @@ namespace OfficeOlympicsLib.Services
         {
             return await Task.Run(() =>
             {
-                int totalErrors = context.Errors.AsParallel().Count();
+                int totalErrors = context.Errors.Count();
 
                 return
                     totalErrors % _pageSize == 0 ?

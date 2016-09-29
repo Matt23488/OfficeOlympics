@@ -53,3 +53,7 @@ textarea {
     width: 32px;
     height: 32px;
 }
+
+.separator {
+    height: 5px;
+}

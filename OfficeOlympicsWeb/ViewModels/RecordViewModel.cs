@@ -15,7 +15,7 @@ namespace OfficeOlympicsWeb.ViewModels
         public CompetitorViewModel Competitor { get; set; }
 
         [DisplayName("Event")]
-        public string Event { get; set; }
+        public EventViewModel Event { get; set; }
 
         [DisplayName("Record (in seconds/reps)")]
         public ScoreViewModel Score { get; set; }
@@ -45,7 +45,7 @@ namespace OfficeOlympicsWeb.ViewModels
 
             viewModel.RecordId = record.Id;
             viewModel.Competitor = CompetitorViewModel.Build(record.Competitor);
-            viewModel.Event = record.OlympicEvent.EventName;
+            viewModel.Event = EventViewModel.Build(record.OlympicEvent);
             viewModel.Score = ScoreViewModel.Build(record.Score, record.OlympicEvent.EventTypeId);
             viewModel.DateAchieved = record.DateAchieved;
             viewModel.Witness1 = CompetitorViewModel.Build(witnessList[0]);

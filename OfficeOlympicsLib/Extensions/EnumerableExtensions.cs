@@ -12,5 +12,19 @@ namespace OfficeOlympicsLib.Extensions
         {
             return source.OrderByDescending(selector).FirstOrDefault();
         }
+
+        public static IEnumerable<T> UniqueConstraint<T, TProp>(this IEnumerable<T> source, Func<T, TProp> selector)
+        {
+            var cache = new List<TProp>();
+
+            foreach (var item in source)
+            {
+                var uniqueValue = selector(item);
+                if (cache.Contains(uniqueValue)) continue;
+
+                cache.Add(uniqueValue);
+                yield return item;
+            }
+        }
     }
 }
