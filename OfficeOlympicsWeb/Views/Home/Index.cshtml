@@ -9,22 +9,29 @@
     <p class="lead">Office Olympics&trade; is a registered trademark&trade; brand&trade;, any unauthorized use&trade; is punishable by the full exent of the lol&reg;</p>
 </div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" style="padding: 0px 20px 0px 20px;">
         <h2>@Html.DisplayNameFor(model => model.NewEvents)</h2>
         <div id="recentEventListContainer">
             @Html.Partial("EventListPartial", Model.NewEvents)
         </div>
         @*<div><a class="btn btn-default" href="@Url.Action("Events")">All Events &raquo;</a></div>*@
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" style="padding: 0px 20px 0px 20px;">
         <h2>@Html.DisplayNameFor(model => model.NewRecords)</h2>
         <div id="recentRecordListContainer">
             @Html.Partial("RecordListPartial", Model.NewRecords)
         </div>
         <div class="separator"></div>
-        <div><a class="btn btn-default" href="@Url.Action("Records")">All Records &raquo;</a></div>
+        <div class="row">
+            <a class="btn btn-default btn-details col-xs-12" href="@Url.Action("Records")">
+                <div class="row">
+                    <div class="col-xs-10">All Records</div>
+                    <div class="col-xs-2 text-right">&raquo;</div>
+                </div>
+            </a>
+        </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" style="padding: 0px 20px 0px 20px;">
         <h2>@Html.DisplayNameFor(model => model.NewCompetitors)</h2>
         <div id="recentCompetitorListContainer">
             @Html.Partial("CompetitorListPartial", Model.NewCompetitors)

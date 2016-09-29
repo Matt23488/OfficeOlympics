@@ -93,19 +93,4 @@
     $(":file").on("fileselect", function (event, numFiles, label) {
         $(this).parents(".file-upload").children(".file-name").text(label);
     });
-
-    // Styling
-    (function () {
-        $(".btn-details").parents(".container").unique().each(function () {
-            var maxWidth = 0;
-            $(".btn-details", this).each(function () {
-                var currentWidth = $(this).width();
-
-                if (currentWidth > maxWidth) maxWidth = currentWidth;
-            });
-            $(".btn-details", this).each(function () {
-                $(this).width(maxWidth);
-            });
-        });
-    })();
 });

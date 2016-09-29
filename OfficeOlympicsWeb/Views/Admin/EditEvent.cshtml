@@ -9,44 +9,52 @@
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = $"{ViewBag.EditType}EventForm", enctype = "multipart/form-data" }))
 {
-    @Html.HiddenFor(model => model.Event.EventId)
-    <div class="form-group">
-        @Html.LabelFor(model => model.Event.EventName)
-        @Html.TextBoxFor(model => model.Event.EventName, new { @class = "form-control", autocomplete = "off" })
-        @Html.ValidationMessageFor(model => model.Event.EventName)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.EventIcon)
-        <br />
-        @Html.FileUploadFor(model => model.EventIcon, accept: "image/png")
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Event.EventTypeId)
-        @Html.DropDownListFor(model => model.Event.EventTypeId, Model.EventTypeSelectList, "-- Select an Event Type --", new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Event.EventTypeId)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Event.Description)
-        @Html.TextAreaFor(model => model.Event.Description, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Event.Description)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Event.Specification)
-        @Html.TextAreaFor(model => model.Event.Specification, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Event.Specification)
-    </div>
-    <div class="checkbox">
-        <label>
-            @Html.CheckBoxFor(model => model.Event.IsActive)
-            @Html.DisplayNameFor(model => model.Event.IsActive)
-        </label>
-    </div>
-    <div class="btn-group">
-        <input type="submit" name="submitButton" value="Save" class="btn btn-success" />
-        @if (Model.Event.EventId > 0)
-        {
-            <input type="submit" name="submitButton" value="Delete" class="btn btn-danger" />
-        }
-        <a href="@Url.Action("EventManagement")" class="btn btn-default">Cancel</a>
+    <div class="container">
+        <div class="row">
+            @Html.HiddenFor(model => model.Event.EventId)
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.Event.EventName)
+                @Html.TextBoxFor(model => model.Event.EventName, new { @class = "form-control", autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Event.EventName)
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.Event.EventTypeId)
+                @Html.DropDownListFor(model => model.Event.EventTypeId, Model.EventTypeSelectList, "-- Select an Event Type --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Event.EventTypeId)
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.EventIcon)
+                <br />
+                @Html.FileUploadFor(model => model.EventIcon, accept: "image/png")
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Event.Description)
+                @Html.TextAreaFor(model => model.Event.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Event.Description)
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Event.Specification)
+                @Html.TextAreaFor(model => model.Event.Specification, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Event.Specification)
+            </div>
+        </div>
+        <div class="row">
+            <div class="checkbox col-xs-12">
+                <label>
+                    @Html.CheckBoxFor(model => model.Event.IsActive)
+                    @Html.DisplayNameFor(model => model.Event.IsActive)
+                </label>
+            </div>
+        </div>
+        <div class="btn-group">
+            <input type="submit" name="submitButton" value="Save" class="btn btn-success" />
+            @if (Model.Event.EventId > 0)
+            {
+                <input type="submit" name="submitButton" value="Delete" class="btn btn-danger" />
+            }
+            <a href="@Url.Action("EventManagement")" class="btn btn-default">Cancel</a>
+        </div>
     </div>
 }

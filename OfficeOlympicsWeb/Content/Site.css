@@ -75,3 +75,16 @@ textarea {
 .list-group-item-hover.bg-danger:hover {
     background-color: #f0cccc;
 }
+
+textarea.form-control {
+    min-width: 100%;
+    min-height: 10em;
+}
+
+.btn-details {
+    text-align: left;
+}
+
+.btn-details .row{
+    line-height: 2em;
+}
