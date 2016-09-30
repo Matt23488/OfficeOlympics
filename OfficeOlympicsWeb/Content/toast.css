@@ -10,6 +10,8 @@
     display: none;
     padding: 10px;
     color: white;
+    z-index: 10000;
+    line-height: 2em;
 }
 
 div.toast-success {
@@ -33,7 +35,6 @@ div.toast-danger {
 }
 
 span.close-icon {
-    float: right;
     cursor: pointer;
 }
 

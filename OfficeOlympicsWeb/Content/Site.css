@@ -81,14 +81,6 @@ textarea.form-control {
     min-height: 10em;
 }
 
-.btn-details {
-    text-align: left;
-}
-
-.btn-details .row{
-    line-height: 2em;
-}
-
 .jumbotron img.logo {
     max-width: 250px;
 }
@@ -107,4 +99,68 @@ textarea.form-control {
     .jumbotron img.logo {
         max-width: 500px;
     }
+}
+
+.col-btn {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.non-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: default;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.non-btn-default {
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+.non-btn-primary {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+
+.non-btn-success {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+.non-btn-info {
+  color: #fff;
+  background-color: #5bc0de;
+  border-color: #46b8da;
+}
+
+.non-btn-warning {
+  color: #fff;
+  background-color: #f0ad4e;
+  border-color: #eea236;
+}
+
+.non-btn-danger {
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+
+.btn-details, .non-btn-details {
+    text-align: left;
+}
+
+.btn-details .row, .non-btn-details .row {
+    line-height: 2.8em;
 }

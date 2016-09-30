@@ -6,10 +6,6 @@
         var eventId = $(".hidden-event-id", this).val();
         window.location.href = "/Admin/EditEvent/" + eventId;
     });
-    $(".competitor-item").on("click", function () {
-        var competitorId = $(".hidden-competitor-id", this).val();
-        window.location.href = "/Admin/EditCompetitor/" + competitorId;
-    });
     $("#AddEventForm").on("submit", function () {
         olympicsHub.server.newEvent($("#Event_EventName").val());
 

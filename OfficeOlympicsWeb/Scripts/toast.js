@@ -31,6 +31,13 @@
         $toast.fadeOut(500);
     });
 
+    if ($(window).width() < 992) {
+        $toast.on("click", function () {
+            resetState();
+            $toast.fadeOut(500);
+        });
+    }
+
     function createFadeTimeout(timeout) {
         fadeHandle = window.setTimeout(function () {
             $toast.fadeOut(2000, function () {
@@ -46,4 +53,18 @@
         $toast.off("mouseover");
         $toast.off("mouseout");
     }
+
+    $(window).resize(function () {
+        var newWidth = $(window).width();
+
+        if (newWidth < 992) {
+            $toast.on("click", function () {
+                resetState();
+                $toast.fadeOut(500);
+            });
+        }
+        else {
+            $toast.off("click");
+        }
+    });
 });

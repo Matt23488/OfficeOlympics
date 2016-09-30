@@ -1,4 +1,5 @@
 ﻿using OfficeOlympicsLib.Models;
+using OfficeOlympicsWeb.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -85,7 +86,7 @@ namespace OfficeOlympicsWeb.ViewModels
             var olympicEvent = new OlympicEvent();
 
             olympicEvent.Id = EventId;
-            olympicEvent.EventName = EventName.Trim();
+            olympicEvent.EventName = EventName.AsProperNoun();
             olympicEvent.EventTypeId = EventTypeId;
             olympicEvent.Description = Description?.Trim() ?? string.Empty;
             olympicEvent.Specification = Specification?.Trim() ?? string.Empty;

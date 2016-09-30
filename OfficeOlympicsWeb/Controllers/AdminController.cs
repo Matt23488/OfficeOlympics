@@ -93,7 +93,7 @@ namespace OfficeOlympicsWeb.Controllers
         public ActionResult CompetitorManagement()
         {
             var competitors = _competitorService.GetCompetitors(includeDeleted: true);
-            var viewModel = CompetitorViewModel.BuildList(competitors);
+            var viewModel = CompetitorListViewModel.Build(competitors);
 
             return View(viewModel);
         }

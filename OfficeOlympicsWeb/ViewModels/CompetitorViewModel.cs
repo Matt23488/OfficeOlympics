@@ -1,4 +1,5 @@
 ﻿using OfficeOlympicsLib.Models;
+using OfficeOlympicsWeb.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -70,8 +71,8 @@ namespace OfficeOlympicsWeb.ViewModels
             var competitor = new Competitor();
 
             competitor.Id = CompetitorId;
-            competitor.FirstName = FirstName.Trim();
-            competitor.LastName = LastName.Trim();
+            competitor.FirstName = FirstName.AsProperNoun();
+            competitor.LastName = LastName.AsProperNoun();
             competitor.IsActive = IsActive;
 
             return competitor;

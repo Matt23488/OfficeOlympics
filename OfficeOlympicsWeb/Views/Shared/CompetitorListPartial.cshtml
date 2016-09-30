@@ -2,18 +2,31 @@
 
 @if (Model.Any())
 {
-    <table class="table">
-        <tbody>
-            @for (int i = 0; i < Model.Count; i++)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(model => model[i].FullName)</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    for (int i = 0; i < Model.Count; i++)
+    {
+        <div class="row">
+            <a href="#" class="btn btn-default btn-details col-xs-12" onclick="window.toastMessage.showMessage('Coming soon!','info')">
+                <div class="row">
+                    <div class="col-xs-10">
+                        @Html.DisplayFor(model => model[i].FullName)
+                    </div>
+                    <div class="col-xs-2 text-right">&raquo;</div>
+                </div>
+            </a>
+        </div>
+        <div class="separator"></div>
+    }
 }
 else
 {
-    <em>No competitors to show.</em>
+    <div class="row">
+        <div class="non-btn non-btn-default non-btn-details col-xs-12">
+            <div class="row">
+                <div class="col-xs-12">
+                    No competitors to show.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="separator"></div>
 }

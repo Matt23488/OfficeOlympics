@@ -4,7 +4,11 @@
     ViewBag.Title = $"Records - {Model.Event.EventName}";
 }
 
-<h2>Records - @Html.DisplayFor(model => model.Event.EventName)</h2>
+<h2>
+    @Html.IconFor(model => model.Event.IconFileName)
+    @Html.DisplayFor(model => model.Event.EventName)
+    Records
+</h2>
 
 <div class="container">
     <div class="btn-group">
