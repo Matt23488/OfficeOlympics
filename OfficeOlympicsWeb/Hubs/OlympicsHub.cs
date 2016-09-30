@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using OfficeOlympicsLib.Services.Interfaces;
 using OfficeOlympicsLib.Models.Constants;
 using OfficeOlympicsWeb.Helpers;
+using OfficeOlympicsWeb.Extensions;
 
 namespace OfficeOlympicsWeb.Hubs
 {
@@ -74,7 +75,7 @@ namespace OfficeOlympicsWeb.Hubs
 
         public async Task NewCompetitor(string competitorName)
         {
-            Clients.Others.displayMessage($"Everyone welcome {competitorName} into the fray!", "info");
+            Clients.Others.displayMessage($"Everyone welcome {competitorName.AsFullName()} into the fray!", "info");
 
             await Task.Delay(2000);
             Clients.Others.refreshCompetitors();
