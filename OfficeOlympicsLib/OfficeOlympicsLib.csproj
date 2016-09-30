@@ -101,6 +101,9 @@
     </Compile>
     <Compile Include="Models\Partials\Competitor.cs" />
     <Compile Include="Models\Partials\OlympicEvent.cs" />
+    <Compile Include="Models\Quote.cs">
+      <DependentUpon>OfficeOlympicsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Record.cs">
       <DependentUpon>OfficeOlympicsModel.tt</DependentUpon>
     </Compile>
@@ -114,9 +117,11 @@
     <Compile Include="Services\Interfaces\IErrorLogger.cs" />
     <Compile Include="Services\Interfaces\IOlympicEventService.cs" />
     <Compile Include="Services\Interfaces\IEventTypeService.cs" />
+    <Compile Include="Services\Interfaces\IQuoteService.cs" />
     <Compile Include="Services\Interfaces\IRecordService.cs" />
     <Compile Include="Services\OlympicEventService.cs" />
     <Compile Include="Services\EventTypeService.cs" />
+    <Compile Include="Services\QuoteService.cs" />
     <Compile Include="Services\RecordService.cs" />
   </ItemGroup>
   <ItemGroup>

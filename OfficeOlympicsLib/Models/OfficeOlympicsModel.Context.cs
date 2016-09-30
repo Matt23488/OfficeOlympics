@@ -31,5 +31,6 @@ namespace OfficeOlympicsLib.Models
         public virtual DbSet<Error> Errors { get; set; }
         public virtual DbSet<Competitor> Competitors { get; set; }
         public virtual DbSet<Witness> Witnesses { get; set; }
+        public virtual DbSet<Quote> Quotes { get; set; }
     }
 }

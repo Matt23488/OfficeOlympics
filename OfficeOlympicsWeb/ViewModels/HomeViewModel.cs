@@ -18,13 +18,16 @@ namespace OfficeOlympicsWeb.ViewModels
         [DisplayName("New Competitors")]
         public List<CompetitorViewModel> NewCompetitors { get; set; }
 
-        public static HomeViewModel Build(IEnumerable<OlympicEvent> newEvents, IEnumerable<Record> newRecords, IEnumerable<Competitor> newCompetitors)
+        public QuoteViewModel Quote { get; set; }
+
+        public static HomeViewModel Build(IEnumerable<OlympicEvent> newEvents, IEnumerable<Record> newRecords, IEnumerable<Competitor> newCompetitors, Quote quote)
         {
             var viewModel = new HomeViewModel();
 
             viewModel.NewEvents = EventViewModel.BuildList(newEvents);
             viewModel.NewRecords = RecordViewModel.BuildList(newRecords);
             viewModel.NewCompetitors = CompetitorViewModel.BuildList(newCompetitors);
+            viewModel.Quote = QuoteViewModel.Build(quote);
 
             return viewModel;
         }

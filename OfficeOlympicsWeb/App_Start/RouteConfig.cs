@@ -50,6 +50,12 @@ namespace OfficeOlympicsWeb
             );
 
             routes.MapRoute(
+                name: "ImageIndex",
+                url: "Image/{imageName}",
+                defaults: new { controller = "Image", action = "Index" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OfficeOlympicsWeb.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -11,7 +12,7 @@ using System.Web.Mvc.Html;
 
 namespace OfficeOlympicsWeb.Helpers
 {
-    public static class FileHelper
+    public static class CustomHtmlHelper
     {
         public static IHtmlString FileUpload(this HtmlHelper html, string name, string accept = "")
         {

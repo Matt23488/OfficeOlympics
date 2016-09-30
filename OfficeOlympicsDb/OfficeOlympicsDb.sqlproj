@@ -65,6 +65,7 @@
     <Folder Include="Scripts\Post-deployment" />
     <Folder Include="Scripts\Post-deployment\old" />
     <Folder Include="Scripts\Useful-Non-Build" />
+    <Folder Include="Scripts\Post-deployment\Current" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\EventType.sql" />
@@ -77,11 +78,14 @@
     <None Include="Scripts\Useful-Non-Build\DeleteOlympicEventsAboveSpecifiedId.sql" />
     <None Include="Scripts\Useful-Non-Build\DeleteRecordsAboveSpecifiedId.sql" />
     <None Include="Scripts\Useful-Non-Build\DeleteEverything.sql" />
+    <Build Include="dbo\Tables\Quote.sql" />
+    <None Include="Scripts\Post-deployment\Current\CreateEventTypes.sql" />
+    <None Include="Scripts\Post-deployment\Current\InsertQuotes.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="OfficeOlympicsDb.dev.publish.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="Scripts\Post-deployment\CreateEventTypes.sql" />
+    <PostDeploy Include="Scripts\Post-deployment\PostDeployment.sql" />
   </ItemGroup>
 </Project>

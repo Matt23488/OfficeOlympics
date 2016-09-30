@@ -46,6 +46,14 @@
           <Property Name="DateAdded" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Quote">
+          <Key>
+            <PropertyRef Name="QuoteId" />
+          </Key>
+          <Property Name="QuoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuoteText" Type="varchar(max)" Nullable="false" />
+          <Property Name="Quoter" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="Record">
           <Key>
             <PropertyRef Name="RecordId" />
@@ -129,6 +137,7 @@
           <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventType" EntityType="Self.EventType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OlympicEvent" EntityType="Self.OlympicEvent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quote" EntityType="Self.Quote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Record" EntityType="Self.Record" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Witness" EntityType="Self.Witness" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_OlympicEvent_EventType" Association="Self.FK_OlympicEvent_EventType">
@@ -223,6 +232,7 @@
             <End Role="Record" EntitySet="Records" />
             <End Role="Witness" EntitySet="Witnesses" />
           </AssociationSet>
+          <EntitySet Name="Quotes" EntityType="OfficeOlympicsDbModel.Quote" />
         </EntityContainer>
         <EntityType Name="EventType">
           <Key>
@@ -313,6 +323,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Quote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuoteText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Quoter" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -381,6 +399,15 @@
                 <ScalarProperty Name="RecordId" ColumnName="RecordId" />
                 <ScalarProperty Name="CompetitorId" ColumnName="CompetitorId" />
                 <ScalarProperty Name="Id" ColumnName="WitnessId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quotes">
+            <EntityTypeMapping TypeName="OfficeOlympicsDbModel.Quote">
+              <MappingFragment StoreEntitySet="Quote">
+                <ScalarProperty Name="Quoter" ColumnName="Quoter" />
+                <ScalarProperty Name="QuoteText" ColumnName="QuoteText" />
+                <ScalarProperty Name="Id" ColumnName="QuoteId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

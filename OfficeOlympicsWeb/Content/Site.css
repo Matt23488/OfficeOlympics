@@ -88,3 +88,23 @@ textarea.form-control {
 .btn-details .row{
     line-height: 2em;
 }
+
+.jumbotron img.logo {
+    max-width: 250px;
+}
+
+@media (min-width: 768px) {
+    .jumbotron img.logo {
+        max-width: 300px;
+    }
+}
+@media (min-width: 992px) {
+    .jumbotron img.logo {
+        max-width: 400px;
+    }
+}
+@media (min-width: 1200px) {
+    .jumbotron img.logo {
+        max-width: 500px;
+    }
+}

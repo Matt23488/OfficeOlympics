@@ -19,12 +19,28 @@ namespace OfficeOlympicsWeb.Controllers
 
             if (string.IsNullOrEmpty(matchingIcon))
             {
-                matchingIcon = Server.MapPath("~/Content/Images/no-image.png");
+                return RedirectToAction(nameof(Index), new { imageName = "no-image" });
             }
 
             var iconBytes = System.IO.File.ReadAllBytes(matchingIcon);
 
             return File(iconBytes, "image/png");
+        }
+
+        [HttpGet]
+        public ActionResult Index(string imageName)
+        {
+            string sanitizedImageName = Path.GetFileName(imageName);
+            string imageFullPath = Path.Combine(Server.MapPath("~/Content/Images"), $"{sanitizedImageName}.png");
+
+            if (!System.IO.File.Exists(imageFullPath))
+            {
+                return RedirectToAction(nameof(Index), new { imageName = "no-image" });
+            }
+
+            var imageBytes = System.IO.File.ReadAllBytes(imageFullPath);
+
+            return File(imageBytes, "image/png");
         }
     }
 }

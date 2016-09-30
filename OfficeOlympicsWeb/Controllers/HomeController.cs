@@ -16,12 +16,14 @@ namespace OfficeOlympicsWeb.Controllers
         private IOlympicEventService _eventService;
         private IRecordService _recordService;
         private ICompetitorService _competitorService;
+        private IQuoteService _quoteService;
 
-        public HomeController(IOlympicEventService eventService, IRecordService recordService, ICompetitorService competitorService)
+        public HomeController(IOlympicEventService eventService, IRecordService recordService, ICompetitorService competitorService, IQuoteService quoteService)
         {
             _eventService = eventService;
             _recordService = recordService;
             _competitorService = competitorService;
+            _quoteService = quoteService;
         }
 
         [HttpGet]
@@ -30,7 +32,8 @@ namespace OfficeOlympicsWeb.Controllers
             var recentEvents = _eventService.GetRecentlyAddedOlympicEvents();
             var recentRecords = _recordService.GetRecentRecords();
             var recentCompetitors = _competitorService.GetRecentlyAddedCompetitors();
-            var viewModel = HomeViewModel.Build(recentEvents, recentRecords, recentCompetitors);
+            var randomQuote = _quoteService.GetRandomQuote();
+            var viewModel = HomeViewModel.Build(recentEvents, recentRecords, recentCompetitors, randomQuote);
 
             return View(viewModel);
         }

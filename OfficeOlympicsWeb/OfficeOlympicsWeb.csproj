@@ -185,7 +185,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Helpers\CustomHtmlHelper.cs" />
     <Compile Include="Helpers\IconSize.cs" />
     <Compile Include="Helpers\RouteHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -196,6 +196,7 @@
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\NewRecordViewModel.cs" />
+    <Compile Include="ViewModels\QuoteViewModel.cs" />
     <Compile Include="ViewModels\RecordListViewModel.cs" />
     <Compile Include="ViewModels\RecordViewModel.cs" />
     <Compile Include="ViewModels\ScoreViewModel.cs" />
@@ -207,6 +208,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\no-image.png" />
+    <Content Include="Content\Images\Olympic-logo.png" />
     <Content Include="Content\toast.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -276,6 +278,7 @@
     <Content Include="Views\Admin\CompetitorManagement.cshtml" />
     <Content Include="Views\Admin\EditCompetitor.cshtml" />
     <Content Include="Views\Shared\CompetitorListPartial.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\QuoteTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

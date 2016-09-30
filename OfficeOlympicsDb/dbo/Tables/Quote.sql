@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Quote]
+(
+	[QuoteId] INT IDENTITY(1, 1) NOT NULL,
+	[QuoteText] VARCHAR(MAX) NOT NULL,
+	[Quoter] VARCHAR(100) NOT NULL,
+	CONSTRAINT [PK_Quote] PRIMARY KEY CLUSTERED ([QuoteId] ASC)
+)
