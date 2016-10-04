@@ -24,7 +24,7 @@ namespace OfficeOlympicsLib.Services
                                 select groupedRecord).FirstOrDefault() into bestScore
                         where bestScore.Competitor.IsActive && bestScore.OlympicEvent.IsActive
                         orderby bestScore.DateAchieved descending
-                        select bestScore).ToList();
+                        select bestScore).Take(5).ToList();
             }
         }
 

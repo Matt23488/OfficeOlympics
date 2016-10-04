@@ -282,6 +282,8 @@
     <Content Include="Views\Admin\EditCompetitor.cshtml" />
     <Content Include="Views\Shared\CompetitorListPartial.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\QuoteTemplate.cshtml" />
+    <Content Include="Web.Release.appsettings.secret.config" />
+    <Content Include="Web.Release.connections.secret.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
