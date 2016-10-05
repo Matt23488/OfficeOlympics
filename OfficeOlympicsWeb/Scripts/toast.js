@@ -72,6 +72,8 @@
         else {
             $toast.off("click");
         }
+
+        reposition();
     });
 
     $(".navbar-toggle").click(function () {
@@ -85,5 +87,11 @@
                 window.clearInterval(handle);
             }
         }, interval);
+    });
+
+    $(".dropdown-toggle").click(function () {
+        if ($(window).width() >= 768) return;
+
+        window.setTimeout(reposition, 1);
     });
 });
