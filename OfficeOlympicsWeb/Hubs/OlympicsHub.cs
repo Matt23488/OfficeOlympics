@@ -75,7 +75,7 @@ namespace OfficeOlympicsWeb.Hubs
 
         public async Task NewCompetitor(string competitorName)
         {
-            Clients.Others.displayMessage($"Everyone welcome {competitorName.AsFullName()} into the fray!", "info");
+            Clients.Others.displayMessage($"Everyone welcome {competitorName.AsProperNoun()} into the fray!", "info");
 
             await Task.Delay(2000);
             Clients.Others.refreshCompetitors();

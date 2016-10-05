@@ -25,5 +25,10 @@ namespace OfficeOlympicsWeb.Extensions
             if (alphabetIndex == -1) return c;
             else return _lowerCaseAlphabet[alphabetIndex];
         }
+
+        public static bool IsLetter(this char c)
+        {
+            return char.IsLetter(c);
+        }
     }
 }
