@@ -54,6 +54,12 @@
         $toast.off("mouseout");
     }
 
+    function reposition() {
+        $toast.css("top", ($(".navbar-fixed-top").height() + 8) + "px");
+    }
+
+    reposition();
+
     $(window).resize(function () {
         var newWidth = $(window).width();
 
@@ -66,5 +72,18 @@
         else {
             $toast.off("click");
         }
+    });
+
+    $(".navbar-toggle").click(function () {
+        var interval = 10;
+        var totalInterval = 350;
+        var timePassed = 0;
+        var handle = window.setInterval(function () {
+            reposition();
+            timePassed += interval;
+            if (timePassed > totalInterval) {
+                window.clearInterval(handle);
+            }
+        }, interval);
     });
 });

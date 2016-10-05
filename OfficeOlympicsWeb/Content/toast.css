@@ -1,7 +1,6 @@
 ﻿div.toast {
     position: fixed;
     font-size: large;
-    top: 3.2em;
     left: 0.5em;
     right: 0.5em;
     border-width: 1px;
@@ -10,7 +9,7 @@
     display: none;
     padding: 10px;
     color: white;
-    z-index: 10000;
+    z-index: 999;
     line-height: 2em;
 }
 
