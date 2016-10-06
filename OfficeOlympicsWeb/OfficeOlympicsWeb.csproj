@@ -210,6 +210,14 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\favicon\android-chrome-192x192.png" />
+    <Content Include="Content\Images\favicon\apple-touch-icon.png" />
+    <Content Include="Content\Images\favicon\browserconfig.xml" />
+    <Content Include="Content\Images\favicon\favicon-16x16.png" />
+    <Content Include="Content\Images\favicon\favicon-32x32.png" />
+    <Content Include="Content\Images\favicon\favicon.ico" />
+    <Content Include="Content\Images\favicon\mstile-150x150.png" />
+    <Content Include="Content\Images\favicon\safari-pinned-tab.svg" />
     <Content Include="Content\Images\logo-black.png" />
     <Content Include="Content\Images\logo-white.png" />
     <Content Include="Content\Images\no-image.png" />
@@ -227,6 +235,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\Images\favicon\manifest.json" />
     <None Include="Properties\PublishProfiles\OfficeOlympicsWeb - Web Deploy.pubxml" />
     <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\bootstrap.js" />

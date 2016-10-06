@@ -36,7 +36,8 @@ namespace OfficeOlympicsLib.Services
                                                where record.OlympicEventId == eventId
                                                    && record.OlympicEvent.IsActive
                                                    && record.Competitor.IsActive
-                                               orderby record.Score descending
+                                               orderby record.Score descending,
+                                                       record.DateAchieved
                                                select record).ToList();
 
                 if (onlyBestForCompetitors)
