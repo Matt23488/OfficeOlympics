@@ -12,6 +12,7 @@ namespace OfficeOlympicsWeb.Controllers
     public class ImageController : Controller
     {
         [HttpGet]
+        [OutputCache(VaryByParam = "fileGuid", Duration = 3600)]
         public ActionResult GetIcon(string fileGuid)
         {
             var iconDirectory = new DirectoryInfo(ConfigurationManager.AppSettings["IconSaveLocation"]);
@@ -28,6 +29,7 @@ namespace OfficeOlympicsWeb.Controllers
         }
 
         [HttpGet]
+        [OutputCache(VaryByParam = "imageName", Duration = 3600)]
         public ActionResult Index(string imageName)
         {
             string sanitizedImageName = Path.GetFileName(imageName);
