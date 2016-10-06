@@ -1,0 +1,14 @@
+﻿@model int
+
+@{ 
+    string trophyName = string.Empty;
+
+    switch (Model)
+    {
+        case 0: trophyName = "trophy-gold"; break;
+        case 1: trophyName = "trophy-silver"; break;
+        case 2: trophyName = "trophy-bronze"; break;
+    }
+}
+
+<img class="event-icon-small" src="@Url.Action("Index", "Image", new { imageName = trophyName })" />

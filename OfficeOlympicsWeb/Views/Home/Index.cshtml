@@ -1,62 +1,49 @@
-﻿@model HomeViewModel
+﻿@model RecordBoardViewModel
 
 @{
-    ViewBag.Title = "Office Olympics";
+    ViewBag.Title = "Index";
+    int i = 0;
 }
 
-<div class="jumbotron">
-    <div class="text-center">
-        <img class="logo" src="@Url.Action("Index", "Image", new { imageName = "logo-black" })" />
-    </div>
-    @Html.DisplayFor(model => model.Quote, "QuoteTemplate")
-</div>
-<div class="row">
-    <div class="col-md-4 col-btn">
-        <h2>@Html.DisplayNameFor(model => model.NewEvents)</h2>
-        <div id="recentEventListContainer">
-            @Html.Partial("EventListPartial", Model.NewEvents)
-        </div>
-        @*<div><a class="btn btn-default" href="@Url.Action("Events")">All Events &raquo;</a></div>*@
-        <div class="row">
-            <a class="btn btn-primary btn-details col-xs-12" onclick="window.toastMessage.showMessage('Coming soon!', 'info')">
-                <div class="row">
-                    <div class="col-xs-10">All Events</div>
-                    <div class="col-xs-2 text-right">&raquo;</div>
+@while (i < Model.EventsWithRecords.Count)
+{
+    <div class="row">
+        @do
+        {
+            <div class="col-md-4 event-panel">
+                @Html.HiddenFor(model => model.EventsWithRecords[i].Event.EventId)
+                <div class="text-center">
+                    @Html.IconFor(model => model.EventsWithRecords[i].Event.IconFileName)
                 </div>
-            </a>
-        </div>
+                <h4 class="text-center">
+                    @Html.DisplayFor(model => model.EventsWithRecords[i].Event.EventName)
+                </h4>
+                @for (int j = 0; j < Model.EventsWithRecords[i].Records.Count; j++)
+                {
+                    if (j > 0)
+                    {
+                        @:<div class="separator"></div>
+                    }
+                    <div class="row">
+                        <div class="non-btn non-btn-default non-btn-details col-xs-12">
+                            <div class="row">
+                                <div class="col-xs-10">
+                                    @Html.Partial("TrophyPartial", j)
+                                    @Html.DisplayFor(model => model.EventsWithRecords[i].Records[j].Competitor.FullName)
+                                </div>
+                                <div class="col-xs-2 text-right">
+                                    @Html.DisplayFor(model => model.EventsWithRecords[i].Records[j].Score, "RecordScoreTemplate")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            i++;
+        } while (i % 3 != 0 && i < Model.EventsWithRecords.Count);
     </div>
-    <div class="col-md-4 col-btn">
-        <h2>@Html.DisplayNameFor(model => model.NewRecords)</h2>
-        <div id="recentRecordListContainer">
-            @Html.Partial("RecordListPartial", Model.NewRecords)
-        </div>
-        <div class="row">
-            <a class="btn btn-primary btn-details col-xs-12" href="@Url.Action("Records")">
-                <div class="row">
-                    <div class="col-xs-10">All Records</div>
-                    <div class="col-xs-2 text-right">&raquo;</div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="col-md-4 col-btn">
-        <h2>@Html.DisplayNameFor(model => model.NewCompetitors)</h2>
-        <div id="recentCompetitorListContainer">
-            @Html.Partial("CompetitorListPartial", Model.NewCompetitors)
-        </div>
-        @*<div><a class="btn btn-default" href="@Url.Action("Competitors")">All Competitors &raquo;</a></div>*@
-        <div class="row">
-            <a class="btn btn-primary btn-details col-xs-12" onclick="window.toastMessage.showMessage('Coming soon!', 'info')">
-                <div class="row">
-                    <div class="col-xs-10">All Competitors</div>
-                    <div class="col-xs-2 text-right">&raquo;</div>
-                </div>
-            </a>
-        </div>
-    </div>
-</div>
+}
 
 @section scripts{
-    @Scripts.Render("~/bundles/home")
+    @Scripts.Render("~/bundles/home/index")
 }

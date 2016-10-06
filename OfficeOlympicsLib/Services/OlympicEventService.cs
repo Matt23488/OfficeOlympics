@@ -89,7 +89,7 @@ namespace OfficeOlympicsLib.Services
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
-                var olympicEvent = context.FullOlympicEvents().SingleOrDefault(obj => obj.Id == olympicEventId);
+                var olympicEvent = context.OlympicEvents.WithEventType().SingleOrDefault(obj => obj.Id == olympicEventId);
                     
                 return olympicEvent;
             }
@@ -99,7 +99,7 @@ namespace OfficeOlympicsLib.Services
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
-                var olympicEvents = (from ev in context.FullOlympicEvents()
+                var olympicEvents = (from ev in context.OlympicEvents.WithEventType()
                                      where ev.IsActive || includeDeleted
                                      orderby ev.IsActive descending,
                                              ev.EventTypeId,
@@ -114,12 +114,20 @@ namespace OfficeOlympicsLib.Services
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
-                var olympicEvents = (from ev in context.FullOlympicEvents()
+                var olympicEvents = (from ev in context.OlympicEvents.WithEventType()
                                      where ev.IsActive
                                      orderby ev.DateAdded descending
                                      select ev).Take(5).ToList();
 
                 return olympicEvents;
+            }
+        }
+
+        public IEnumerable<OlympicEvent> GetRecordBoard()
+        {
+            using (var context = new OfficeOlympicsDbEntities())
+            {
+                return context.FullOlympicEvents().Where(obj => obj.IsActive).ToList();
             }
         }
     }

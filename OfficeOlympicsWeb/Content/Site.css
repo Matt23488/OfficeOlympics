@@ -164,3 +164,11 @@ textarea.form-control {
 .btn-details .row, .non-btn-details .row {
     line-height: 2.8em;
 }
+
+.event-panel {
+    padding: 0 20px;
+}
+
+.event-panel, .event-panel *{
+    cursor: pointer;
+}

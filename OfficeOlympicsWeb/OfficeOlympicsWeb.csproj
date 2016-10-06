@@ -200,6 +200,7 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\NewRecordViewModel.cs" />
     <Compile Include="ViewModels\QuoteViewModel.cs" />
+    <Compile Include="ViewModels\RecordBoardViewModel.cs" />
     <Compile Include="ViewModels\RecordListViewModel.cs" />
     <Compile Include="ViewModels\RecordViewModel.cs" />
     <Compile Include="ViewModels\ScoreViewModel.cs" />
@@ -222,6 +223,9 @@
     <Content Include="Content\Images\logo-white.png" />
     <Content Include="Content\Images\no-image.png" />
     <Content Include="Content\Images\Olympic-logo.png" />
+    <Content Include="Content\Images\trophy-bronze.png" />
+    <Content Include="Content\Images\trophy-gold.png" />
+    <Content Include="Content\Images\trophy-silver.png" />
     <Content Include="Content\toast.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -241,7 +245,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
-    <Content Include="Scripts\home.js" />
+    <Content Include="Scripts\about.js" />
+    <Content Include="Scripts\index.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
     <Content Include="Scripts\jquery-3.1.0.slim.js" />
@@ -277,7 +282,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Admin\EventManagement.cshtml" />
     <Content Include="Views\Shared\_Admin.cshtml" />
     <Content Include="Views\Admin\EditEvent.cshtml" />
@@ -295,6 +300,8 @@
     <Content Include="Views\Shared\DisplayTemplates\QuoteTemplate.cshtml" />
     <Content Include="Web.Release.appsettings.secret.config" />
     <Content Include="Web.Release.connections.secret.config" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\TrophyPartial.cshtml" />
     <None Include="Web.Debug.appsettings.secret.config" />
     <None Include="Web.Debug.connections.secret.config" />
   </ItemGroup>

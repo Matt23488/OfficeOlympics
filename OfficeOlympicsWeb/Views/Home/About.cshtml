@@ -1,0 +1,62 @@
+﻿@model HomeViewModel
+
+@{
+    ViewBag.Title = "Office Olympics";
+}
+
+<div class="jumbotron">
+    <div class="text-center">
+        <img class="logo" src="@Url.Action("Index", "Image", new { imageName = "logo-black" })" />
+    </div>
+    @Html.DisplayFor(model => model.Quote, "QuoteTemplate")
+</div>
+<div class="row">
+    <div class="col-md-4 col-btn">
+        <h2>@Html.DisplayNameFor(model => model.NewEvents)</h2>
+        <div id="recentEventListContainer">
+            @Html.Partial("EventListPartial", Model.NewEvents)
+        </div>
+        @*<div><a class="btn btn-default" href="@Url.Action("Events")">All Events &raquo;</a></div>*@
+        <div class="row">
+            <a class="btn btn-primary btn-details col-xs-12" onclick="window.toastMessage.showMessage('Coming soon!', 'info')">
+                <div class="row">
+                    <div class="col-xs-10">All Events</div>
+                    <div class="col-xs-2 text-right">&raquo;</div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4 col-btn">
+        <h2>@Html.DisplayNameFor(model => model.NewRecords)</h2>
+        <div id="recentRecordListContainer">
+            @Html.Partial("RecordListPartial", Model.NewRecords)
+        </div>
+        <div class="row">
+            <a class="btn btn-primary btn-details col-xs-12" href="@Url.Action("Records")">
+                <div class="row">
+                    <div class="col-xs-10">All Records</div>
+                    <div class="col-xs-2 text-right">&raquo;</div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4 col-btn">
+        <h2>@Html.DisplayNameFor(model => model.NewCompetitors)</h2>
+        <div id="recentCompetitorListContainer">
+            @Html.Partial("CompetitorListPartial", Model.NewCompetitors)
+        </div>
+        @*<div><a class="btn btn-default" href="@Url.Action("Competitors")">All Competitors &raquo;</a></div>*@
+        <div class="row">
+            <a class="btn btn-primary btn-details col-xs-12" onclick="window.toastMessage.showMessage('Coming soon!', 'info')">
+                <div class="row">
+                    <div class="col-xs-10">All Competitors</div>
+                    <div class="col-xs-2 text-right">&raquo;</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/home/about")
+}

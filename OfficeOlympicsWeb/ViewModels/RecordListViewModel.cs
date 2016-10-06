@@ -20,5 +20,23 @@ namespace OfficeOlympicsWeb.ViewModels
 
             return viewModel;
         }
+
+        public static List<RecordListViewModel> BuildList(IEnumerable<OlympicEvent> olympicEvents)
+        {
+            var viewModelList = new List<RecordListViewModel>();
+
+            foreach (var olympicEvent in olympicEvents)
+            {
+                var relevantRecords = (from record in olympicEvent.Records
+                                      orderby record.Score descending
+                                      group record by record.CompetitorId into groupedRecords
+                                      select groupedRecords.First() into record
+                                      select record).Take(3);
+
+                viewModelList.Add(Build(relevantRecords, olympicEvent));
+            }
+
+            return viewModelList;
+        }
     }
 }

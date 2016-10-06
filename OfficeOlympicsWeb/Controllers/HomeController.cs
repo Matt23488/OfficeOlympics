@@ -29,6 +29,15 @@ namespace OfficeOlympicsWeb.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            var olympicEvents = _eventService.GetRecordBoard();
+            var viewModel = RecordBoardViewModel.Build(olympicEvents);
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult About()
+        {
             var recentEvents = _eventService.GetRecentlyAddedOlympicEvents();
             var recentRecords = _recordService.GetRecentRecords();
             var recentCompetitors = _competitorService.GetRecentlyAddedCompetitors();

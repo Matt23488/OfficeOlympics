@@ -26,8 +26,11 @@ namespace OfficeOlympicsWeb
             bundles.Add(new ScriptBundle("~/bundles/record").Include(
                         "~/Scripts/record.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/home").Include(
-                        "~/Scripts/home.js"));
+            bundles.Add(new ScriptBundle("~/bundles/home/index").Include(
+                        "~/Scripts/index.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/home/about").Include(
+                        "~/Scripts/about.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

@@ -14,10 +14,18 @@ namespace OfficeOlympicsLib.Extensions
                     .Include(obj => obj.Witnesses.Select(wit => wit.Competitor));
         }
 
+        public static IQueryable<OlympicEvent> WithEventType(this DbSet<OlympicEvent> olympicEvents)
+        {
+            return olympicEvents
+                    .Include(obj => obj.EventType);
+        }
+
         public static IQueryable<OlympicEvent> FullOlympicEvents(this OfficeOlympicsDbEntities context)
         {
             return context.OlympicEvents
-                    .Include(obj => obj.EventType);
+                    .Include(obj => obj.EventType)
+                    .Include(obj => obj.Records.Select(rec => rec.Competitor))
+                    .Include(obj => obj.Records.Select(rec => rec.Witnesses.Select(wit => wit.Competitor)));
         }
     }
 }
