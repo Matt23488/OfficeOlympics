@@ -18,19 +18,20 @@ namespace OfficeOlympicsWeb
                         "~/Scripts/jquery.signalR-{version}.js",
                         "~/Scripts/js-cookie/js.cookie.js",
                         "~/Scripts/main.js",
-                        "~/Scripts/toast.js"));
+                        "~/Scripts/toast.js",
+                        "~/Scripts/context-menu.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/admin").Include(
-                        "~/Scripts/admin.js"));
+            bundles.Add(new ScriptBundle("~/bundles/admin").IncludeDirectory(
+                        "~/Scripts/Admin", "*.js", searchSubdirectories: false));
 
-            bundles.Add(new ScriptBundle("~/bundles/record").Include(
-                        "~/Scripts/record.js"));
+            bundles.Add(new ScriptBundle("~/bundles/home/newRecord").IncludeDirectory(
+                        "~/Scripts/Home/NewRecord", "*.js", searchSubdirectories: true));
 
-            bundles.Add(new ScriptBundle("~/bundles/home/index").Include(
-                        "~/Scripts/index.js"));
+            bundles.Add(new ScriptBundle("~/bundles/home/index").IncludeDirectory(
+                        "~/Scripts/Home/Index", "*.js", searchSubdirectories: true));
 
-            bundles.Add(new ScriptBundle("~/bundles/home/about").Include(
-                        "~/Scripts/about.js"));
+            bundles.Add(new ScriptBundle("~/bundles/home/about").IncludeDirectory(
+                        "~/Scripts/Home/About", "*.js", searchSubdirectories: true));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -44,7 +45,8 @@ namespace OfficeOlympicsWeb
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/bootstrap.css",
                         "~/Content/site.css",
-                        "~/Content/toast.css"));
+                        "~/Content/toast.css",
+                        "~/Content/context-menu.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin").Include(
                         "~/Content/admin.css"));

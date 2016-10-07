@@ -211,6 +211,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\context-menu.css" />
     <Content Include="Content\Images\favicon\android-chrome-192x192.png" />
     <Content Include="Content\Images\favicon\apple-touch-icon.png" />
     <Content Include="Content\Images\favicon\browserconfig.xml" />
@@ -241,12 +242,13 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\Images\favicon\manifest.json" />
     <None Include="Properties\PublishProfiles\OfficeOlympicsWeb - Web Deploy.pubxml" />
-    <Content Include="Scripts\admin.js" />
+    <Content Include="Scripts\Admin\admin.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
-    <Content Include="Scripts\about.js" />
-    <Content Include="Scripts\index.js" />
+    <Content Include="Scripts\context-menu.js" />
+    <Content Include="Scripts\Home\About\page.js" />
+    <Content Include="Scripts\Home\Index\page.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
     <Content Include="Scripts\jquery-3.1.0.slim.js" />
@@ -264,7 +266,7 @@
     <Content Include="Scripts\js-cookie\js.cookie.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\record.js" />
+    <Content Include="Scripts\Home\NewRecord\page.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -302,6 +304,7 @@
     <Content Include="Web.Release.connections.secret.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\TrophyPartial.cshtml" />
+    <Content Include="Views\Shared\ContextMenu.cshtml" />
     <None Include="Web.Debug.appsettings.secret.config" />
     <None Include="Web.Debug.connections.secret.config" />
   </ItemGroup>
