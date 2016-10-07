@@ -1,0 +1,15 @@
+﻿.event-panel {
+    padding: 0 20px 10px 20px;
+    margin-top: 5px;
+}
+
+    .event-panel,
+    .event-panel * {
+        cursor: pointer;
+    }
+
+    .event-panel:hover {
+        color: white;
+        background-color: #337ab7;
+        border-radius: 4px;
+    }

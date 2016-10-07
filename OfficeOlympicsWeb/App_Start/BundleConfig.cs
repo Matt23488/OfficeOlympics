@@ -48,8 +48,11 @@ namespace OfficeOlympicsWeb
                         "~/Content/toast.css",
                         "~/Content/context-menu.css"));
 
-            bundles.Add(new StyleBundle("~/Content/admin").Include(
-                        "~/Content/admin.css"));
+            bundles.Add(new StyleBundle("~/Content/admin").IncludeDirectory(
+                        "~/Content/Admin", "*.css", searchSubdirectories: false));
+
+            bundles.Add(new StyleBundle("~/Content/home/index").IncludeDirectory(
+                        "~/Content/Home/Index", "*.css", searchSubdirectories: true));
         }
     }
 }
