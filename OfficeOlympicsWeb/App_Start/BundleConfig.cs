@@ -24,13 +24,13 @@ namespace OfficeOlympicsWeb
             bundles.Add(new ScriptBundle("~/bundles/admin").IncludeDirectory(
                         "~/Scripts/Admin", "*.js", searchSubdirectories: false));
 
-            bundles.Add(new ScriptBundle("~/bundles/home/newRecord").IncludeDirectory(
+            bundles.Add(new ScriptBundle("~/bundles/home-newRecord").IncludeDirectory(
                         "~/Scripts/Home/NewRecord", "*.js", searchSubdirectories: true));
 
-            bundles.Add(new ScriptBundle("~/bundles/home/index").IncludeDirectory(
+            bundles.Add(new ScriptBundle("~/bundles/home-index").IncludeDirectory(
                         "~/Scripts/Home/Index", "*.js", searchSubdirectories: true));
 
-            bundles.Add(new ScriptBundle("~/bundles/home/about").IncludeDirectory(
+            bundles.Add(new ScriptBundle("~/bundles/home-about").IncludeDirectory(
                         "~/Scripts/Home/About", "*.js", searchSubdirectories: true));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -51,7 +51,7 @@ namespace OfficeOlympicsWeb
             bundles.Add(new StyleBundle("~/Content/admin").IncludeDirectory(
                         "~/Content/Admin", "*.css", searchSubdirectories: false));
 
-            bundles.Add(new StyleBundle("~/Content/home/index").IncludeDirectory(
+            bundles.Add(new StyleBundle("~/Content/home-index").IncludeDirectory(
                         "~/Content/Home/Index", "*.css", searchSubdirectories: true));
         }
     }
