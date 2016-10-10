@@ -305,7 +305,7 @@
     <Content Include="Web.Release.connections.secret.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\TrophyPartial.cshtml" />
-    <Content Include="Views\Shared\ContextMenu.cshtml" />
+    <Content Include="Views\Shared\ContextMenuPartial.cshtml" />
     <None Include="Web.Debug.appsettings.secret.config" />
     <None Include="Web.Debug.connections.secret.config" />
   </ItemGroup>

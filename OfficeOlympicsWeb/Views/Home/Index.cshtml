@@ -15,7 +15,7 @@
                 <div class="text-center">
                     @Html.IconFor(model => model.EventsWithRecords[i].Event.IconFileName)
                 </div>
-                <h4 class="text-center">
+                <h4 class="text-center event-panel-name">
                     @Html.DisplayFor(model => model.EventsWithRecords[i].Event.EventName)
                 </h4>
                 @for (int j = 0; j < Model.EventsWithRecords[i].Records.Count; j++)

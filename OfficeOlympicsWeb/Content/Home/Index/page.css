@@ -8,7 +8,8 @@
         cursor: pointer;
     }
 
-    .event-panel:hover {
+    .event-panel:hover,
+    .event-panel.context-menu-active {
         color: white;
         background-color: #337ab7;
         border-radius: 4px;

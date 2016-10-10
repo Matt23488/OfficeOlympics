@@ -17,9 +17,9 @@ namespace OfficeOlympicsWeb
             bundles.Add(new ScriptBundle("~/bundles/main").Include(
                         "~/Scripts/jquery.signalR-{version}.js",
                         "~/Scripts/js-cookie/js.cookie.js",
-                        "~/Scripts/main.js",
+                        "~/Scripts/context-menu.js",
                         "~/Scripts/toast.js",
-                        "~/Scripts/context-menu.js"));
+                        "~/Scripts/main.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/admin").IncludeDirectory(
                         "~/Scripts/Admin", "*.js", searchSubdirectories: false));

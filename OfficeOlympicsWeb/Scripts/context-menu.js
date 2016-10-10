@@ -31,13 +31,20 @@
     };
     function getMenuState() { return menuState; }
 
-    function buildMenuHtml(selector, target) {
+    function buildMenuHtml(selector, target, detailFactory) {
         // Remove old menu items
         $("#contextMenu li").not(".template").remove();
 
         var menu = getMenuState().menuArray.filter(function (item) {
             return item.selector === selector;
         })[0];
+
+        var replacementDictionary = {};
+        var detailBuilder = {
+            setData: function (name, value) {
+                replacementDictionary[name] = value;
+            }
+        };
 
         for (var i = 0; i < menu.menuOptions.length; i++) {
             var $menuItem = null;
@@ -52,12 +59,24 @@
                             .removeClass("template")
                             .removeAttr("id");
 
+                var linkText = menu.menuOptions[i].text;
+
+                if (detailFactory) {
+                    detailFactory.call(target, detailBuilder);
+
+                    var keys = Object.keys(replacementDictionary);
+                    for (var j = 0; j < keys.length; j++) {
+                        linkText = linkText.replace("{" + keys[j] + "}", replacementDictionary[keys[j]]);
+                    }
+                }
+
                 $("a", $menuItem)
-                .text(menu.menuOptions[i].text)
+                .text(linkText)
                 .data("callback", menu.menuOptions[i].callback)
-                .click(function () {
+                .click(function (e) {
                     $("#contextMenu").hide();
                     $(this).data("callback").call(target);
+                    e.preventDefault(); // Prevents scroll to top caused by href="#"
                 });
             }
 
@@ -79,7 +98,15 @@
         return position;
     }
 
-    $.createContextMenu = function (selector, factory) {
+    $.createContextMenu = function (selector, factory, detailFactory) {
+        /// <summary>Creates a custom context menu for elements that match the provided selector.</summary>
+        /// <param name="selector" type="String">CSS/jQuery selector that represents elements to apply the context menu to.</param>
+        /// <param name="factory" type="Function">A function that builds the menu items.</param>
+        /// <param name="detailFactory">A function that further customizes option text based on which DOM element invoked the menu.</param>
+        /// <returns type="jQuery">The selected DOM elements wrapped in a jQuery object.</returns>
+
+        if (typeof selector !== "string") return;
+
         getMenuState().addMenu(selector);
         var menuBuilder = {
             addMenuOption: function (text, callback) {
@@ -96,20 +123,22 @@
 
             // Open the menu
             $(this).on("contextmenu", function (e) {
-
                 // Return native menu if pressing control
                 if (e.ctrlKey) return;
 
-                // Build the HTML
-                buildMenuHtml(selector, this);
+                $(selector).removeClass("context-menu-active");
+                $(this).addClass("context-menu-active");
 
-                var $menu = $("#contextMenu")
-                            .show()
-                            .css({
-                                position: "absolute",
-                                left: getMenuPosition(e.clientX, "width", "scrollLeft"),
-                                top: getMenuPosition(e.clientY, "height", "scrollTop")
-                            });
+                // Build the HTML
+                buildMenuHtml(selector, this, detailFactory);
+
+                $("#contextMenu")
+                .show()
+                .css({
+                    position: "absolute",
+                    left: getMenuPosition(e.clientX, "width", "scrollLeft"),
+                    top: getMenuPosition(e.clientY, "height", "scrollTop")
+                });
 
                 e.preventDefault();
             });
@@ -118,6 +147,7 @@
 
     // Make sure menu closes on any click
     $(document).click(function () {
+        $(".context-menu-active").removeClass("context-menu-active");
         $("#contextMenu").hide();
     });
 });

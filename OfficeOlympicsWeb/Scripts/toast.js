@@ -94,4 +94,11 @@
 
         window.setTimeout(reposition, 1);
     });
+
+    $.createContextMenu("#toastMessage", function (menuBuilder) {
+        menuBuilder.addMenuOption("Close", function () {
+            resetState();
+            $toast.fadeOut(500);
+        });
+    });
 });
