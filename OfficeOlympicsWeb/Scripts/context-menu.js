@@ -1,102 +1,102 @@
 ﻿$(function () {
-    var menuState = {
-        menuArray: [],
-        addMenu: function (selector) {
-            this.menuArray = this.menuArray.filter(function (item) {
-                return item.selector !== selector;
-            });
-            this.menuArray.push({
-                selector: selector,
-                menuOptions: []
-            });
+
+    var contextHelper = {
+        menuState: {
+            menuArray: [],
+            addMenu: function (selector) {
+                this.menuArray = this.menuArray.filter(function (item) {
+                    return item.selector !== selector;
+                });
+                this.menuArray.push({
+                    selector: selector,
+                    menuOptions: []
+                });
+            },
+            addMenuOption: function (selector, menuItem) {
+                var item = this.menuArray.filter(function (item) {
+                    return item.selector === selector;
+                })[0];
+
+                if (!item) return;
+
+                item.menuOptions.push(menuItem);
+            },
+            addDivider: function (selector) {
+                var item = this.menuArray.filter(function (item) {
+                    return item.selector === selector;
+                })[0];
+
+                if (!item) return;
+
+                item.menuOptions.push("divider");
+            }
         },
-        addMenuOption: function (selector, menuItem) {
-            var item = this.menuArray.filter(function (item) {
+        buildMenuHtml: function (selector, target, detailFactory) {
+            // Remove old menu items
+            $("#contextMenu li").not(".template").remove();
+
+            var menu = this.menuState.menuArray.filter(function (item) {
                 return item.selector === selector;
             })[0];
 
-            if (!item) return;
+            var replacementDictionary = {};
+            var detailBuilder = {
+                setData: function (name, value) {
+                    replacementDictionary[name] = value;
+                }
+            };
 
-            item.menuOptions.push(menuItem);
-        },
-        addDivider: function (selector) {
-            var item = this.menuArray.filter(function (item) {
-                return item.selector === selector;
-            })[0];
+            for (var i = 0; i < menu.menuOptions.length; i++) {
+                var $menuItem = null;
 
-            if (!item) return;
+                if (menu.menuOptions[i] === "divider") {
+                    $menuItem = $("#contextMenu #dividerTemplate").clone()
+                                .removeClass("template")
+                                .removeAttr("id");
+                }
+                else {
+                    $menuItem = $("#contextMenu #linkTemplate").clone()
+                                .removeClass("template")
+                                .removeAttr("id");
 
-            item.menuOptions.push("divider");
-        }
-    };
-    function getMenuState() { return menuState; }
+                    var linkText = menu.menuOptions[i].text;
 
-    function buildMenuHtml(selector, target, detailFactory) {
-        // Remove old menu items
-        $("#contextMenu li").not(".template").remove();
+                    if (detailFactory) {
+                        detailFactory.call(target, detailBuilder);
 
-        var menu = getMenuState().menuArray.filter(function (item) {
-            return item.selector === selector;
-        })[0];
-
-        var replacementDictionary = {};
-        var detailBuilder = {
-            setData: function (name, value) {
-                replacementDictionary[name] = value;
-            }
-        };
-
-        for (var i = 0; i < menu.menuOptions.length; i++) {
-            var $menuItem = null;
-
-            if (menu.menuOptions[i] === "divider") {
-                $menuItem = $("#contextMenu #dividerTemplate").clone()
-                            .removeClass("template")
-                            .removeAttr("id");
-            }
-            else {
-                $menuItem = $("#contextMenu #linkTemplate").clone()
-                            .removeClass("template")
-                            .removeAttr("id");
-
-                var linkText = menu.menuOptions[i].text;
-
-                if (detailFactory) {
-                    detailFactory.call(target, detailBuilder);
-
-                    var keys = Object.keys(replacementDictionary);
-                    for (var j = 0; j < keys.length; j++) {
-                        linkText = linkText.replace("{" + keys[j] + "}", replacementDictionary[keys[j]]);
+                        var keys = Object.keys(replacementDictionary);
+                        for (var j = 0; j < keys.length; j++) {
+                            linkText = linkText.replace("{" + keys[j] + "}", replacementDictionary[keys[j]]);
+                        }
                     }
+
+                    $("a", $menuItem)
+                    .text(linkText)
+                    .data("callback", menu.menuOptions[i].callback)
+                    .click(function (e) {
+                        $("#contextMenu").hide();
+                        $(this).data("callback").call(target);
+                        e.preventDefault(); // Prevents scroll to top caused by href="#"
+                    });
                 }
 
-                $("a", $menuItem)
-                .text(linkText)
-                .data("callback", menu.menuOptions[i].callback)
-                .click(function (e) {
-                    $("#contextMenu").hide();
-                    $(this).data("callback").call(target);
-                    e.preventDefault(); // Prevents scroll to top caused by href="#"
-                });
+                $("#contextMenu").append($menuItem);
+            }
+        },
+        getMenuPosition: function (mouse, direction, scrollDir) {
+            var win = $(window)[direction]();
+            var scroll = $(window)[scrollDir]();
+            var menu = $("#contextMenu")[direction]();
+            var position = mouse + scroll;
+
+            // Opening the menu would pass the edge of the page
+            if (mouse + menu > win && menu < mouse) {
+                position -= menu;
             }
 
-            $("#contextMenu").append($menuItem);
+            return position;
         }
-    }
-
-    function getMenuPosition(mouse, direction, scrollDir) {
-        var win = $(window)[direction]();
-        var scroll = $(window)[scrollDir]();
-        var menu = $("#contextMenu")[direction]();
-        var position = mouse + scroll;
-
-        // Opening the menu would pass the edge of the page
-        if (mouse + menu > win && menu < mouse) {
-            position -= menu;
-        }
-
-        return position;
-    }
+    };
 
     jQuery.extend({
         createContextMenu: function (selector, factory, detailFactory) {
@@ -108,13 +108,13 @@
 
             if (typeof selector !== "string") return;
 
-            getMenuState().addMenu(selector);
+            contextHelper.menuState.addMenu(selector);
             var menuBuilder = {
                 addMenuOption: function (text, callback) {
-                    getMenuState().addMenuOption(selector, { text: text, callback: callback });
+                    contextHelper.menuState.addMenuOption(selector, { text: text, callback: callback });
                 },
                 addDivider: function () {
-                    getMenuState().addDivider(selector);
+                    contextHelper.menuState.addDivider(selector);
                 }
             };
 
@@ -131,14 +131,14 @@
                     $(this).addClass("context-menu-active");
 
                     // Build the HTML
-                    buildMenuHtml(selector, this, detailFactory);
+                    contextHelper.buildMenuHtml(selector, this, detailFactory);
 
                     $("#contextMenu")
                     .show()
                     .css({
                         position: "absolute",
-                        left: getMenuPosition(e.clientX, "width", "scrollLeft"),
-                        top: getMenuPosition(e.clientY, "height", "scrollTop")
+                        left: contextHelper.getMenuPosition(e.clientX, "width", "scrollLeft"),
+                        top: contextHelper.getMenuPosition(e.clientY, "height", "scrollTop")
                     });
 
                     e.preventDefault();
