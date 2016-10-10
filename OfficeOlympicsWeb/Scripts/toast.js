@@ -4,6 +4,12 @@
 
     window.toastMessage = {
         showMessage: function (message, messageType) {
+            /// <signature>
+            ///   <summary>Shows an unobtrusive message at the top of the user's screen.</summary>
+            ///   <param name="message" type="String">The message to display.</param>
+            ///   <param name="messageType" type="String">The type (color) of the message. Valid types are "info", "success", "warning", and "danger".</param>
+            /// </signature>
+
             resetState();
 
             $toast.attr("class", "toast");

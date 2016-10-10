@@ -20,7 +20,14 @@ namespace OfficeOlympicsWeb.Hubs
         {
             _recordService = recordService;
         }
-        
+
+        public override Task OnConnected()
+        {
+            var routeValues = RouteHelper.GetRouteDataFromUrl(Context.Headers["Referer"]);
+            string group = $"{routeValues["controller"]}/{routeValues["action"]}";
+            return Groups.Add(Context.ConnectionId, group);
+        }
+
         public async Task RecordBroken(NewRecordViewModel newRecord)
         {
             if (!_recordService.ScoreBeatsCurrentRecord(newRecord.Event.EventId, newRecord.Record.Score.Score.Value, newRecord.Record.Competitor.CompetitorId)) return;
@@ -44,7 +51,7 @@ namespace OfficeOlympicsWeb.Hubs
             Clients.Others.displayMessage(message, "success");
 
             await Task.Delay(2000);
-            Clients.Others.refreshRecords();
+            Clients.Group("Home/About").refreshRecords();
         }
 
         public async Task NewEvent(string eventName)
@@ -52,7 +59,7 @@ namespace OfficeOlympicsWeb.Hubs
             Clients.Others.displayMessage($"Everyone be sure to try out the new {eventName} event!", "info");
 
             await Task.Delay(2000);
-            Clients.Others.refreshEvents();
+            Clients.Group("Home/About").refreshEvents();
         }
 
         public async Task EditEvent(string eventName)
@@ -60,8 +67,8 @@ namespace OfficeOlympicsWeb.Hubs
             Clients.Others.displayMessage($"The {eventName} event has been updated!", "info");
 
             await Task.Delay(2000);
-            Clients.Others.refreshEvents();
-            Clients.Others.refreshRecords();
+            Clients.Group("Home/About").refreshEvents();
+            Clients.Group("Home/About").refreshRecords();
         }
 
         public async Task DeleteEvent(string eventName)
@@ -69,8 +76,8 @@ namespace OfficeOlympicsWeb.Hubs
             Clients.Others.displayMessage($"The {eventName} event has been removed.", "warning");
 
             await Task.Delay(2000);
-            Clients.Others.refreshEvents();
-            Clients.Others.refreshRecords();
+            Clients.Group("Home/About").refreshEvents();
+            Clients.Group("Home/About").refreshRecords();
         }
 
         public async Task NewCompetitor(string competitorName)
@@ -78,7 +85,7 @@ namespace OfficeOlympicsWeb.Hubs
             Clients.Others.displayMessage($"Everyone welcome {competitorName.AsProperNoun()} into the fray!", "info");
 
             await Task.Delay(2000);
-            Clients.Others.refreshCompetitors();
+            Clients.Group("Home/About").refreshCompetitors();
         }
 
         public async Task EditCompetitor(string competitorName)
@@ -86,8 +93,8 @@ namespace OfficeOlympicsWeb.Hubs
             Clients.Others.displayMessage($"{competitorName} was updated in some way. Probably his/her name.", "info");
 
             await Task.Delay(2000);
-            Clients.Others.refreshCompetitors();
-            Clients.Others.refreshRecords();
+            Clients.Group("Home/About").refreshCompetitors();
+            Clients.Group("Home/About").refreshRecords();
         }
 
         public async Task DeleteCompetitor(string competitorName)
@@ -95,8 +102,8 @@ namespace OfficeOlympicsWeb.Hubs
             Clients.Others.displayMessage($"{competitorName} has left the fray. Quitter!", "warning");
 
             await Task.Delay(2000);
-            Clients.Others.refreshCompetitors();
-            Clients.Others.refreshRecords();
+            Clients.Group("Home/About").refreshCompetitors();
+            Clients.Group("Home/About").refreshRecords();
         }
     }
 }

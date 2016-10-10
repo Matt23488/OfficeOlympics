@@ -1,14 +1,4 @@
 ﻿$(function () {
-    // SignalR
-
-    // Event Handlers
-    $(".event-panel").click(function () {
-        var olympicEventId = $(this).children(":hidden").val();
-
-        window.location.href = "/Home/NewRecord/" + olympicEventId;
-    });
-
-    // Context Menu
     $.createContextMenu(".event-panel",
     function (menuBuilder) {
         menuBuilder.addMenuOption("Enter New '{eventName}' Record", function () {

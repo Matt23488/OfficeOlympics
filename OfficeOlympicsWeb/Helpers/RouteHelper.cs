@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,6 +20,15 @@ namespace OfficeOlympicsWeb.Helpers
             }
 
             return new RouteValueDictionary(dictionary);
+        }
+
+        public static RouteValueDictionary GetRouteDataFromUrl(string url)
+        {
+            var request = new HttpRequest(null, url, null);
+            var response = new HttpResponse(new StringWriter());
+            var httpContext = new HttpContext(request, response);
+            var routeData = RouteTable.Routes.GetRouteData(new HttpContextWrapper(httpContext));
+            return routeData.Values;
         }
     }
 }

@@ -89,7 +89,7 @@
         var scroll = $(window)[scrollDir]();
         var menu = $("#contextMenu")[direction]();
         var position = mouse + scroll;
-        
+
         // Opening the menu would pass the edge of the page
         if (mouse + menu > win && menu < mouse) {
             position -= menu;
@@ -98,52 +98,54 @@
         return position;
     }
 
-    $.createContextMenu = function (selector, factory, detailFactory) {
-        /// <summary>Creates a custom context menu for elements that match the provided selector.</summary>
-        /// <param name="selector" type="String">CSS/jQuery selector that represents elements to apply the context menu to.</param>
-        /// <param name="factory" type="Function">A function that builds the menu items.</param>
-        /// <param name="detailFactory">A function that further customizes option text based on which DOM element invoked the menu.</param>
-        /// <returns type="jQuery">The selected DOM elements wrapped in a jQuery object.</returns>
+    jQuery.extend({
+        createContextMenu: function (selector, factory, detailFactory) {
+            /// <summary>Creates a custom context menu for elements that match the provided selector.</summary>
+            /// <param name="selector" type="String">CSS/jQuery selector that represents elements to apply the context menu to.</param>
+            /// <param name="factory" type="Function">A function that builds the menu items.</param>
+            /// <param name="detailFactory">A function that further customizes option text based on which DOM element invoked the menu.</param>
+            /// <returns type="jQuery">The selected DOM elements wrapped in a jQuery object.</returns>
 
-        if (typeof selector !== "string") return;
+            if (typeof selector !== "string") return;
 
-        getMenuState().addMenu(selector);
-        var menuBuilder = {
-            addMenuOption: function (text, callback) {
-                getMenuState().addMenuOption(selector, { text: text, callback: callback });
-            },
-            addDivider: function () {
-                getMenuState().addDivider(selector);
-            }
-        };
+            getMenuState().addMenu(selector);
+            var menuBuilder = {
+                addMenuOption: function (text, callback) {
+                    getMenuState().addMenuOption(selector, { text: text, callback: callback });
+                },
+                addDivider: function () {
+                    getMenuState().addDivider(selector);
+                }
+            };
 
-        factory(menuBuilder);
+            factory(menuBuilder);
 
-        return $(selector).each(function () {
+            return $(selector).each(function () {
 
-            // Open the menu
-            $(this).on("contextmenu", function (e) {
-                // Return native menu if pressing control
-                if (e.ctrlKey) return;
+                // Open the menu
+                $(this).on("contextmenu", function (e) {
+                    // Return native menu if pressing control
+                    if (e.ctrlKey) return;
 
-                $(selector).removeClass("context-menu-active");
-                $(this).addClass("context-menu-active");
+                    $(selector).removeClass("context-menu-active");
+                    $(this).addClass("context-menu-active");
 
-                // Build the HTML
-                buildMenuHtml(selector, this, detailFactory);
+                    // Build the HTML
+                    buildMenuHtml(selector, this, detailFactory);
 
-                $("#contextMenu")
-                .show()
-                .css({
-                    position: "absolute",
-                    left: getMenuPosition(e.clientX, "width", "scrollLeft"),
-                    top: getMenuPosition(e.clientY, "height", "scrollTop")
+                    $("#contextMenu")
+                    .show()
+                    .css({
+                        position: "absolute",
+                        left: getMenuPosition(e.clientX, "width", "scrollLeft"),
+                        top: getMenuPosition(e.clientY, "height", "scrollTop")
+                    });
+
+                    e.preventDefault();
                 });
-
-                e.preventDefault();
             });
-        });
-    };
+        }
+    });
 
     // Make sure menu closes on any click
     $(document).click(function () {
