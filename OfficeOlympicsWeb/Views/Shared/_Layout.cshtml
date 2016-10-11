@@ -56,7 +56,9 @@
     @Html.Partial("ContextMenuPartial")
     @Html.Partial("ToastPartial")
     <div class="container body-content">
-        @RenderBody()
+        <div id="pageContent">
+            @RenderBody()
+        </div>
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Office Olympics&trade;</p>

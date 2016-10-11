@@ -28,7 +28,17 @@ namespace OfficeOlympicsWeb.Extensions
                 else builder.Append(c.ToLower());
             }
 
+            while (builder.Contains("  "))
+            {
+                builder.Replace("  ", " ");
+            }
+            
             return builder.ToString();
+        }
+
+        public static bool Contains(this StringBuilder builder, string value)
+        {
+            return builder.ToString().Contains(value);
         }
     }
 }

@@ -130,5 +130,21 @@ namespace OfficeOlympicsLib.Services
                 return context.FullOlympicEvents().Where(obj => obj.IsActive).ToList();
             }
         }
+
+        public OlympicEvent GetRecordBoardEvent(int eventId)
+        {
+            using (var context = new OfficeOlympicsDbEntities())
+            {
+                return context.FullOlympicEvents().Single(obj => obj.Id == eventId);
+            }
+        }
+
+        public bool NameIsUnique(OlympicEvent olympicEvent)
+        {
+            using (var context = new OfficeOlympicsDbEntities())
+            {
+                return context.OlympicEvents.SingleOrDefault(obj => obj.EventName == olympicEvent.EventName && obj.Id != olympicEvent.Id) == null;
+            }
+        }
     }
 }

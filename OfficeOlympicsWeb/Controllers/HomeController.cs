@@ -36,6 +36,15 @@ namespace OfficeOlympicsWeb.Controllers
         }
 
         [HttpGet]
+        public ActionResult IndexPartial()
+        {
+            var olympicEvents = _eventService.GetRecordBoard();
+            var viewModel = RecordBoardViewModel.Build(olympicEvents);
+
+            return PartialView("Index", viewModel);
+        }
+
+        [HttpGet]
         public ActionResult About()
         {
             var recentEvents = _eventService.GetRecentlyAddedOlympicEvents();
@@ -106,6 +115,20 @@ namespace OfficeOlympicsWeb.Controllers
             var viewModel = CompetitorViewModel.BuildList(recentCompetitors);
 
             return PartialView("CompetitorListPartial", viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult TopThree(int eventId)
+        {
+            var olympicEvent = _eventService.GetRecordBoardEvent(eventId);
+            var relevantRecords = (from record in olympicEvent.Records
+                                   orderby record.Score descending
+                                   group record by record.CompetitorId into groupedRecords
+                                   select groupedRecords.First() into record
+                                   select record).Take(3);
+            var viewModel = RecordListViewModel.Build(relevantRecords, olympicEvent);
+
+            return PartialView("TopThreePartial", viewModel);
         }
 
         [NonAction]

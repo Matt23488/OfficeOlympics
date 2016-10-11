@@ -179,7 +179,9 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityHubActivator.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Attributes\AjaxAttribute.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AjaxController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Extensions\CharExtensions.cs" />
@@ -251,6 +253,7 @@
     <Content Include="Scripts\Home\Index\context-menu.js" />
     <Content Include="Scripts\Home\Index\events.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\Home\Index\signalr.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -305,11 +308,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\TrophyPartial.cshtml" />
     <Content Include="Views\Shared\ContextMenuPartial.cshtml" />
+    <Content Include="Views\Home\TopThreePartial.cshtml" />
     <None Include="Web.Debug.appsettings.secret.config" />
     <None Include="Web.Debug.connections.secret.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Ajax\" />
     <Folder Include="Views\Image\" />
   </ItemGroup>
   <ItemGroup>

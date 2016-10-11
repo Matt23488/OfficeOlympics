@@ -52,58 +52,77 @@ namespace OfficeOlympicsWeb.Hubs
 
             await Task.Delay(2000);
             Clients.Group("Home/About").refreshRecords();
+            Clients.Group("Home/Index").refreshRecords(newRecord.Event.EventId);
         }
 
         public async Task NewEvent(string eventName)
         {
-            Clients.Others.displayMessage($"Everyone be sure to try out the new {eventName} event!", "info");
+            string properEventName = eventName.AsProperNoun();
+
+            Clients.Others.displayMessage($"Everyone be sure to try out the new {properEventName} event!", "info");
 
             await Task.Delay(2000);
             Clients.Group("Home/About").refreshEvents();
+            Clients.Group("Home/Index").refreshBoard();
         }
 
-        public async Task EditEvent(string eventName)
+        public async Task EditEvent(EventViewModel olympicEvent)
         {
-            Clients.Others.displayMessage($"The {eventName} event has been updated!", "info");
+            string properEventName = olympicEvent.EventName.AsProperNoun();
+
+            Clients.Others.displayMessage($"The {properEventName} event has been updated!", "info");
 
             await Task.Delay(2000);
             Clients.Group("Home/About").refreshEvents();
             Clients.Group("Home/About").refreshRecords();
+            Clients.Group("Home/Index").refreshRecords(olympicEvent.EventId); // TODO: Change to refreshRecords() and this method needs the eventId as well
         }
 
         public async Task DeleteEvent(string eventName)
         {
-            Clients.Others.displayMessage($"The {eventName} event has been removed.", "warning");
+            string properEventName = eventName.AsProperNoun();
+
+            Clients.Others.displayMessage($"The {properEventName} event has been removed.", "warning");
 
             await Task.Delay(2000);
             Clients.Group("Home/About").refreshEvents();
             Clients.Group("Home/About").refreshRecords();
+            Clients.Group("Home/Index").refreshBoard();
         }
 
         public async Task NewCompetitor(string competitorName)
         {
-            Clients.Others.displayMessage($"Everyone welcome {competitorName.AsProperNoun()} into the fray!", "info");
+            string properCompetitorName = competitorName.AsProperNoun();
+
+            Clients.Others.displayMessage($"Everyone welcome {properCompetitorName} into the fray!", "info");
 
             await Task.Delay(2000);
             Clients.Group("Home/About").refreshCompetitors();
+            Clients.Group("Home/Index").refreshBoard();
         }
 
         public async Task EditCompetitor(string competitorName)
         {
-            Clients.Others.displayMessage($"{competitorName} was updated in some way. Probably his/her name.", "info");
+            string properCompetitorName = competitorName.AsProperNoun();
+
+            Clients.Others.displayMessage($"{properCompetitorName} was updated in some way. Probably his/her name.", "info");
 
             await Task.Delay(2000);
             Clients.Group("Home/About").refreshCompetitors();
             Clients.Group("Home/About").refreshRecords();
+            Clients.Group("Home/Index").refreshBoard();
         }
 
         public async Task DeleteCompetitor(string competitorName)
         {
-            Clients.Others.displayMessage($"{competitorName} has left the fray. Quitter!", "warning");
+            string properCompetitorName = competitorName.AsProperNoun();
+
+            Clients.Others.displayMessage($"{properCompetitorName} has left the fray. Quitter!", "warning");
 
             await Task.Delay(2000);
             Clients.Group("Home/About").refreshCompetitors();
             Clients.Group("Home/About").refreshRecords();
+            Clients.Group("Home/Index").refreshBoard();
         }
     }
 }

@@ -3,13 +3,14 @@
     var contextHelper = {
         menuState: {
             menuArray: [],
-            addMenu: function (selector) {
+            addMenu: function (selector, detailFactory) {
                 this.menuArray = this.menuArray.filter(function (item) {
                     return item.selector !== selector;
                 });
                 this.menuArray.push({
                     selector: selector,
-                    menuOptions: []
+                    menuOptions: [],
+                    detailFactory: detailFactory
                 });
             },
             addMenuOption: function (selector, menuItem) {
@@ -29,6 +30,15 @@
                 if (!item) return;
 
                 item.menuOptions.push("divider");
+            },
+            getDetailFactory: function (selector) {
+                var item = this.menuArray.filter(function (item) {
+                    return item.selector === selector;
+                })[0];
+
+                if (!item) return null;
+
+                return item.detailFactory;
             }
         },
         buildMenuHtml: function (selector, target, detailFactory) {
@@ -103,12 +113,12 @@
             /// <summary>Creates a custom context menu for elements that match the provided selector.</summary>
             /// <param name="selector" type="String">CSS/jQuery selector that represents elements to apply the context menu to.</param>
             /// <param name="factory" type="Function">A function that builds the menu items.</param>
-            /// <param name="detailFactory">A function that further customizes option text based on which DOM element invoked the menu.</param>
+            /// <param name="detailFactory" type="Function">A function that further customizes option text based on which DOM element invoked the menu.</param>
             /// <returns type="jQuery">The selected DOM elements wrapped in a jQuery object.</returns>
 
             if (typeof selector !== "string") return;
 
-            contextHelper.menuState.addMenu(selector);
+            contextHelper.menuState.addMenu(selector, detailFactory);
             var menuBuilder = {
                 addMenuOption: function (text, callback) {
                     contextHelper.menuState.addMenuOption(selector, { text: text, callback: callback });
@@ -132,6 +142,40 @@
 
                     // Build the HTML
                     contextHelper.buildMenuHtml(selector, this, detailFactory);
+
+                    $("#contextMenu")
+                    .show()
+                    .css({
+                        position: "absolute",
+                        left: contextHelper.getMenuPosition(e.clientX, "width", "scrollLeft"),
+                        top: contextHelper.getMenuPosition(e.clientY, "height", "scrollTop")
+                    });
+
+                    e.preventDefault();
+                });
+            });
+        },
+        reapplyContextMenu: function (selector) {
+            /// <summary>Reapplies an existing context menu for elements that match the provided selector. Useful if the page content changes dynamically and the event handlers are lost.</summary>
+            /// <param name="selector" type="String">CSS/jQuery selector that represents elements to apply the context menu to.</param>
+            /// <returns type="jQuery">The selected DOM elements wrapped in a jQuery object.</returns>
+
+            if (typeof selector !== "string") return;
+
+            $(selector).off("contextmenu");
+
+            return $(selector).each(function () {
+
+                // Open the menu
+                $(this).on("contextmenu", function (e) {
+                    // Return native menu if pressing control
+                    if (e.ctrlKey) return;
+
+                    $(selector).removeClass("context-menu-active");
+                    $(this).addClass("context-menu-active");
+
+                    // Build the HTML
+                    contextHelper.buildMenuHtml(selector, this, contextHelper.menuState.getDetailFactory(selector));
 
                     $("#contextMenu")
                     .show()

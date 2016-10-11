@@ -16,5 +16,7 @@ namespace OfficeOlympicsLib.Services.Interfaces
         IEnumerable<OlympicEvent> GetOlympicEvents(bool includeDeleted);
         IEnumerable<OlympicEvent> GetRecentlyAddedOlympicEvents();
         IEnumerable<OlympicEvent> GetRecordBoard();
+        OlympicEvent GetRecordBoardEvent(int eventId);
+        bool NameIsUnique(OlympicEvent olympicEvent);
     }
 }

@@ -1,0 +1,29 @@
+﻿@model RecordListViewModel
+
+@Html.HiddenFor(model => model.Event.EventId)
+<div class="text-center">
+    @Html.IconFor(model => model.Event.IconFileName)
+</div>
+<h4 class="text-center event-panel-name">
+    @Html.DisplayFor(model => model.Event.EventName)
+</h4>
+@for (int i = 0; i < Model.Records.Count; i++)
+{
+    if (i > 0)
+    {
+        @:<div class="separator"></div>
+    }
+    <div class="row">
+        <div class="non-btn non-btn-default non-btn-details col-xs-12">
+            <div class="row">
+                <div class="col-xs-10">
+                    @Html.Partial("TrophyPartial", i)
+                    @Html.DisplayFor(model => model.Records[i].Competitor.FullName)
+                </div>
+                <div class="col-xs-2 text-right">
+                    @Html.DisplayFor(model => model.Records[i].Score, "RecordScoreTemplate")
+                </div>
+            </div>
+        </div>
+    </div>
+}

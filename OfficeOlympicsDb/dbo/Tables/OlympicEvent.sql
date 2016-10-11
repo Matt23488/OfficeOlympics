@@ -8,6 +8,7 @@
 	[DateAdded] DATETIME NOT NULL CONSTRAINT [DF_OlympicEvent_DateAdded] DEFAULT GETDATE(),
 	[IsActive] BIT NOT NULL CONSTRAINT [DF_OlympicEvent_IsActive] DEFAULT CAST(1 AS BIT),
     CONSTRAINT [PK_OlympicEvent] PRIMARY KEY CLUSTERED ([OlympicEventId] ASC),
-    CONSTRAINT [FK_OlympicEvent_EventType] FOREIGN KEY ([EventTypeId]) REFERENCES [dbo].[EventType] ([EventTypeId])
+    CONSTRAINT [FK_OlympicEvent_EventType] FOREIGN KEY ([EventTypeId]) REFERENCES [dbo].[EventType] ([EventTypeId]),
+	CONSTRAINT [AK_OlympicEvent_EventName] UNIQUE([EventName])
 );
 

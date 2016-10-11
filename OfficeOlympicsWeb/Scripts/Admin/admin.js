@@ -6,22 +6,64 @@
         var eventId = $(".hidden-event-id", this).val();
         window.location.href = "/Admin/EditEvent/" + eventId;
     });
-    $("#AddEventForm").on("submit", function () {
-        olympicsHub.server.newEvent($("#Event_EventName").val());
+    $("#AddEventForm").on("submit", function (e) {
+        var $this = $(this);
+        var olympicEvent = {
+            EventId: 0,
+            EventName: $("#Event_EventName").val()
+        };
 
-        return true;
+        $.ajax({
+            type: "GET",
+            cache: false,
+            url: "/Ajax/UniqueEventName",
+            data: olympicEvent,
+            success: function (data, status, xhr) {
+                if (data === true) {
+                    olympicsHub.server.newEvent(olympicEvent.EventName);
+
+                    $this.submit();
+                }
+                else {
+                    toastMessage.showMessage("An event with that name already exists. Please enter a different name.", "danger");
+                }
+            }
+        });
+
+        e.preventDefault();
     });
-    $("#EditEventForm").on("submit", function () {
+    $("#EditEventForm").on("submit", function (e) {
+        var $this = $(this);
         var submitButton = $("input[type=submit][clicked=true]", this).val();
+        var olympicEvent = {
+            EventId: $("#Event_EventId").val(),
+            EventName: $("#Event_EventName").val()
+        };
 
-        if (submitButton === "Save") {
-            olympicsHub.server.editEvent($("#Event_EventName").val());
-        }
-        else if (submitButton === "Delete") {
-            olympicsHub.server.deleteEvent($("#Event_EventName").val());
-        }
+        $.ajax({
+            type: "GET",
+            cache: false,
+            url: "/Ajax/UniqueEventName",
+            data: olympicEvent,
+            success: function (data, status, xhr) {
+                if (data === true) {
+                    if (submitButton === "Save") {
+                        olympicsHub.server.editEvent(olympicEvent);
+                    }
+                    else if (submitButton === "Delete") {
+                        olympicsHub.server.deleteEvent(olympicEvent.EventName);
+                    }
 
-        return true;
+                    $("[name='submitButton']", $this).val(submitButton);
+                    $this.submit();
+                }
+                else {
+                    toastMessage.showMessage("An event with that name already exists. Please enter a different name.", "danger");
+                }
+            }
+        });
+
+        e.preventDefault();
     });
     $("#AddCompetitorForm").on("submit", function () {
         var name = $("#FirstName").val() + " " + $("#LastName").val();

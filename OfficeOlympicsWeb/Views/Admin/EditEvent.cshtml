@@ -49,12 +49,13 @@
             </div>
         </div>
         <div class="btn-group">
-            <input type="submit" name="submitButton" value="Save" class="btn btn-success" />
+            <input type="submit" value="Save" class="btn btn-success" />
             @if (Model.Event.EventId > 0)
             {
-                <input type="submit" name="submitButton" value="Delete" class="btn btn-danger" />
+                <input type="submit" value="Delete" class="btn btn-danger" />
             }
             <a href="@Url.Action("EventManagement")" class="btn btn-default">Cancel</a>
         </div>
+        <input type="hidden" name="submitButton" />
     </div>
 }
