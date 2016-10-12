@@ -28,10 +28,8 @@ namespace OfficeOlympicsWeb.Hubs
             return Groups.Add(Context.ConnectionId, group);
         }
 
-        public async Task RecordBroken(NewRecordViewModel newRecord)
+        public void RecordBroken(NewRecordViewModel newRecord)
         {
-            if (!_recordService.ScoreBeatsCurrentRecord(newRecord.Event.EventId, newRecord.Record.Score.Score.Value, newRecord.Record.Competitor.CompetitorId)) return;
-
             string scoreString = string.Empty;
 
             switch (newRecord.Record.Score.EventType)
@@ -46,11 +44,12 @@ namespace OfficeOlympicsWeb.Hubs
                     throw new ArgumentOutOfRangeException(nameof(newRecord.Record.Score.EventType));
             }
 
-            string message = $"The record for {newRecord.Event.EventName} has been broken by {newRecord.Record.Competitor.FullName} with a new score of {scoreString}!";
-
-            Clients.Others.displayMessage(message, "success");
-
-            await Task.Delay(2000);
+            if (_recordService.ScoreBeatsCurrentRecord(newRecord.Event.EventId, newRecord.Record.Score.Score.Value, newRecord.Record.Competitor.CompetitorId))
+            {
+                string message = $"The record for {newRecord.Event.EventName} has been broken by {newRecord.Record.Competitor.FullName} with a new score of {scoreString}!";
+                Clients.Others.displayMessage(message, "success");
+            }
+            
             Clients.Group("Home/About").refreshRecords();
             Clients.Group("Home/Index").refreshRecords(newRecord.Event.EventId);
         }
@@ -75,7 +74,7 @@ namespace OfficeOlympicsWeb.Hubs
             await Task.Delay(2000);
             Clients.Group("Home/About").refreshEvents();
             Clients.Group("Home/About").refreshRecords();
-            Clients.Group("Home/Index").refreshRecords(olympicEvent.EventId); // TODO: Change to refreshRecords() and this method needs the eventId as well
+            Clients.Group("Home/Index").refreshRecords(olympicEvent.EventId);
         }
 
         public async Task DeleteEvent(string eventName)

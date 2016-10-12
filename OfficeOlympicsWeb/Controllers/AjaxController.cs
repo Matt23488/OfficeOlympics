@@ -13,10 +13,12 @@ namespace OfficeOlympicsWeb.Controllers
     public class AjaxController : Controller
     {
         private IOlympicEventService _eventService;
+        private IRecordService _recordService;
 
-        public AjaxController(IOlympicEventService eventService)
+        public AjaxController(IOlympicEventService eventService, IRecordService recordService)
         {
             _eventService = eventService;
+            _recordService = recordService;
         }
 
         [Ajax]
@@ -26,6 +28,25 @@ namespace OfficeOlympicsWeb.Controllers
             var olympicEvent = viewModel.Map();
 
             return Json(_eventService.NameIsUnique(olympicEvent), JsonRequestBehavior.AllowGet);
+        }
+
+        [Ajax]
+        [HttpPost]
+        public ActionResult NewRecord(NewRecordViewModel viewModel)
+        {
+            var record = viewModel.Map();
+            bool successful = true;
+
+            try
+            {
+                _recordService.InsertRecord(record);
+            }
+            catch (Exception)
+            {
+                successful = false;
+            }
+
+            return Json(successful);
         }
     }
 }

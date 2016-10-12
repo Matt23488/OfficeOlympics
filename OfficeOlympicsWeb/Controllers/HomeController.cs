@@ -32,6 +32,14 @@ namespace OfficeOlympicsWeb.Controllers
             var olympicEvents = _eventService.GetRecordBoard();
             var viewModel = RecordBoardViewModel.Build(olympicEvents);
 
+            ViewBag.NewRecordModalViewModel = new ModalViewModel
+            {
+                HtmlId = "newRecordModal",
+                Title = "New Record",
+                ContentAction = "NewRecordPartial",
+                ContentController = "Home"
+            };
+
             return View(viewModel);
         }
 
@@ -79,6 +87,15 @@ namespace OfficeOlympicsWeb.Controllers
             var viewModel = NewRecordViewModel.Build(olympicEvent, competitors);
 
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult NewRecordPartial()
+        {
+            var competitors = _competitorService.GetCompetitors(includeDeleted: false);
+            var viewModel = NewRecordViewModel.BuildNew(competitors);
+
+            return PartialView(viewModel);
         }
 
         [HttpPost]

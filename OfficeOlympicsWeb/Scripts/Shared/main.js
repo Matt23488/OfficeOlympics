@@ -23,6 +23,21 @@
             }
 
             return $(uniqueItems);
+        },
+        clearForm: function () {
+            $(":input", this).val("");
+            
+            $(".form-group.has-error", this).each(function () {
+                $(".form-control.input-validation-error", this)
+                .removeClass("input-validation-error");
+
+                $(".field-validation-error", this)
+                .removeClass("field-validation-error")
+                .addClass("field-validation-valid")
+                .html("");
+
+                $(this).removeClass("has-error");
+            });
         }
     });
 

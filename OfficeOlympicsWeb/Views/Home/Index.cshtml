@@ -18,6 +18,10 @@
     </div>
 }
 
+@section modals{
+    @Html.Partial("ModalPartial", (ModalViewModel)ViewBag.NewRecordModalViewModel)
+}
+
 @section styles{
     @Styles.Render("~/Content/home-index")
 }

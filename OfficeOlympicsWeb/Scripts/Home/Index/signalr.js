@@ -10,6 +10,11 @@
             success: function (data, status, xhr) {
                 $("#eventPanel" + eventId).html(data);
                 $.reapplyContextMenu(".event-panel");
+                $(".event-panel").off("click");
+                $(".event-panel").click(function () {
+                    $.invokeMenuOption(".event-panel", this, 0);
+                });
+                $(".modal").modal("hide");
             }
         });
     };
@@ -21,6 +26,11 @@
             success: function (data, status, xhr) {
                 $("#pageContent").html(data);
                 $.reapplyContextMenu(".event-panel");
+                $(".event-panel").off("click");
+                $(".event-panel").click(function () {
+                    $.invokeMenuOption(".event-panel", this, 0);
+                });
+                $(".modal").modal("hide");
             }
         });
     };

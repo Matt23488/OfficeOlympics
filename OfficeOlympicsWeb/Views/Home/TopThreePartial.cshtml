@@ -1,6 +1,7 @@
 ﻿@model RecordListViewModel
 
 @Html.HiddenFor(model => model.Event.EventId)
+@Html.HiddenFor(model => model.Event.EventTypeId)
 <div class="text-center">
     @Html.IconFor(model => model.Event.IconFileName)
 </div>

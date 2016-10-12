@@ -39,6 +39,13 @@
                 if (!item) return null;
 
                 return item.detailFactory;
+            },
+            getMenu: function (selector) {
+                var item = this.menuArray.filter(function (item) {
+                    return item.selector === selector;
+                })[0];
+
+                return item;
             }
         },
         buildMenuHtml: function (selector, target, detailFactory) {
@@ -58,8 +65,9 @@
 
             for (var i = 0; i < menu.menuOptions.length; i++) {
                 var $menuItem = null;
+                var currentMenuOptions = menu.menuOptions[i];
 
-                if (menu.menuOptions[i] === "divider") {
+                if (currentMenuOptions === "divider") {
                     $menuItem = $("#contextMenu #dividerTemplate").clone()
                                 .removeClass("template")
                                 .removeAttr("id");
@@ -69,7 +77,7 @@
                                 .removeClass("template")
                                 .removeAttr("id");
 
-                    var linkText = menu.menuOptions[i].text;
+                    var linkText = currentMenuOptions.text;
 
                     if (detailFactory) {
                         detailFactory.call(target, detailBuilder);
@@ -80,12 +88,30 @@
                         }
                     }
 
-                    $("a", $menuItem)
-                    .text(linkText)
-                    .data("callback", menu.menuOptions[i].callback)
+                    var $a = $("a", $menuItem);
+
+                    $a.text(linkText)
+                    .data("callback", currentMenuOptions.callback)
+                    .data("modalId", currentMenuOptions.modalId)
                     .click(function (e) {
                         $("#contextMenu").hide();
-                        $(this).data("callback").call(target);
+
+                        var modalId = $(this).data("modalId");
+                        var callback = $(this).data("callback");
+
+                        if (callback) {
+                            if (modalId) {
+                                callback.call(target, $("#" + modalId)[0]);
+                            }
+                            else {
+                                callback.call(target);
+                            }
+                        }
+
+                        if (modalId) {
+                            $("#" + modalId).modal();
+                        }
+
                         e.preventDefault(); // Prevents scroll to top caused by href="#"
                     });
                 }
@@ -125,6 +151,9 @@
                 },
                 addDivider: function () {
                     contextHelper.menuState.addDivider(selector);
+                },
+                addModalTriggerOption: function (text, modalId, callback) {
+                    contextHelper.menuState.addMenuOption(selector, { text: text, modalId: modalId, callback: callback });
                 }
             };
 
@@ -188,6 +217,29 @@
                     e.preventDefault();
                 });
             });
+        },
+        invokeMenuOption: function (selector, target, optionIndex) {
+            /// <summary>Invokes a menu option programatically.</summary>
+            /// <param name="selector" type="String">CSS/jQuery selector that represents the elements the context menu is applied to.</param>
+            /// <param name="target" type="DOM">The actual element to invoke the menu option on.</param>
+            /// <param name="optionIndex" type="Number">The index of the menu option to invoke.</param>
+
+            if (typeof selector !== "string") return;
+
+            var menuOption = contextHelper.menuState.getMenu(selector).menuOptions[optionIndex];
+
+            if (menuOption.callback) {
+                if (menuOption.modalId) {
+                    menuOption.callback.call(target, $("#" + menuOption.modalId)[0]);
+                }
+                else {
+                    menuOption.callback.call(target);
+                }
+            }
+
+            if (menuOption.modalId) {
+                $("#" + menuOption.modalId).modal();
+            }
         }
     });
 

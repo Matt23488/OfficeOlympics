@@ -24,6 +24,17 @@ namespace OfficeOlympicsWeb.ViewModels
             return viewModel;
         }
 
+        public static NewRecordViewModel BuildNew(IEnumerable<Competitor> competitors)
+        {
+            var viewModel = new NewRecordViewModel();
+
+            viewModel.Competitors = new SelectList(CompetitorViewModel.BuildList(competitors), nameof(CompetitorViewModel.CompetitorId), nameof(CompetitorViewModel.FullName));
+            viewModel.Record = new RecordViewModel();
+            viewModel.Event = new EventViewModel();
+
+            return viewModel;
+        }
+
         public Record Map()
         {
             var record = new Record();

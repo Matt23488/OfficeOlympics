@@ -55,6 +55,7 @@
     </div>
     @Html.Partial("ContextMenuPartial")
     @Html.Partial("ToastPartial")
+    @RenderSection("modals", required: false)
     <div class="container body-content">
         <div id="pageContent">
             @RenderBody()
