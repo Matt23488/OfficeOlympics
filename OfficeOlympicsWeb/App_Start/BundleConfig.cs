@@ -23,9 +23,6 @@ namespace OfficeOlympicsWeb
             bundles.Add(new ScriptBundle("~/bundles/admin").IncludeDirectory(
                         "~/Scripts/Admin", "*.js", searchSubdirectories: false));
 
-            bundles.Add(new ScriptBundle("~/bundles/home-newRecord").IncludeDirectory(
-                        "~/Scripts/Home/NewRecord", "*.js", searchSubdirectories: true));
-
             bundles.Add(new ScriptBundle("~/bundles/home-index").IncludeDirectory(
                         "~/Scripts/Home/Index", "*.js", searchSubdirectories: true));
 
