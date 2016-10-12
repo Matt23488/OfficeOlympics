@@ -92,24 +92,13 @@
 
                     $a.text(linkText)
                     .data("callback", currentMenuOptions.callback)
-                    .data("modalId", currentMenuOptions.modalId)
                     .click(function (e) {
                         $("#contextMenu").hide();
 
-                        var modalId = $(this).data("modalId");
                         var callback = $(this).data("callback");
 
                         if (callback) {
-                            if (modalId) {
-                                callback.call(target, $("#" + modalId)[0]);
-                            }
-                            else {
-                                callback.call(target);
-                            }
-                        }
-
-                        if (modalId) {
-                            $("#" + modalId).modal();
+                            callback.call(target);
                         }
 
                         e.preventDefault(); // Prevents scroll to top caused by href="#"
@@ -151,9 +140,6 @@
                 },
                 addDivider: function () {
                     contextHelper.menuState.addDivider(selector);
-                },
-                addModalTriggerOption: function (text, modalId, callback) {
-                    contextHelper.menuState.addMenuOption(selector, { text: text, modalId: modalId, callback: callback });
                 }
             };
 

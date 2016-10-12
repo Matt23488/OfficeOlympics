@@ -1,18 +1,26 @@
 ﻿$(function () {
     $.createContextMenu(".event-panel",
     function (menuBuilder) {
-        menuBuilder.addModalTriggerOption("Enter New '{eventName}' Record", "newRecordModal", function (modal) {
-            $(".event-name", modal).text($(this).children(".event-panel-name").text().trim());
-            
+        menuBuilder.addMenuOption("Enter New '{eventName}' Record", function () {
+            var $modal = $("#newRecordModal");
+
+            $(".event-name", $modal).text($(this).children(".event-panel-name").text().trim());
+
             $("#newRecordForm #Event_EventId").val($("#Event_EventId", this).val());
             $("#newRecordForm #Event_EventTypeId").val($("#Event_EventTypeId", this).val());
+
+            $modal.modal();
         });
 
-        menuBuilder.addModalTriggerOption("View '{eventName}' Details", "eventDetailsModal", function (modal) {
-            $(".event-name", modal).text($(this).children(".event-panel-name").text().trim());
+        menuBuilder.addMenuOption("View '{eventName}' Details", function () {
+            var $modal = $("#eventDetailsModal");
 
-            $("#Description", modal).text($("#Event_Description", this).val());
-            $("#Specification", modal).text($("#Event_Specification", this).val());
+            $(".event-name", $modal).text($(this).children(".event-panel-name").text().trim());
+
+            $("#Description", $modal).text($("#Event_Description", this).val());
+            $("#Specification", $modal).text($("#Event_Specification", this).val());
+
+            $modal.modal();
         });
 
         menuBuilder.addMenuOption("View All Records for '{eventName}'", function () {
