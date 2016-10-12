@@ -2,6 +2,8 @@
 
 @Html.HiddenFor(model => model.Event.EventId)
 @Html.HiddenFor(model => model.Event.EventTypeId)
+@Html.HiddenFor(model => model.Event.Description)
+@Html.HiddenFor(model => model.Event.Specification)
 <div class="text-center">
     @Html.IconFor(model => model.Event.IconFileName)
 </div>

@@ -35,8 +35,15 @@ namespace OfficeOlympicsWeb.Controllers
             ViewBag.NewRecordModalViewModel = new ModalViewModel
             {
                 HtmlId = "newRecordModal",
-                Title = "New Record",
+                Title = "New Record - <span class=\"event-name\"></span>",
                 ContentAction = "NewRecordPartial",
+                ContentController = "Home"
+            };
+            ViewBag.EventDetailsModalViewModel = new ModalViewModel
+            {
+                HtmlId = "eventDetailsModal",
+                Title = "Event Details - <span class=\"event-name\"></span>",
+                ContentAction = "EventDetailsPartial",
                 ContentController = "Home"
             };
 
@@ -50,6 +57,13 @@ namespace OfficeOlympicsWeb.Controllers
             var viewModel = RecordBoardViewModel.Build(olympicEvents);
 
             return PartialView("Index", viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult EventDetailsPartial()
+        {
+            var viewModel = new EventViewModel();
+            return PartialView(viewModel);
         }
 
         [HttpGet]

@@ -1,0 +1,10 @@
+﻿@model EventViewModel
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Description)
+    @Html.TextAreaFor(model => model.Description, new { @readonly = "readonly", @class = "form-control" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(model => model.Specification)
+    @Html.TextAreaFor(model => model.Specification, new { @readonly = "readonly", @class = "form-control" })
+</div>

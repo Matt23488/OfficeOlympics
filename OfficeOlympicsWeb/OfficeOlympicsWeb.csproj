@@ -312,6 +312,7 @@
     <Content Include="Views\Home\TopThreePartial.cshtml" />
     <Content Include="Views\Shared\ModalPartial.cshtml" />
     <Content Include="Views\Home\NewRecordPartial.cshtml" />
+    <Content Include="Views\Home\EventDetailsPartial.cshtml" />
     <None Include="Web.Debug.appsettings.secret.config" />
     <None Include="Web.Debug.connections.secret.config" />
   </ItemGroup>
