@@ -215,16 +215,7 @@
             var menuOption = contextHelper.menuState.getMenu(selector).menuOptions[optionIndex];
 
             if (menuOption.callback) {
-                if (menuOption.modalId) {
-                    menuOption.callback.call(target, $("#" + menuOption.modalId)[0]);
-                }
-                else {
-                    menuOption.callback.call(target);
-                }
-            }
-
-            if (menuOption.modalId) {
-                $("#" + menuOption.modalId).modal();
+                menuOption.callback.call(target);
             }
         }
     });
