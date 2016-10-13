@@ -44,14 +44,33 @@ namespace OfficeOlympicsWeb.Hubs
                     throw new ArgumentOutOfRangeException(nameof(newRecord.Record.Score.EventType));
             }
 
-            if (_recordService.ScoreBeatsCurrentRecord(newRecord.Event.EventId, newRecord.Record.Score.Score.Value, newRecord.Record.Competitor.CompetitorId))
+            int? topThreePosition = _recordService.TopThreePositionOfNewScore(newRecord.Event.EventId, newRecord.Record.Score.Score.Value, newRecord.Record.Competitor.CompetitorId);
+            if (topThreePosition.HasValue)
             {
-                string message = $"The record for {newRecord.Event.EventName} has been broken by {newRecord.Record.Competitor.FullName} with a new score of {scoreString}!";
+                string placeValue = string.Empty;
+                switch (topThreePosition.Value)
+                {
+                    case 1:
+                        placeValue = "first";
+                        break;
+                    case 2:
+                        placeValue = "second";
+                        break;
+                    case 3:
+                        placeValue = "third";
+                        break;
+                }
+
+                string message = $"{newRecord.Record.Competitor.FullName.AsProperNoun()} just got {placeValue} place in the {newRecord.Event.EventName} event!";
                 Clients.Others.displayMessage(message, "success");
+
+                if (topThreePosition == 1)
+                {
+                    Clients.Group("Home/About").refreshRecords();
+                }
+
+                Clients.Group("Home/Index").refreshRecords(newRecord.Event.EventId);
             }
-            
-            Clients.Group("Home/About").refreshRecords();
-            Clients.Group("Home/Index").refreshRecords(newRecord.Event.EventId);
         }
 
         public async Task NewEvent(string eventName)

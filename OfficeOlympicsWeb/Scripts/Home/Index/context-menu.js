@@ -3,10 +3,12 @@
     function (menuBuilder) {
         menuBuilder.addMenuOption("Enter New '{eventName}' Record", function () {
             var $modal = $("#newRecordModal");
+            var eventName = $(this).children(".event-panel-name").text().trim();
 
-            $(".event-name", $modal).text($(this).children(".event-panel-name").text().trim());
+            $(".event-name", $modal).text(eventName);
 
             $("#newRecordForm #Event_EventId").val($("#Event_EventId", this).val());
+            $("#newRecordForm #Event_EventName").val(eventName);
             $("#newRecordForm #Event_EventTypeId").val($("#Event_EventTypeId", this).val());
 
             $modal.modal();

@@ -26,5 +26,17 @@ namespace OfficeOlympicsLib.Extensions
                 yield return item;
             }
         }
+
+        public static int? FirstIndexWhere<T>(this IEnumerable<T> source, Func<T, bool> condition)
+        {
+            int index = 0;
+            foreach (var item in source)
+            {
+                if (condition(item)) return index;
+                index++;
+            }
+
+            return null;
+        }
     }
 }

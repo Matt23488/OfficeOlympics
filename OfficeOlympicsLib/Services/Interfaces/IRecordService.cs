@@ -12,6 +12,6 @@ namespace OfficeOlympicsLib.Services.Interfaces
         IEnumerable<Record> GetRecentRecords();
         IEnumerable<Record> GetRecordsByEventId(int eventId, bool onlyBestForCompetitors);
         void InsertRecord(Record record);
-        bool ScoreBeatsCurrentRecord(int eventId, int score, int competitorId);
+        int? TopThreePositionOfNewScore(int eventId, int score, int competitorId);
     }
 }

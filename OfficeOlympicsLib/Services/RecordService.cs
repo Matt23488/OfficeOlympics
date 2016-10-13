@@ -58,26 +58,26 @@ namespace OfficeOlympicsLib.Services
                 context.SaveChanges();
             }
         }
-        
-        public bool ScoreBeatsCurrentRecord(int eventId, int score, int competitorId)
+
+        public int? TopThreePositionOfNewScore(int eventId, int score, int competitorId)
         {
             using (var context = new OfficeOlympicsDbEntities())
             {
-                var bestRecord = (from r in context.Records
-                                  where r.OlympicEventId == eventId
-                                    && r.OlympicEvent.IsActive
-                                    && r.Competitor.IsActive
-                                  select r).ItemWithMaxOrDefault(r => r.Score);
+                var topThreeRecords = (from r in context.Records
+                                       where r.OlympicEventId == eventId
+                                         && r.OlympicEvent.IsActive
+                                         && r.Competitor.IsActive
+                                       orderby r.Score descending
+                                       select new
+                                       {
+                                           CompetitorId = r.CompetitorId,
+                                           Score = r.Score
+                                       }).UniqueConstraint(r => r.CompetitorId).Take(3);
 
-                bool samePersonAndScoreAsCurrentRecord = (bestRecord != null) && (bestRecord.Score == score && bestRecord.Competitor.Id == competitorId);
-                bool betterScoreThanCurrentRecord = score > (bestRecord?.Score ?? 0);
+                int? scorePosition = topThreeRecords.FirstIndexWhere(r => r.CompetitorId == competitorId && r.Score == score) + 1;
+                int? scoreFuturePosition = topThreeRecords.FirstIndexWhere(r => score > r.Score) + 1;
 
-                // If samePersonAndScoreAsCurrentRecord is set, it's likely because the new
-                // record has already been saved to the database before we get this call via
-                // SignalR. If that's not the case, somebody entered a new record that ties
-                // the current record and it happens to be the same person, which should
-                // never happen if the software is being used properly.
-                return samePersonAndScoreAsCurrentRecord || betterScoreThanCurrentRecord;
+                return scorePosition ?? scoreFuturePosition;
             }
         }
     }
