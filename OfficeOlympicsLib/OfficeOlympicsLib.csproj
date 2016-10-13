@@ -113,8 +113,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CompetitorService.cs" />
     <Compile Include="Services\ErrorLogger.cs" />
+    <Compile Include="Services\EventBoardService.cs" />
     <Compile Include="Services\Interfaces\ICompetitorService.cs" />
     <Compile Include="Services\Interfaces\IErrorLogger.cs" />
+    <Compile Include="Services\Interfaces\IEventBoardService.cs" />
     <Compile Include="Services\Interfaces\IOlympicEventService.cs" />
     <Compile Include="Services\Interfaces\IEventTypeService.cs" />
     <Compile Include="Services\Interfaces\IQuoteService.cs" />

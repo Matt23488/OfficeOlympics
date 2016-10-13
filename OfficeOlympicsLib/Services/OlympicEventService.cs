@@ -123,22 +123,6 @@ namespace OfficeOlympicsLib.Services
             }
         }
 
-        public IEnumerable<OlympicEvent> GetRecordBoard()
-        {
-            using (var context = new OfficeOlympicsDbEntities())
-            {
-                return context.FullOlympicEvents().Where(obj => obj.IsActive).ToList();
-            }
-        }
-
-        public OlympicEvent GetRecordBoardEvent(int eventId)
-        {
-            using (var context = new OfficeOlympicsDbEntities())
-            {
-                return context.FullOlympicEvents().Single(obj => obj.Id == eventId);
-            }
-        }
-
         public bool NameIsUnique(OlympicEvent olympicEvent)
         {
             using (var context = new OfficeOlympicsDbEntities())

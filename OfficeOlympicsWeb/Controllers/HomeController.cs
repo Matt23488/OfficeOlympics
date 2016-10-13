@@ -17,19 +17,21 @@ namespace OfficeOlympicsWeb.Controllers
         private IRecordService _recordService;
         private ICompetitorService _competitorService;
         private IQuoteService _quoteService;
+        private IEventBoardService _eventBoardService;
 
-        public HomeController(IOlympicEventService eventService, IRecordService recordService, ICompetitorService competitorService, IQuoteService quoteService)
+        public HomeController(IOlympicEventService eventService, IRecordService recordService, ICompetitorService competitorService, IQuoteService quoteService, IEventBoardService eventBoardService)
         {
             _eventService = eventService;
             _recordService = recordService;
             _competitorService = competitorService;
             _quoteService = quoteService;
+            _eventBoardService = eventBoardService;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            var olympicEvents = _eventService.GetRecordBoard();
+            var olympicEvents = _eventBoardService.GetRecordBoard();
             var viewModel = RecordBoardViewModel.Build(olympicEvents);
 
             ViewBag.NewRecordModalViewModel = new ModalViewModel
@@ -53,7 +55,7 @@ namespace OfficeOlympicsWeb.Controllers
         [HttpGet]
         public ActionResult IndexPartial()
         {
-            var olympicEvents = _eventService.GetRecordBoard();
+            var olympicEvents = _eventBoardService.GetRecordBoard();
             var viewModel = RecordBoardViewModel.Build(olympicEvents);
 
             return PartialView("Index", viewModel);
@@ -151,7 +153,7 @@ namespace OfficeOlympicsWeb.Controllers
         [HttpGet]
         public ActionResult TopThree(int eventId)
         {
-            var olympicEvent = _eventService.GetRecordBoardEvent(eventId);
+            var olympicEvent = _eventBoardService.GetRecordBoardEvent(eventId);
             var relevantRecords = (from record in olympicEvent.Records
                                    orderby record.Score descending
                                    group record by record.CompetitorId into groupedRecords
