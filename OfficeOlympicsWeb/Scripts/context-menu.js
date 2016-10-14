@@ -63,6 +63,10 @@
                 }
             };
 
+            if (detailFactory) {
+                detailFactory.call(target, detailBuilder);
+            }
+
             for (var i = 0; i < menu.menuOptions.length; i++) {
                 var $menuItem = null;
                 var currentMenuOptions = menu.menuOptions[i];
@@ -79,13 +83,9 @@
 
                     var linkText = currentMenuOptions.text;
 
-                    if (detailFactory) {
-                        detailFactory.call(target, detailBuilder);
-
-                        var keys = Object.keys(replacementDictionary);
-                        for (var j = 0; j < keys.length; j++) {
-                            linkText = linkText.replace("{" + keys[j] + "}", replacementDictionary[keys[j]]);
-                        }
+                    var keys = Object.keys(replacementDictionary);
+                    for (var j = 0; j < keys.length; j++) {
+                        linkText = linkText.replace("{" + keys[j] + "}", replacementDictionary[keys[j]]);
                     }
 
                     var $a = $("a", $menuItem);
