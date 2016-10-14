@@ -1,14 +1,14 @@
-﻿@model RecordListViewModel
+﻿@model EventBoardEventViewModel
 
-@Html.HiddenFor(model => model.Event.EventId)
-@Html.HiddenFor(model => model.Event.EventTypeId)
-@Html.HiddenFor(model => model.Event.Description)
-@Html.HiddenFor(model => model.Event.Specification)
+@Html.HiddenFor(model => model.EventId)
+@Html.HiddenFor(model => model.EventTypeId)
+@Html.HiddenFor(model => model.Description)
+@Html.HiddenFor(model => model.Specification)
 <div class="text-center">
-    @Html.IconFor(model => model.Event.IconFileName)
+    @Html.IconFor(model => model.IconFileName)
 </div>
 <h4 class="text-center event-panel-name">
-    @Html.DisplayFor(model => model.Event.EventName)
+    @Html.DisplayFor(model => model.EventName)
 </h4>
 @for (int i = 0; i < Model.Records.Count; i++)
 {

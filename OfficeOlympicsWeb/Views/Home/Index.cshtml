@@ -1,20 +1,20 @@
-﻿@model RecordBoardViewModel
+﻿@model EventBoardViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Event Board";
     int i = 0;
 }
 
-@while (i < Model.EventsWithRecords.Count)
+@while (i < Model.Events.Count)
 {
     <div class="row">
         @do
         {
-            <div class="col-md-4 event-panel" id="eventPanel@(Model.EventsWithRecords[i].Event.EventId)">
-                @Html.Partial("TopThreePartial", Model.EventsWithRecords[i])
+            <div class="col-md-4 event-panel" id="eventPanel@(Model.Events[i].EventId)">
+                @Html.Partial("TopThreePartial", Model.Events[i])
             </div>
             i++;
-        } while (i % 3 != 0 && i < Model.EventsWithRecords.Count);
+        } while (i % 3 != 0 && i < Model.Events.Count);
     </div>
 }
 

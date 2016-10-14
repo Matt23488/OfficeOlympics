@@ -198,12 +198,14 @@
     <Compile Include="ViewModels\CompetitorListViewModel.cs" />
     <Compile Include="ViewModels\CompetitorViewModel.cs" />
     <Compile Include="ViewModels\EditEventViewModel.cs" />
+    <Compile Include="ViewModels\EventBoardEventViewModel.cs" />
+    <Compile Include="ViewModels\EventBoardRecordViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\ModalViewModel.cs" />
     <Compile Include="ViewModels\NewRecordViewModel.cs" />
     <Compile Include="ViewModels\QuoteViewModel.cs" />
-    <Compile Include="ViewModels\RecordBoardViewModel.cs" />
+    <Compile Include="ViewModels\EventBoardViewModel.cs" />
     <Compile Include="ViewModels\RecordListViewModel.cs" />
     <Compile Include="ViewModels\RecordViewModel.cs" />
     <Compile Include="ViewModels\ScoreViewModel.cs" />
