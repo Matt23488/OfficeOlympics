@@ -58,7 +58,8 @@
 
     // SignalR
     var olympicsHub = $.connection.olympicsHub;
-    $.connection.hub.start();
+    $.connection.hub.logging = true;
+    //$.connection.hub.start();
 
     olympicsHub.client.displayMessage = function (message, messageType) {
         window.toastMessage.showMessage(message, messageType);

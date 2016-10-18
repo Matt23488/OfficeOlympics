@@ -73,5 +73,10 @@
     @Scripts.Render("~/bundles/main")
     <script src="~/SignalR/hubs"></script>
     @RenderSection("scripts", required: false)
+    <script>
+        $(function () {
+            $.connection.hub.start();
+        });
+    </script>
 </body>
 </html>
